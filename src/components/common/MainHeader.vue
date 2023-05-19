@@ -37,7 +37,19 @@
           />
         </form>
         <div class="text-end">
-          <button @click="GoUserLogin" class="btn btn-outline-light me-2">
+          <button
+            v-if="loginUserName"
+            class="btn btn-outline-light me-2"
+            @click="logout"
+          >
+            Logout
+          </button>
+
+          <button
+            v-else
+            @click="GoUserLogin"
+            class="btn btn-outline-light me-2"
+          >
             Login
           </button>
           <button @click="GoUserSignup" class="btn btn-warning">Sign-up</button>
@@ -48,8 +60,13 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "Header",
+  computed: {
+    ...mapState(["loginUserName"]),
+  },
   methods: {
     GoUserLogin() {
       if (this.$route.path !== "/login") {
@@ -64,8 +81,11 @@ export default {
     },
     goVideoView() {
       this.$router.push("/video");
-    }
-  }
+    },
+    logout() {
+      this.$store.dispatch("logout");
+    },
+  },
 };
 </script>
 

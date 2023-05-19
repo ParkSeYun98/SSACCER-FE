@@ -11,7 +11,7 @@
                     Sign up
                   </p>
 
-                  <form class="mx-1 mx-md-4">
+                  <div class="mx-1 mx-md-4">
                     <div class="form-group" id="idInput">
                       <label for="idInput">Your Id</label>
                       <input
@@ -73,7 +73,7 @@
                         등록
                       </button>
                     </div>
-                  </form>
+                  </div>
                 </div>
                 <div
                   class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center"
@@ -103,7 +103,7 @@ export default {
       password: "",
       name: "",
       nickname: "",
-      role: "UNRANKWED",
+      role: "UNRANKED",
       position: "",
       phoneNumber: "",
       img: "",
@@ -121,7 +121,6 @@ export default {
         this.phoneNumber === ""
       ) {
         alert("모든 내용을 입력해주세요");
-        return;
       }
 
       let user = {

@@ -10,10 +10,11 @@
                   Log in
                 </p>
 
-                <form class="mx-1 mx-md-4">
+                <div class="mx-1 mx-md-4">
                   <div class="form-group" id="idInput">
                     <label for="idInput">Your Id</label>
                     <input
+                      v-model.trim="user.userId"
                       type="text"
                       class="form-control"
                       id="idInput"
@@ -24,6 +25,7 @@
                   <div class="form-group" id="passwordInput">
                     <label for="passwordInput">Password</label>
                     <input
+                      v-model.trim="user.password"
                       type="password"
                       class="form-control"
                       id="passwordInput"
@@ -34,7 +36,9 @@
                   <br />
 
                   <div class="buttons">
-                    <button class="btn btn-primary btn-lg">로그인</button>
+                    <button @click="UserLogin" class="btn btn-primary btn-lg">
+                      로그인
+                    </button>
 
                     <button
                       @click="GoUserSignup"
@@ -43,7 +47,7 @@
                       회원가입
                     </button>
                   </div>
-                </form>
+                </div>
               </div>
               <div
                 class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center"
@@ -66,11 +70,25 @@
 <script>
 export default {
   name: "UserLogin",
+  data() {
+    return {
+      user: {
+        userId: "",
+        password: "",
+      },
+    };
+  },
   methods: {
     GoUserSignup() {
       if (this.$route.path !== "/signup") {
         this.$router.push("/signup");
       }
+    },
+    UserLogin() {
+      if (this.userId === "" || this.password === "") {
+        alert("내용을 입력해주세요");
+      }
+      this.$store.dispatch("Login", this.user);
     },
   },
 };
