@@ -74,8 +74,8 @@ export default {
     return {
       user: {
         userId: "",
-        password: "",
-      },
+        password: ""
+      }
     };
   },
   methods: {
@@ -85,7 +85,6 @@ export default {
       }
     },
     UserLogin() {
-      console.log(this.user);
       if (this.user.userId === "" || this.user.password === "") {
         alert("내용을 입력해주세요");
       } else {

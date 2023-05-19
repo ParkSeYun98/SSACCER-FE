@@ -6,17 +6,14 @@
 </template>
 
 <script>
-import VideoDetail from "@/components/video/videodetail/VideoDetail.vue";
-import ReviewList from "@/components/video/videodetail/reviewList.vue";
+import VideoDetail from "@/components/video/VideoDetail.vue";
+import ReviewList from "@/components/review/ReviewList.vue";
 
 export default {
   name: "VideoDetailView",
   components: {
     VideoDetail,
     ReviewList
-  },
-  created() {
-    this.$store.dispatch("getReviewList", `${this.$route.params.id}`);
   }
 };
 </script>

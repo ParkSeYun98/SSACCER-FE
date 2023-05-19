@@ -6,6 +6,7 @@ import UserSignupView from "@/views/UserSignupView.vue";
 import BoardView from "@/views/BoardView.vue";
 import VideoView from "@/views/VideoView.vue";
 import VideoDetailView from "@/views/VideoDetailView.vue";
+import ReviewRegistView from "@/views/ReviewRegistView.vue";
 
 Vue.use(VueRouter);
 
@@ -39,6 +40,11 @@ const routes = [
     path: "/videoDetail/:videoId",
     name: "videoDetailView",
     component: VideoDetailView
+  },
+  {
+    path: "/reviewRegist/:videoId",
+    name: "reviewRegistView",
+    component: ReviewRegistView
   }
 ];
 

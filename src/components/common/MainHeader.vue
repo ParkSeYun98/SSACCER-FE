@@ -50,7 +50,7 @@
 import { mapState } from "vuex";
 
 export default {
-  name: "Header",
+  name: "MainHeader",
   computed: {
     ...mapState(["loginUserName"])
   },

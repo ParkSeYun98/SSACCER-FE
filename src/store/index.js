@@ -18,12 +18,16 @@ export default new Vuex.Store({
     video: null,
     DBvideoList: [],
     userList: [],
-    loginUserName: null
+    loginUser: {},
+    loginUserName: null,
+    reviewList: [],
+    review: {}
   },
   getters: {},
   mutations: {
-    LOGIN(state, username) {
-      state.loginUserName = username;
+    LOGIN(state, loginUser) {
+      state.loginUserName = loginUser.loginUser.name;
+      state.loginUser = loginUser.loginUser;
     },
     SIGNUP(state, user) {
       state.userList.push(user);
@@ -42,6 +46,15 @@ export default new Vuex.Store({
     },
     LOGOUT(state) {
       state.loginUserName = null;
+    },
+    GET_REVIEWLIST(state, reviewList) {
+      state.reviewList = reviewList;
+    },
+    SET_REVIEW(state, review) {
+      state.review = review;
+    },
+    REGIST_REVIEW(state, review) {
+      state.reviewList.push(review);
     }
   },
   actions: {
@@ -54,9 +67,8 @@ export default new Vuex.Store({
         params: user
       })
         .then(response => {
-          let resUser = response.data;
           alert("로그인 성공!");
-          commit("LOGIN", resUser.username);
+          commit("LOGIN", response.data);
 
           sessionStorage.setItem("access-token", response.data["access-token"]);
           router.push("/");
@@ -132,7 +144,7 @@ export default new Vuex.Store({
     },
     saveVideo({ commit }, video) {
       const API_URL = "http://localhost:9999/video/regist";
-
+      console.log(video);
       axios({
         url: API_URL,
         method: "POST",
@@ -142,13 +154,74 @@ export default new Vuex.Store({
         }
       })
         .then(() => {
-          commit("SET_VIDEO", video);
+          this.dispatch("getVideo", video.youtubeId);
         })
         .catch(err => {
           console.log(err);
         });
     },
-    getReviewList() {}
+    getVideo({ commit }, youtubeId) {
+      const API_URL = `http://localhost:9999/video/readbyyoutubeId/${youtubeId}`;
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          commit("SET_VIDEO", response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getReviewList({ commit }, youtubeId) {
+      let videoSeq = 0;
+
+      for (let i = 0; i < this.state.DBvideoList.length; i++) {
+        if (youtubeId === this.state.DBvideoList[i].youtubeId) {
+          videoSeq = this.state.DBvideoList[i].videoSeq;
+        }
+      }
+
+      const API_URL = `http://localhost:9999/review/readbyvideoseq/list/${videoSeq}`;
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      }).then(response => {
+        console.log(response.data);
+        commit("GET_REVIEWLIST", response.data);
+      });
+    },
+    setReview({ commit }, review) {
+      commit("SET_REVIEW", review);
+    },
+    registReview({ commit }, review) {
+      const API_URL = "http://localhost:9999/review/regist";
+
+      console.log(review);
+
+      axios({
+        url: API_URL,
+        method: "POST",
+        data: review,
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          commit("REGIST_REVIEW", review);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   },
   modules: {}
 });

@@ -29,6 +29,7 @@ export default {
       this.$store.dispatch("getVideoList");
 
       const DBvideo = {
+        videoSeq: 0,
         youtubeId: YoutubeVideo.id.videoId,
         title: YoutubeVideo.snippet.title,
         url: `https://youtube.com/embed/${YoutubeVideo.id.videoId}`,
