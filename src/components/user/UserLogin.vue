@@ -10,7 +10,7 @@
                   Log in
                 </p>
 
-                <form class="mx-1 mx-md-4">
+                <div class="mx-1 mx-md-4">
                   <div class="form-group" id="idInput">
                     <label for="idInput">Your Id</label>
                     <input
@@ -43,7 +43,7 @@
                       회원가입
                     </button>
                   </div>
-                </form>
+                </div>
               </div>
               <div
                 class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center"
@@ -71,8 +71,8 @@ export default {
       if (this.$route.path !== "/signup") {
         this.$router.push("/signup");
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

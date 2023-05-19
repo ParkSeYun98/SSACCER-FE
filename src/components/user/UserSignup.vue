@@ -11,7 +11,7 @@
                     Sign up
                   </p>
 
-                  <form class="mx-1 mx-md-4">
+                  <div class="mx-1 mx-md-4">
                     <div class="form-group" id="idInput">
                       <label for="idInput">Your Id</label>
                       <input
@@ -73,7 +73,7 @@
                         등록
                       </button>
                     </div>
-                  </form>
+                  </div>
                 </div>
                 <div
                   class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center"
@@ -107,7 +107,7 @@ export default {
       position: "",
       phoneNumber: "",
       img: "",
-      orgimg: "",
+      orgimg: ""
     };
   },
   methods: {
@@ -133,12 +133,12 @@ export default {
         position: this.position,
         phoneNumber: this.phoneNumber,
         img: this.img,
-        orgimg: this.orgimg,
+        orgimg: this.orgimg
       };
 
       this.$store.dispatch("SignUp", user);
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -59,7 +59,6 @@ export default {
     GoUserSignup() {
       if (this.$route.path !== "/signup") {
         this.$router.push("/signup");
-        location.reload();
       }
     },
     goVideoView() {

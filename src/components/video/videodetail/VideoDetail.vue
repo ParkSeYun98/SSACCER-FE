@@ -30,7 +30,6 @@ export default {
 
     videoURL() {
       const videoId = this.video.id.videoId;
-      console.log(this.video);
       return `https://youtube.com/embed/${videoId}`;
     }
   }

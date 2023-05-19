@@ -12,12 +12,17 @@
 import VideoCategory from "@/components/video/VideoCategory.vue";
 import VideoSearchResult from "@/components/video/VideoSearchResult.vue";
 
+// import {mapState} from "vuex"
+
 export default {
   name: "VideoView",
   components: {
     VideoCategory,
     VideoSearchResult
   }
+  // created() {
+  //   this.$store.dispatch("getVideoList");
+  // }
 };
 </script>
 

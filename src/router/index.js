@@ -36,7 +36,7 @@ const routes = [
     component: VideoView
   },
   {
-    path: "/videoDetail",
+    path: "/videoDetail/:videoId",
     name: "videoDetailView",
     component: VideoDetailView
   }
