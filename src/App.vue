@@ -1,33 +1,31 @@
 <template>
   <div id="app">
-    <Header></Header>
+    <main-header></main-header>
     <router-view></router-view>
-    <Footer></Footer>
+    <main-footer></main-footer>
   </div>
 </template>
 
 <script>
-import Header from "@/components/common/Header.vue"
-import Footer from "@/components/common/Footer.vue"
+import MainHeader from "@/components/common/MainHeader.vue";
+import MainFooter from "@/components/common/MainFooter.vue";
 
 export default {
   name: "App",
   components: {
-    Header,
-    Footer
-  }
+    MainHeader,
+    MainFooter,
+  },
 };
 </script>
 
 <style>
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  
 }
 
 nav {

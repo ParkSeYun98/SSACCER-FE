@@ -1,39 +1,39 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import HomeView from '@/views/HomeView.vue';
-import UserLoginView from '@/views/UserLoginView.vue';
-import UserSignupView from '@/views/UserSignupView.vue';
-import BoardView from '@/views/BoardView.vue';
+import Vue from "vue";
+import VueRouter from "vue-router";
+import HomeView from "@/views/HomeView.vue";
+import UserLoginView from "@/views/UserLoginView.vue";
+import UserSignupView from "@/views/UserSignupView.vue";
+import BoardView from "@/views/BoardView.vue";
 
-Vue.use(VueRouter)
+Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
     name: "home",
-    component: HomeView
+    component: HomeView,
   },
   {
     path: "/login",
     name: "UserLogin",
-    component: UserLoginView
+    component: UserLoginView,
   },
   {
     path: "/signup",
     name: "UserSignup",
-    component: UserSignupView
+    component: UserSignupView,
   },
   {
     path: "/board",
     name: "board",
-    component: BoardView
+    component: BoardView,
   },
-]
+];
 
 const router = new VueRouter({
-  mode: 'history',
+  mode: "history",
   base: process.env.BASE_URL,
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
