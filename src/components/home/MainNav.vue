@@ -48,7 +48,9 @@
                 TEAM MATCHING 게시판을 활용해 풋살팀을 구하고 경기 일정을
                 잡으세요.
               </p>
-              <p><a class="btn btn-lg btn-primary" href="#">Go To Board</a></p>
+              <p>
+                <a class="btn btn-lg btn-primary" href="/board">바로가기</a>
+              </p>
             </div>
           </div>
         </div>
@@ -62,16 +64,18 @@
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
+            <image
+              href="https://img.sbs.co.kr/newimg/news/20221207/201728389_1280.jpg"
+              alt="..."
+            />
+
             <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
           </svg>
           <div class="container">
             <div class="carousel-caption">
-              <h1>Another example headline.</h1>
-              <p>
-                Some representative placeholder content for the second slide of
-                the carousel.
-              </p>
-              <p><a class="btn btn-lg btn-primary" href="#">Go To News</a></p>
+              <h1>축구 소식</h1>
+              <p>실시간 주요 뉴스를 확인하세요.</p>
+              <p><a class="btn btn-lg btn-primary" href="/news">바로가기</a></p>
             </div>
           </div>
         </div>
@@ -85,17 +89,16 @@
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
+            <image href="" alt="..." />
+
             <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
           </svg>
           <div class="container">
             <div class="carousel-caption text-end">
-              <h1>One more for good measure.</h1>
+              <h1>축구 영상 페이지</h1>
+              <p>축구 영상 보고 힘내세요</p>
               <p>
-                Some representative placeholder content for the third slide of
-                this carousel.
-              </p>
-              <p>
-                <a class="btn btn-lg btn-primary" href="#">Browse gallery</a>
+                <a class="btn btn-lg btn-primary" href="/video">바로가기</a>
               </p>
             </div>
           </div>
@@ -144,7 +147,7 @@
           </svg>
           <h2 class="fw-normal">Match</h2>
           <p>우리 동네 주변 팀 매칭 게시판</p>
-          <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
+          <p><a class="btn btn-secondary" href="/">View details &raquo;</a></p>
         </div>
         <!-- /.col-lg-4 -->
         <div class="col-lg-4">
@@ -163,7 +166,7 @@
           </svg>
           <h2 class="fw-normal">News</h2>
           <p>국내, 해외 축구 소식 보기</p>
-          <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
+          <p><a class="btn btn-secondary" href="/">View details &raquo;</a></p>
         </div>
         <!-- /.col-lg-4 -->
         <div class="col-lg-4">
@@ -202,8 +205,8 @@ export default {
   methods: {
     goVideoView() {
       this.$router.push("/video");
-    }
-  }
+    },
+  },
 };
 </script>
 

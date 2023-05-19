@@ -21,25 +21,32 @@
           class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
         >
           <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Board</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">News</a></li>
+          <li><a class="nav-link px-2 text-white">Board</a></li>
+          <li><a class="nav-link px-2 text-white">News</a></li>
           <li>
             <a @click="goVideoView" class="nav-link px-2 text-white">Youtube</a>
           </li>
         </ul>
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+        <!-- <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
           <input
             type="search"
             class="form-control form-control-dark text-bg-dark"
             placeholder="Search..."
             aria-label="Search"
           />
-        </form>
-        <div class="text-end">
-          <button @click="GoUserLogin" class="btn btn-outline-light me-2">
-            Login
-          </button>
+        </form> -->
+        <div class="navbar-login" v-if="isLoggedIn">
+          <span>{{ loginUserName }}님 환영합니다</span>
+
+          <div class="text-end">
+            <a class="btn btn-outline-light me-2" @click="logout">
+              <span>Logout</span>
+            </a>
+          </div>
+        </div>
+        <div v-else>
+          <a @click="GoUserLogin" class="btn btn-outline-light me-2"> Login </a>
           <button @click="GoUserSignup" class="btn btn-warning">Sign-up</button>
         </div>
       </div>
@@ -48,9 +55,35 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
+
 export default {
   name: "Header",
+  computed: {
+    ...mapState(["loginUserName"]),
+    // let token = sessionStorage.getItem("access-token");
+    // console.log(token);
+    // if (token == null) return false;
+    // else {
+    //   this.loginUserName = true;
+    //   return true;
+    // }
+    isLoggedIn() {
+      return this.$store.state.loginUserName !== null;
+    },
+  },
+  watch: {
+    loginUserName(newValue) {
+      // loginUserName이 변경될 때마다 실행될 로직
+      // UI 갱신 또는 필요한 작업을 수행할 수 있습니다.
+    },
+  },
   methods: {
+    checkToken() {
+      let token = sessionStorage.getItem("access-token");
+      if (token == null) return false;
+      else return true;
+    },
     GoUserLogin() {
       if (this.$route.path !== "/login") {
         this.$router.push("/login");
@@ -62,10 +95,21 @@ export default {
       }
     },
     goVideoView() {
-      this.$router.push("/video");
-    }
-  }
+      if (this.$route.path !== "/video") {
+        this.$router.push("/video");
+      }
+    },
+    logout() {
+      this.$store.dispatch("logout");
+    },
+  },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.navbar-login {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+</style>

@@ -14,6 +14,7 @@
                   <div class="form-group" id="idInput">
                     <label for="idInput">Your Id</label>
                     <input
+                      v-model.trim="user.userId"
                       type="text"
                       class="form-control"
                       id="idInput"
@@ -24,6 +25,7 @@
                   <div class="form-group" id="passwordInput">
                     <label for="passwordInput">Password</label>
                     <input
+                      v-model.trim="user.password"
                       type="password"
                       class="form-control"
                       id="passwordInput"
@@ -34,7 +36,9 @@
                   <br />
 
                   <div class="buttons">
-                    <button class="btn btn-primary btn-lg">로그인</button>
+                    <button @click="UserLogin" class="btn btn-primary btn-lg">
+                      로그인
+                    </button>
 
                     <button
                       @click="GoUserSignup"
@@ -66,10 +70,26 @@
 <script>
 export default {
   name: "UserLogin",
+  data() {
+    return {
+      user: {
+        userId: "",
+        password: "",
+      },
+    };
+  },
   methods: {
     GoUserSignup() {
       if (this.$route.path !== "/signup") {
         this.$router.push("/signup");
+      }
+    },
+    UserLogin() {
+      console.log(this.user);
+      if (this.user.userId === "" || this.user.password === "") {
+        alert("내용을 입력해주세요");
+      } else {
+        this.$store.dispatch("Login", this.user);
       }
     }
   }
