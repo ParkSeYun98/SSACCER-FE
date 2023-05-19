@@ -85,10 +85,12 @@ export default {
       }
     },
     UserLogin() {
-      if (this.userId === "" || this.password === "") {
+      console.log(this.user);
+      if (this.user.userId === "" || this.user.password === "") {
         alert("내용을 입력해주세요");
+      } else {
+        this.$store.dispatch("Login", this.user);
       }
-      this.$store.dispatch("Login", this.user);
     },
   },
 };

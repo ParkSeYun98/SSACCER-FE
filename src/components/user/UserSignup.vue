@@ -15,6 +15,7 @@
                     <div class="form-group" id="idInput">
                       <label for="idInput">Your Id</label>
                       <input
+                        placeholder="your id"
                         v-model="userId"
                         type="text"
                         class="form-control"
@@ -24,6 +25,7 @@
                     <div class="form-group" id="passwordInput">
                       <label for="passwordInput">Password</label>
                       <input
+                        placeholder="your password"
                         v-model="password"
                         type="password"
                         class="form-control"
@@ -32,12 +34,18 @@
 
                     <div class="form-group" id="nameInput">
                       <label for="nameInput">Name</label>
-                      <input v-model="name" type="text" class="form-control" />
+                      <input
+                        placeholder="your name"
+                        v-model="name"
+                        type="text"
+                        class="form-control"
+                      />
                     </div>
 
                     <div class="form-group" id="nicknameInput">
                       <label for="nicknameInput">Nickname</label>
                       <input
+                        placeholder="your 별명"
                         v-model="nickname"
                         type="text"
                         class="form-control"
@@ -61,6 +69,7 @@
                     <div class="form-group" id="phoneNumberInput">
                       <label for="phoneNumberInput">Phone No.</label>
                       <input
+                        placeholder="Tel 000-0000-0000"
                         v-model="phoneNumber"
                         type="text"
                         class="form-control"

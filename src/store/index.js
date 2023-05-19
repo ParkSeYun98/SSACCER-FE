@@ -37,16 +37,18 @@ export default new Vuex.Store({
       axios({
         url: API_URL,
         method: "POST",
-        data: user,
+        params: user,
       })
         .then((response) => {
           let resUser = response.data;
           alert("로그인 성공!");
           commit("LOGIN", resUser.name);
+
           sessionStorage.setItem("access-token", response.data["access-token"]);
-          // router.push("/");
+          router.push("/");
         })
         .catch((err) => {
+          alert("아이디 혹은 비밀번호를 확인해주세요.");
           console.log(err);
         });
     },
