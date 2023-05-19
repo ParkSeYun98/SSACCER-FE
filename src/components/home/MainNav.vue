@@ -35,6 +35,7 @@
             focusable="false"
           >
             <image
+              style="width: 100%"
               href="http://fieldgreen.kr/assets/img/page-title-area/about2.png"
               alt="..."
             />
@@ -65,6 +66,7 @@
             focusable="false"
           >
             <image
+              style="width: 100%"
               href="https://img.sbs.co.kr/newimg/news/20221207/201728389_1280.jpg"
               alt="..."
             />
@@ -205,8 +207,8 @@ export default {
   methods: {
     goVideoView() {
       this.$router.push("/video");
-    },
-  },
+    }
+  }
 };
 </script>
 

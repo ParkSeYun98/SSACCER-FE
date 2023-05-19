@@ -17,13 +17,13 @@ export default new Vuex.Store({
     videoList: [],
     video: null,
     DBvideoList: [],
-    userList: []
-    loginUserName: null,
+    userList: [],
+    loginUserName: null
   },
   getters: {},
   mutations: {
-    LOGIN(state, name) {
-      state.loginUserName = name;
+    LOGIN(state, username) {
+      state.loginUserName = username;
     },
     SIGNUP(state, user) {
       state.userList.push(user);
@@ -42,7 +42,7 @@ export default new Vuex.Store({
     },
     LOGOUT(state) {
       state.loginUserName = null;
-    },
+    }
   },
   actions: {
     Login({ commit }, user) {
@@ -51,17 +51,17 @@ export default new Vuex.Store({
       axios({
         url: API_URL,
         method: "POST",
-        params: user,
+        params: user
       })
-        .then((response) => {
+        .then(response => {
           let resUser = response.data;
           alert("로그인 성공!");
-          commit("LOGIN", resUser.name);
+          commit("LOGIN", resUser.username);
 
           sessionStorage.setItem("access-token", response.data["access-token"]);
           router.push("/");
         })
-        .catch((err) => {
+        .catch(err => {
           alert("아이디 혹은 비밀번호를 확인해주세요.");
           console.log(err);
         });
@@ -78,14 +78,14 @@ export default new Vuex.Store({
       axios({
         url: API_URL,
         method: "POST",
-        data: user,
+        data: user
       })
         .then(() => {
           alert("회원가입이 완료되었습니다!");
           commit("SIGNUP", user);
           router.push("/login");
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -96,18 +96,19 @@ export default new Vuex.Store({
       axios({
         url: URL,
         method: "GET",
+
         params: {
           key: API_KEY,
           part: "snippet",
           q: keyword,
           type: "video",
-          maxResults: 10,
-        },
+          maxResults: 10
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("SEARCH_YOUTUBE", response.data.items);
         })
-        .catch((err) => console.log(err));
+        .catch(err => console.log(err));
     },
     clickVideo({ commit }, video) {
       commit("CLICK_VIDEO", video);
@@ -117,12 +118,13 @@ export default new Vuex.Store({
 
       axios({
         url: API_URL,
-        method: "GET"
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
         .then(response => {
-          console.log(response.data);
           commit("GET_VIDEOLIST", response.data);
-          console.log(this.state.DBvideoList);
         })
         .catch(err => {
           console.log(err);
@@ -134,7 +136,10 @@ export default new Vuex.Store({
       axios({
         url: API_URL,
         method: "POST",
-        data: video
+        data: video,
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
         .then(() => {
           commit("SET_VIDEO", video);
@@ -145,5 +150,5 @@ export default new Vuex.Store({
     },
     getReviewList() {}
   },
-  modules: {},
+  modules: {}
 });
