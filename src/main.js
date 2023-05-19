@@ -11,7 +11,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { BootstrapIconsPlugin } from "bootstrap-icons-vue";
 
-Vue.config.productionTip = false;
 Vue.use(BootstrapIconsPlugin);
 
 new Vue({

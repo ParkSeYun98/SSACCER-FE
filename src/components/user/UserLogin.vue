@@ -1,42 +1,66 @@
 <template>
-  <body>
-    <main class="form-signin w-100 m-auto">
-      <form>
-        <img class="mb-4" width="72" height="57" />
-        <h1 class="h3 mb-3 fw-normal">Please Login</h1>
+  <div class="container-fluid vh-100">
+    <div class="row align-items-center h-100">
+      <div class="col-lg-12 col-xl-11">
+        <div class="card text-black rounded-25">
+          <div class="card-body p-md-5">
+            <div class="row justify-content-center">
+              <div class="col-md-10 col-lg-6 col-xl-5">
+                <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
+                  Log in
+                </p>
 
-        <div class="form-floating">
-          <input
-            type="email"
-            class="form-control"
-            id="floatingInput"
-            placeholder="name@example.com"
-          />
-          <label for="floatingInput">Email address</label>
-        </div>
-        <div class="form-floating">
-          <input
-            type="password"
-            class="form-control"
-            id="floatingPassword"
-            placeholder="Password"
-          />
-          <label for="floatingPassword">Password</label>
-        </div>
+                <form class="mx-1 mx-md-4">
+                  <div class="form-group" id="idInput">
+                    <label for="idInput">Your Id</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="idInput"
+                      placeholder="id 입력"
+                    />
+                  </div>
 
-        <div class="checkbox mb-3">
-          <label>
-            <input type="checkbox" value="remember-me" /> Remember me
-          </label>
+                  <div class="form-group" id="passwordInput">
+                    <label for="passwordInput">Password</label>
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="passwordInput"
+                      placeholder="password 입력"
+                    />
+                  </div>
+
+                  <br />
+
+                  <div class="buttons">
+                    <button class="btn btn-primary btn-lg">로그인</button>
+
+                    <button
+                      @click="GoUserSignup"
+                      class="btn btn-warning btn-lg"
+                    >
+                      회원가입
+                    </button>
+                  </div>
+                </form>
+              </div>
+              <div
+                class="col-md-10 col-lg-6 col-xl-7 d-flex align-items-center"
+                order-lg="2"
+              >
+                <img
+                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
+                  class="img-fluid"
+                  alt="Sample image"
+                />
+              </div>
+            </div>
+          </div>
         </div>
-        <button class="w-50 btn btn-lg btn-primary">Login</button>
-        <button @click="GoUserSignup" class="w-50 btn btn-lg btn btn-warning">
-          Signup
-        </button>
-        <p class="mt-5 mb-3 text-body-secondary">&copy; SSAFY</p>
-      </form>
-    </main>
-  </body>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -52,33 +76,4 @@ export default {
 };
 </script>
 
-<style scoped>
-body {
-  display: flex;
-  align-items: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #f5f5f5;
-}
-
-.form-signin {
-  max-width: 330px;
-  padding: 15px;
-}
-
-.form-signin .form-floating:focus-within {
-  z-index: 2;
-}
-
-.form-signin input[type="email"] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-
-.form-signin input[type="password"] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-</style>
+<style scoped></style>
