@@ -7,13 +7,21 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    userList: [],
+    videos: [],
+    video: null,
+    userList: []
   },
   getters: {},
   mutations: {
     SIGNUP(state, user) {
       state.userList.push(user);
     },
+    SEARCH_YOUTUBE(state, videos) {
+      state.videos = videos;
+    },
+    CLICK_VIDEO(state, video) {
+      state.video = video;
+    }
   },
   actions: {
     SignUp({ commit }, user) {
@@ -33,6 +41,30 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
+    searchYoutube({ commit }, keyword) {
+      const URL = "https://www.googleapis.com/youtube/v3/search";
+      const API_KEY = process.env.VUE_APP_YOUTUBE_API_KEY;
+      console.log(process.env.VUE_APP_YOUTUBE_API_KEY);
+
+      axios({
+        url: URL,
+        method: "GET",
+        params: {
+          key: API_KEY,
+          part: "snippet",
+          q: keyword,
+          type: "video",
+          maxResults: 10
+        }
+      })
+        .then(response => {
+          commit("SEARCH_YOUTUBE", response.data.items);
+        })
+        .catch(err => console.log(err));
+    },
+    clickVideo({ commit }, video) {
+      commit("CLICK_VIDEO", video);
+    }
   },
-  modules: {},
+  modules: {}
 });
