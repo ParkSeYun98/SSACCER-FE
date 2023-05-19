@@ -3,7 +3,11 @@
     <h3>검색 결과</h3>
 
     <ul class="youtube-list">
-      <li v-for="video in videos" :key="video.id.videoId" @click="clickVideo">
+      <li
+        v-for="video in videos"
+        :key="video.id.videoId"
+        @click="clickVideo(video)"
+      >
         <img :src="video.snippet.thumbnails.default.url" />
         {{ video.snippet.title }}
       </li>
@@ -17,12 +21,11 @@ import { mapState } from "vuex";
 export default {
   name: "VideoSearchResult",
   computed: {
-    ...mapState(["videos"])
+    ...mapState(["videos", "video"])
   },
   methods: {
-    clickVideo() {
-      this.$store.dispatch("clickVideo", this.video);
-
+    clickVideo(video) {
+      this.$store.dispatch("clickVideo", video);
       this.$router.push("/videoDetail");
     }
   }

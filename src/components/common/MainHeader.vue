@@ -23,7 +23,9 @@
           <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
           <li><a href="#" class="nav-link px-2 text-white">Board</a></li>
           <li><a href="#" class="nav-link px-2 text-white">News</a></li>
-          <li><a href="#" class="nav-link px-2 text-white">Youtube</a></li>
+          <li>
+            <a @click="goVideoView" class="nav-link px-2 text-white">Youtube</a>
+          </li>
         </ul>
 
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
@@ -60,7 +62,10 @@ export default {
         location.reload();
       }
     },
-  },
+    goVideoView() {
+      this.$router.push("/video");
+    }
+  }
 };
 </script>
 

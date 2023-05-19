@@ -30,21 +30,20 @@ export default new Vuex.Store({
       axios({
         url: API_URL,
         methods: "POST",
-        data: user,
+        data: user
       })
         .then(() => {
           alert("회원가입이 완료되었습니다!");
           commit("SIGNUP", user);
           router.push("/login");
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
     searchYoutube({ commit }, keyword) {
       const URL = "https://www.googleapis.com/youtube/v3/search";
       const API_KEY = process.env.VUE_APP_YOUTUBE_API_KEY;
-      console.log(process.env.VUE_APP_YOUTUBE_API_KEY);
 
       axios({
         url: URL,

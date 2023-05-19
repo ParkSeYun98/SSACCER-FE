@@ -13,6 +13,9 @@
         allowfullscreen
       >
       </iframe>
+
+      <h2>{{ video.snippet.title }}</h2>
+      <h4>{{ video.snippet.channelTitle }}</h4>
     </div>
   </div>
 </template>
@@ -27,6 +30,7 @@ export default {
 
     videoURL() {
       const videoId = this.video.id.videoId;
+      console.log(this.video);
       return `https://youtube.com/embed/${videoId}`;
     }
   }
