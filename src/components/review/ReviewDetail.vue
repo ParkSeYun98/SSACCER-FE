@@ -3,14 +3,10 @@
     <div>
       <i
         v-if="reviewLikeOrNot"
-        @click="likeReview"
-        class="bi bi-arrow-through-heart"
-      ></i>
-      <i
-        v-else
         @click="unlikeReview"
         class="bi bi-arrow-through-heart-fill"
       ></i>
+      <i v-else @click="likeReview" class="bi bi-arrow-through-heart"></i>
 
       <h4>리뷰 제목 : {{ review.title }}</h4>
       <h5>글쓴이 : {{ review.writer }}</h5>
@@ -34,10 +30,17 @@ export default {
   name: "ReviewDetail",
   created() {
     this.$store.dispatch("getReview", this.$route.params.reviewSeq);
-    this.$store.dispatch("getReviewLike", this.$route.params.reviewSeq);
+    this.$store.dispatch("getReviewLikeList");
+    this.$store.dispatch("getReviewLikeStatus", this.$route.params.reviewSeq);
   },
   computed: {
-    ...mapState(["review", "reviewLike", "reviewLikeOrNot"])
+    ...mapState([
+      "review",
+      "reviewLikeInfo",
+      "reviewLikeOrNot",
+      "reviewLikeList",
+      "loginUser"
+    ])
   },
   methods: {
     goReviewList() {
@@ -45,6 +48,9 @@ export default {
     },
     deleteReview() {
       this.$store.dispatch("deleteReview", this.$route.params.reviewSeq);
+
+      this.$store.dispatch("unlikeReview", this.$route.params.reviewSeq);
+
       location.href = `/videoDetail/${this.$route.params.videoId}`;
       //   this.$router.push("/videoDetail/" + this.$route.params.videoId);
       //   this.$router.go(0);

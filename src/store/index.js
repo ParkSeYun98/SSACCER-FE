@@ -30,9 +30,9 @@ export default new Vuex.Store({
     review: {},
 
     // state - reviewlike
+    reviewLikeOrNot: false,
     reviewLikeList: [],
-    reviewLike: null,
-    reviewLikeOrNot: false
+    reviewLikeInfo: null
   },
   getters: {},
   mutations: {
@@ -98,29 +98,25 @@ export default new Vuex.Store({
     },
 
     // mutation - reviewlike
-    GET_REVIEWLIKELIST(state, reviewLikeList) {
-      state.reviewLikeList = reviewLikeList;
+    GET_REVIEW_LIKE_LIST_BY_LOGINUSER(state, list) {
+      state.reviewLikeList = list;
     },
-    GET_REVIEW_LIKE(state, reviewLike) {
-      if (reviewLike === null) {
-        console.log("좋아요 테이블로부터 null이 왔음");
+    CHANGE_REVIEW_LIKE_STATUS(state, likeInfo) {
+      if (likeInfo === "") {
         state.reviewLikeOrNot = false;
-        state.reviewLike = null;
-        return;
+      } else {
+        state.reviewLikeOrNot = true;
+      }
+    },
+    SET_REVIEW_LIKE_INFO(state, reviewSeq) {
+      for (let i = 0; i < state.reviewLikeList.length; i++) {
+        if (state.reviewLikeList[i].reviewSeq == reviewSeq) {
+          state.reviewLikeInfo = state.reviewLikeList[i];
+          return;
+        }
       }
 
-      state.reviewLikeOrNot = true;
-      state.reviewLike = reviewLike;
-    },
-    LIKE_REVIEW(state) {
-      dispatch("getReviewLikeList", state.loginUser.userSeq);
-      dispatch("getReviewLike", state.loginUser.userSeq);
-      state.reviewLikeOrNot = true;
-    },
-    UNLIKE_REVIEW(state) {
-      dispatch("getReviewLikeList", state.loginUser.userSeq);
-      dispatch("getReviewLike", state.loginUser.userSeq);
-      state.reviewLikeOrNot = false;
+      state.reviewLikeInfo = {};
     }
   },
   actions: {
@@ -321,6 +317,8 @@ export default new Vuex.Store({
           alert("등록 완료");
 
           commit("REGIST_REVIEW", review);
+
+          this.dispatch("getReviewList", this.state.DBvideo.youtubeId);
         })
         .catch(err => {
           console.log(err);
@@ -366,8 +364,9 @@ export default new Vuex.Store({
     },
 
     // action - ReviewLike
-    getReviewLikeList({ commit }, userSeq) {
-      const API_URL = `http://localhost:9999/rlike/reviewlist/${userSeq}`;
+    getReviewLikeList({ commit }) {
+      const API_URL = `http://localhost:9999/rlike/reviewlist/${this.state
+        .loginUser.userSeq}`;
 
       axios({
         url: API_URL,
@@ -377,13 +376,13 @@ export default new Vuex.Store({
         }
       })
         .then(response => {
-          commit("GET_REVIEWLIKELIST", response.data);
+          commit("GET_REVIEW_LIKE_LIST_BY_LOGINUSER", response.data);
         })
         .catch(err => {
           console.log(err);
         });
     },
-    getReviewLike({ commit }, reviewSeq) {
+    getReviewLikeStatus({ commit }, reviewSeq) {
       const API_URL = `http://localhost:9999/rlike/reviewlike/${this.state
         .loginUser.userSeq}/${reviewSeq}`;
 
@@ -395,7 +394,7 @@ export default new Vuex.Store({
         }
       })
         .then(response => {
-          commit("GET_REVIEW_LIKE", response.data);
+          commit("CHANGE_REVIEW_LIKE_STATUS", response.data);
         })
         .catch(err => {
           console.log(err);
@@ -412,15 +411,18 @@ export default new Vuex.Store({
           "access-token": sessionStorage.getItem("access-token")
         }
       })
-        .then(() => {
-          commit("LIKE_REVIEW");
+        .then(response => {
+          this.dispatch("getReviewLikeList");
+          this.dispatch("getReviewLikeStatus", reviewSeq);
+
+          commit("SET_REVIEW_LIKE_INFO", reviewSeq);
         })
         .catch(err => {
           console.log(err);
         });
     },
     unlikeReview({ commit }, reviewSeq) {
-      const API_URL = `http://localhost:9999/rlike/like/${state.loginUser
+      const API_URL = `http://localhost:9999/rlike/unlike/${this.state.loginUser
         .userSeq}/${reviewSeq}`;
 
       axios({
@@ -430,8 +432,11 @@ export default new Vuex.Store({
           "access-token": sessionStorage.getItem("access-token")
         }
       })
-        .then(() => {
-          commit("UNLIKE_REVIEW");
+        .then(response => {
+          this.dispatch("getReviewLikeList");
+          this.dispatch("getReviewLikeStatus", reviewSeq);
+
+          commit("SET_REVIEW_LIKE_INFO", reviewSeq);
         })
         .catch(err => {
           console.log(err);

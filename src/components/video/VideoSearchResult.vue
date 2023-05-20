@@ -20,6 +20,9 @@ import { mapState } from "vuex";
 
 export default {
   name: "VideoSearchResult",
+  created() {
+    this.$store.dispatch("getVideoList");
+  },
   computed: {
     ...mapState(["videoList", "video", "DBvideoList"])
   },
@@ -28,7 +31,7 @@ export default {
       // YoutubeVideo와 dbvideo는 서로 형식이 다름
       this.$store.dispatch("getVideoList");
 
-      const DBvideo = {
+      const dbvideo = {
         videoSeq: 0,
         youtubeId: YoutubeVideo.id.videoId,
         title: YoutubeVideo.snippet.title,
@@ -40,15 +43,15 @@ export default {
 
       // 목록에서 비디오를 클릭하면 상세 페이지로 넘어가기 전에
       // 클릭한 비디오를 DB에 저장한다.
-      // 다만 이미 DB에 저장된 비디오인지 체크해야 한다.
+      // 다만 이미 DB에 저장된 비디오인지 체크해야 한다
       for (let i = 0; i < this.DBvideoList.length; i++) {
-        if (this.DBvideoList[i].youtubeId === DBvideo.youtubeId) {
+        if (this.DBvideoList[i].youtubeId === dbvideo.youtubeId) {
           this.$router.push("/videoDetail/" + YoutubeVideo.id.videoId);
           return;
         }
       }
 
-      this.$store.dispatch("saveVideo", DBvideo);
+      this.$store.dispatch("saveVideo", dbvideo);
       this.$router.push("/videoDetail/" + YoutubeVideo.id.videoId);
     }
   }
