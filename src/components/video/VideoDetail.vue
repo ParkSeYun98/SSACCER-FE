@@ -1,8 +1,6 @@
 <template>
   <div>
     <div v-if="video">
-      <h2>영상 보기</h2>
-
       <iframe
         width="560"
         height="315"
@@ -25,6 +23,9 @@ import { mapState } from "vuex";
 
 export default {
   name: "VideoDetail",
+  created() {
+    this.$store.dispatch("getDBVideoByYoutubeId", this.$route.params.videoId);
+  },
   computed: {
     ...mapState(["video"]),
 

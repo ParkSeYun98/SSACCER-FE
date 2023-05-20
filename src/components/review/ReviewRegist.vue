@@ -18,7 +18,7 @@
 import { mapState } from "vuex";
 
 export default {
-  name: "RegistReview",
+  name: "ReviewRegist",
   data() {
     return {
       title: "",
@@ -52,7 +52,6 @@ export default {
       this.goVideoDetailView();
     },
     goVideoDetailView() {
-      console.log(this.$route.params.videoId);
       this.$router.push("/videoDetail/" + this.$route.params.videoId);
     }
   }

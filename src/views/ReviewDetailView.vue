@@ -1,18 +1,18 @@
 <template>
   <div>
     <VideoDetail></VideoDetail>
-    <ReviewRegist></ReviewRegist>
+    <ReviewDetail></ReviewDetail>
   </div>
 </template>
 
 <script>
 import VideoDetail from "@/components/video/VideoDetail.vue";
-import ReviewRegist from "@/components/review/ReviewRegist.vue";
+import ReviewDetail from "@/components/review/ReviewDetail.vue";
 
 export default {
-  name: "ReviewRegistView",
+  name: "ReviewDetailView",
   components: {
-    ReviewRegist,
+    ReviewDetail,
     VideoDetail
   }
 };

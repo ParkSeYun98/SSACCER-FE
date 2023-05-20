@@ -1,12 +1,17 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+
 import HomeView from "@/views/HomeView.vue";
+
 import UserLoginView from "@/views/UserLoginView.vue";
 import UserSignupView from "@/views/UserSignupView.vue";
-import BoardView from "@/views/BoardView.vue";
+
 import VideoView from "@/views/VideoView.vue";
 import VideoDetailView from "@/views/VideoDetailView.vue";
+
 import ReviewRegistView from "@/views/ReviewRegistView.vue";
+import ReviewDetailView from "@/views/ReviewDetailView.vue";
+import ReviewModifyView from "@/views/ReviewModifyView.vue";
 
 Vue.use(VueRouter);
 
@@ -27,11 +32,6 @@ const routes = [
     component: UserSignupView
   },
   {
-    path: "/board",
-    name: "board",
-    component: BoardView
-  },
-  {
     path: "/video",
     name: "video",
     component: VideoView
@@ -45,6 +45,16 @@ const routes = [
     path: "/reviewRegist/:videoId",
     name: "reviewRegistView",
     component: ReviewRegistView
+  },
+  {
+    path: "/reviewDetail/:videoId/:reviewSeq",
+    name: "ReviewDetailView",
+    component: ReviewDetailView
+  },
+  {
+    path: "/reviewModify/:videoId/:reviewSeq",
+    name: "ReviewModifyView",
+    component: ReviewModifyView
   }
 ];
 

@@ -59,4 +59,8 @@ export default {
 .youtube-list {
   text-align: left;
 }
+
+li {
+  list-style-type: none;
+}
 </style>

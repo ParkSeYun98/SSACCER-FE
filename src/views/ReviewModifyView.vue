@@ -1,19 +1,19 @@
 <template>
   <div>
     <VideoDetail></VideoDetail>
-    <ReviewRegist></ReviewRegist>
+    <ReviewModify></ReviewModify>
   </div>
 </template>
 
 <script>
 import VideoDetail from "@/components/video/VideoDetail.vue";
-import ReviewRegist from "@/components/review/ReviewRegist.vue";
+import ReviewModify from "@/components/review/ReviewModify.vue";
 
 export default {
-  name: "ReviewRegistView",
+  name: "ReviewModifyView",
   components: {
-    ReviewRegist,
-    VideoDetail
+    VideoDetail,
+    ReviewModify
   }
 };
 </script>

@@ -17,6 +17,7 @@ export default new Vuex.Store({
     videoList: [],
     video: null,
     DBvideoList: [],
+    DBvideo: {},
     userList: [],
     loginUser: {},
     loginUserName: null,
@@ -44,6 +45,9 @@ export default new Vuex.Store({
     SET_VIDEO(state, video) {
       state.DBvideoList.push(video);
     },
+    SET_DBVIDEO(state, DBvideo) {
+      state.DBvideo = DBvideo;
+    },
     LOGOUT(state) {
       state.loginUserName = null;
     },
@@ -55,6 +59,26 @@ export default new Vuex.Store({
     },
     REGIST_REVIEW(state, review) {
       state.reviewList.push(review);
+    },
+    DELETE_REVIEW(state, reviewSeq) {
+      state.review = {};
+
+      for (let i = 0; i < state.reviewList.length; i++) {
+        if (state.reviewList[i].reviewSeq === reviewSeq) {
+          state.reviewList.removeItem(i);
+          break;
+        }
+      }
+    },
+    MODIFY_REVIEW(state, review) {
+      for (let i = 0; i < state.reviewList.length; i++) {
+        if (state.reviewList[i].reviewSeq === review.reviewSeq) {
+          state.reviewList[i] = review;
+          break;
+        }
+      }
+
+      state.review = review;
     }
   },
   actions: {
@@ -124,6 +148,23 @@ export default new Vuex.Store({
     },
     clickVideo({ commit }, video) {
       commit("CLICK_VIDEO", video);
+    },
+    getDBVideoByYoutubeId({ commit }, youtubeId) {
+      const API_KEY = `http://localhost:9999/video/readbyyoutubeId/${youtubeId}`;
+
+      axios({
+        url: API_KEY,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          commit("SET_DBVIDEO", response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     getVideoList({ commit }) {
       const API_URL = "http://localhost:9999/video/read/list";
@@ -195,17 +236,31 @@ export default new Vuex.Store({
           "access-token": sessionStorage.getItem("access-token")
         }
       }).then(response => {
-        console.log(response.data);
         commit("GET_REVIEWLIST", response.data);
       });
+    },
+    getReview({ commit }, reviewSeq) {
+      const API_URL = `http://localhost:9999/review/read/${reviewSeq}`;
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          commit("SET_REVIEW", response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
     setReview({ commit }, review) {
       commit("SET_REVIEW", review);
     },
     registReview({ commit }, review) {
       const API_URL = "http://localhost:9999/review/regist";
-
-      console.log(review);
 
       axios({
         url: API_URL,
@@ -216,7 +271,47 @@ export default new Vuex.Store({
         }
       })
         .then(response => {
+          alert("등록 완료");
+
           commit("REGIST_REVIEW", review);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    deleteReview({ commit }, reviewSeq) {
+      const API_URL = `http://localhost:9999/review/delete/${reviewSeq}`;
+
+      axios({
+        url: API_URL,
+        method: "DELETE",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          alert("삭제 완료");
+          commit("DELETE_REVIEW", reviewSeq);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    modifyReview({ commit }, review) {
+      const API_URL = "http://localhost:9999/review/update";
+
+      axios({
+        url: API_URL,
+        method: "PUT",
+        data: review,
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          alert("수정 완료");
+
+          commit("MODIFY_REVIEW", response.data);
         })
         .catch(err => {
           console.log(err);

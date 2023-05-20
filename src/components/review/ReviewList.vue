@@ -13,15 +13,17 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(review, idx) in reviewList" :key="idx">
+        <tr
+          v-for="(review, idx) in reviewList"
+          :key="idx"
+          @click="[clickReview(review), goDetailReview(review)]"
+        >
           <td>
             {{ review.reviewSeq }}
           </td>
 
           <td>
-            <router-link :to="`/reviewRegist/${$route.params.videoId}`">{{
-              review.title
-            }}</router-link>
+            {{ review.title }}
           </td>
           <td>{{ review.writer }}</td>
           <td>{{ review.viewCnt }}</td>
@@ -49,9 +51,21 @@ export default {
     },
     goRegistReview() {
       this.$router.push("/reviewRegist/" + this.$route.params.videoId);
+    },
+    goDetailReview(review) {
+      // this.$store.dispatch("getReview", review.reviewSeq);
+
+      this.$router.push(
+        "/reviewDetail/" + this.$route.params.videoId + "/" + review.reviewSeq
+      );
     }
   }
 };
 </script>
 
-<style></style>
+<style scoped>
+a {
+  text-decoration: none;
+  color: black;
+}
+</style>
