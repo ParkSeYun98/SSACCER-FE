@@ -29,21 +29,14 @@ export default {
       this.$store.dispatch("modifyReview", this.review);
 
       this.goReviewDetailView();
-      //   this.$router.replace(
-      //     "reviewDetail/" +
-      //       this.$route.params.videoId +
-      //       "/" +
-      //       this.$route.params.reviewSeq
-      //   );
     },
     goReviewDetailView() {
-      //   this.$router.push(
-      //     "reviewDetail/" +
-      //       this.$route.params.videoId +
-      //       "/" +
-      //       this.$route.params.reviewSeq
-      //   );
-      this.$router.go(-1);
+      this.$router.push(
+        "/reviewDetail/" +
+          this.$route.params.videoId +
+          "/" +
+          this.$route.params.reviewSeq
+      );
     }
   }
 };
