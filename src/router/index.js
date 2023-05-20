@@ -6,6 +6,7 @@ import HomeView from "@/views/home/HomeView.vue";
 import UserLoginView from "@/views/user/UserLoginView.vue";
 import UserSignupView from "@/views/user/UserSignupView.vue";
 import UserMyPageView from "@/views/user/UserMyPageView.vue";
+import UserModifyView from "@/views/user/UserModifyView.vue";
 import UserMyReviewPageView from "@/views/user/UserMyReviewPageView.vue";
 
 import VideoView from "@/views/video/VideoView.vue";
@@ -37,6 +38,11 @@ const routes = [
     path: "/myPage/:userSeq",
     name: "UserMyPageView",
     component: UserMyPageView
+  },
+  {
+    path: "/myPage/modify/:userSeq",
+    name: "UserModifyView",
+    component: UserModifyView
   },
   {
     path: "/myReviewPage/:userSeq",

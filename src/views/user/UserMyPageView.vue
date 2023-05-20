@@ -5,7 +5,7 @@
 </template>
 
 <script>
-import UserMyPage from "@/components/user/UserMyPage.vue";
+import UserMyPage from "@/components/user/UserMypage.vue";
 
 export default {
   name: "UserMyPageView",

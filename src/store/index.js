@@ -47,6 +47,25 @@ export default new Vuex.Store({
     SIGNUP(state, user) {
       state.userList.push(user);
     },
+    MODIFY_USER(state, loginUser){
+      for (let i = 0; i < state.userList.length; i++) {
+        if (state.userList[i].userId === loginUser.userId) {
+          state.userList[i] = loginUser;
+          break;
+        }
+      }
+      state.loginUser = loginUser;
+    },
+    DELETE_USER(state, userId) {
+      state.loginUser = {};
+      state.loginUserName = null;
+      for (let i = 0; i < state.userList.length; i++) {
+        if (state.userList[i].userId === userId) {
+          state.userList.remove(i);
+          break;
+        }
+      }
+    },
 
     // mutation - video
     SEARCH_YOUTUBE(state, videoList) {
@@ -78,7 +97,6 @@ export default new Vuex.Store({
     },
     DELETE_REVIEW(state, reviewSeq) {
       state.review = {};
-
       for (let i = 0; i < state.reviewList.length; i++) {
         if (state.reviewList[i].reviewSeq === reviewSeq) {
           state.reviewList.removeItem(i);
@@ -168,6 +186,38 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
+    modifyUser({ commit }, loginUser) {
+      const API_URL = "http://localhost:9999/user/update";
+
+      axios({
+        url: API_URL,
+        method: "PUT",
+        date: loginUser,
+      })
+        .then(response => {
+          alert("수정 완료");
+
+          commit("MODIFY_USER", response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    deleteUser: function ({ commit }, userId) {
+      const API_URL = `http://localhost:9999/user/quit/${userId}`;
+      axios({
+        url: API_URL,
+        method: "DELETE",
+      })
+        .then(() => {
+          alert("삭제 완료!");
+          commit("DELETE_USER", userId);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+
 
     // action - Video
     searchYoutube({ commit }, keyword) {
