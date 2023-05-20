@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 @click="a">리뷰 수정</h2>
+    <h2>리뷰 수정</h2>
 
     <div>
       <label for="title">제목</label>
@@ -25,9 +25,6 @@ export default {
     ...mapState(["review"])
   },
   methods: {
-    a() {
-      console.log(this.review);
-    },
     modifyReview() {
       this.$store.dispatch("modifyReview", this.review);
 

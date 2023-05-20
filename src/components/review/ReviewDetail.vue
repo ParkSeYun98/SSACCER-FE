@@ -1,6 +1,17 @@
 <template>
   <div>
     <div>
+      <i
+        v-if="reviewLikeOrNot"
+        @click="likeReview"
+        class="bi bi-arrow-through-heart"
+      ></i>
+      <i
+        v-else
+        @click="unlikeReview"
+        class="bi bi-arrow-through-heart-fill"
+      ></i>
+
       <h4>리뷰 제목 : {{ review.title }}</h4>
       <h5>글쓴이 : {{ review.writer }}</h5>
       <h6>내용 : {{ review.content }}</h6>
@@ -23,9 +34,10 @@ export default {
   name: "ReviewDetail",
   created() {
     this.$store.dispatch("getReview", this.$route.params.reviewSeq);
+    this.$store.dispatch("getReviewLike", this.$route.params.reviewSeq);
   },
   computed: {
-    ...mapState(["review"])
+    ...mapState(["review", "reviewLike", "reviewLikeOrNot"])
   },
   methods: {
     goReviewList() {
@@ -44,6 +56,12 @@ export default {
           "/" +
           this.$route.params.reviewSeq
       );
+    },
+    likeReview() {
+      this.$store.dispatch("likeReview", this.$route.params.reviewSeq);
+    },
+    unlikeReview() {
+      this.$store.dispatch("unlikeReview", this.$route.params.reviewSeq);
     }
   }
 };
@@ -52,5 +70,10 @@ export default {
 <style scoped>
 .btn {
   margin: 1px;
+}
+
+.bi {
+  font-size: 45px;
+  color: red;
 }
 </style>

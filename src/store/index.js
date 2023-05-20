@@ -14,25 +14,41 @@ export default new Vuex.Store({
     })
   ],
   state: {
+    // state - video
     videoList: [],
     video: null,
     DBvideoList: [],
     DBvideo: {},
+
+    // state - user
     userList: [],
     loginUser: {},
     loginUserName: null,
+
+    // state - review
     reviewList: [],
-    review: {}
+    review: {},
+
+    // state - reviewlike
+    reviewLikeList: [],
+    reviewLike: null,
+    reviewLikeOrNot: false
   },
   getters: {},
   mutations: {
+    // mutation - user
     LOGIN(state, loginUser) {
       state.loginUserName = loginUser.loginUser.name;
       state.loginUser = loginUser.loginUser;
     },
+    LOGOUT(state) {
+      state.loginUserName = null;
+    },
     SIGNUP(state, user) {
       state.userList.push(user);
     },
+
+    // mutation - video
     SEARCH_YOUTUBE(state, videoList) {
       state.videoList = videoList;
     },
@@ -48,11 +64,11 @@ export default new Vuex.Store({
     SET_DBVIDEO(state, DBvideo) {
       state.DBvideo = DBvideo;
     },
-    LOGOUT(state) {
-      state.loginUserName = null;
-    },
+
+    // mutation - review
     GET_REVIEWLIST(state, reviewList) {
       state.reviewList = reviewList;
+      state.reviewLike = null;
     },
     SET_REVIEW(state, review) {
       state.review = review;
@@ -79,9 +95,36 @@ export default new Vuex.Store({
       }
 
       state.review = review;
+    },
+
+    // mutation - reviewlike
+    GET_REVIEWLIKELIST(state, reviewLikeList) {
+      state.reviewLikeList = reviewLikeList;
+    },
+    GET_REVIEW_LIKE(state, reviewLike) {
+      if (reviewLike === null) {
+        console.log("좋아요 테이블로부터 null이 왔음");
+        state.reviewLikeOrNot = false;
+        state.reviewLike = null;
+        return;
+      }
+
+      state.reviewLikeOrNot = true;
+      state.reviewLike = reviewLike;
+    },
+    LIKE_REVIEW(state) {
+      dispatch("getReviewLikeList", state.loginUser.userSeq);
+      dispatch("getReviewLike", state.loginUser.userSeq);
+      state.reviewLikeOrNot = true;
+    },
+    UNLIKE_REVIEW(state) {
+      dispatch("getReviewLikeList", state.loginUser.userSeq);
+      dispatch("getReviewLike", state.loginUser.userSeq);
+      state.reviewLikeOrNot = false;
     }
   },
   actions: {
+    // action - User
     Login({ commit }, user) {
       const API_URL = `http://localhost:9999/user/login`;
 
@@ -125,6 +168,8 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
+
+    // action - Video
     searchYoutube({ commit }, keyword) {
       const URL = "https://www.googleapis.com/youtube/v3/search";
       const API_KEY = process.env.VUE_APP_YOUTUBE_API_KEY;
@@ -185,7 +230,7 @@ export default new Vuex.Store({
     },
     saveVideo({ commit }, video) {
       const API_URL = "http://localhost:9999/video/regist";
-      console.log(video);
+
       axios({
         url: API_URL,
         method: "POST",
@@ -218,6 +263,8 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
+
+    // action - Review
     getReviewList({ commit }, youtubeId) {
       let videoSeq = 0;
 
@@ -312,6 +359,79 @@ export default new Vuex.Store({
           alert("수정 완료");
 
           commit("MODIFY_REVIEW", response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
+    // action - ReviewLike
+    getReviewLikeList({ commit }, userSeq) {
+      const API_URL = `http://localhost:9999/rlike/reviewlist/${userSeq}`;
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          commit("GET_REVIEWLIKELIST", response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getReviewLike({ commit }, reviewSeq) {
+      const API_URL = `http://localhost:9999/rlike/reviewlike/${this.state
+        .loginUser.userSeq}/${reviewSeq}`;
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          commit("GET_REVIEW_LIKE", response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    likeReview({ commit }, reviewSeq) {
+      const API_URL = `http://localhost:9999/rlike/like/${this.state.loginUser
+        .userSeq}/${reviewSeq}`;
+
+      axios({
+        url: API_URL,
+        method: "POST",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(() => {
+          commit("LIKE_REVIEW");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    unlikeReview({ commit }, reviewSeq) {
+      const API_URL = `http://localhost:9999/rlike/like/${state.loginUser
+        .userSeq}/${reviewSeq}`;
+
+      axios({
+        url: API_URL,
+        method: "DELETE",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(() => {
+          commit("UNLIKE_REVIEW");
         })
         .catch(err => {
           console.log(err);

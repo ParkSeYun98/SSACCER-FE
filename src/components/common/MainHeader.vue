@@ -28,12 +28,17 @@
           </li>
         </ul>
 
-        <div class="navbar-login" v-if="loginUserName">
+        <div v-if="loginUserName" class="navbar-login">
           <span>{{ loginUserName }}님 환영합니다</span>
 
           <div class="text-end">
             <a class="btn btn-outline-light me-2" @click="logout">
               <span>Logout</span>
+            </a>
+          </div>
+          <div class="text-end">
+            <a class="btn btn-outline-light me-2" @click="goMyPage">
+              <span>MyPage</span>
             </a>
           </div>
         </div>
@@ -52,7 +57,7 @@ import { mapState } from "vuex";
 export default {
   name: "MainHeader",
   computed: {
-    ...mapState(["loginUserName"])
+    ...mapState(["loginUserName", "loginUser"])
   },
   methods: {
     GoUserLogin() {
@@ -72,6 +77,9 @@ export default {
     },
     logout() {
       this.$store.dispatch("logout");
+    },
+    goMyPage() {
+      this.$router.push("/myPage/" + this.loginUser.userSeq);
     }
   }
 };

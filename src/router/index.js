@@ -1,35 +1,47 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
-import HomeView from "@/views/HomeView.vue";
+import HomeView from "@/views/home/HomeView.vue";
 
-import UserLoginView from "@/views/UserLoginView.vue";
-import UserSignupView from "@/views/UserSignupView.vue";
+import UserLoginView from "@/views/user/UserLoginView.vue";
+import UserSignupView from "@/views/user/UserSignupView.vue";
+import UserMyPageView from "@/views/user/UserMyPageView.vue";
+import UserMyReviewPageView from "@/views/user/UserMyReviewPageView.vue";
 
-import VideoView from "@/views/VideoView.vue";
-import VideoDetailView from "@/views/VideoDetailView.vue";
+import VideoView from "@/views/video/VideoView.vue";
+import VideoDetailView from "@/views/video/VideoDetailView.vue";
 
-import ReviewRegistView from "@/views/ReviewRegistView.vue";
-import ReviewDetailView from "@/views/ReviewDetailView.vue";
-import ReviewModifyView from "@/views/ReviewModifyView.vue";
+import ReviewRegistView from "@/views/review/ReviewRegistView.vue";
+import ReviewDetailView from "@/views/review/ReviewDetailView.vue";
+import ReviewModifyView from "@/views/review/ReviewModifyView.vue";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "home",
+    name: "HomeView",
     component: HomeView
   },
   {
     path: "/login",
-    name: "UserLogin",
+    name: "UserLoginView",
     component: UserLoginView
   },
   {
     path: "/signup",
-    name: "UserSignup",
+    name: "UserSignupView",
     component: UserSignupView
+  },
+  {
+    path: "/myPage/:userSeq",
+    name: "UserMyPageView",
+    component: UserMyPageView
+  },
+  {
+    path: "/myReviewPage/:userSeq",
+    name: "UserMyReviewPageView",
+    component: UserMyReviewPageView
   },
   {
     path: "/video",
