@@ -1,15 +1,14 @@
 <template>
-  <div>
-    <h3>검색 결과</h3>
+  <div class="container-sm">
 
-    <ul class="youtube-list">
-      <li
-        v-for="video in videoList"
-        :key="video.id.videoId"
-        @click="clickVideo(video)"
-      >
-        <img :src="video.snippet.thumbnails.default.url" />
-        {{ video.snippet.title }}
+    <ul class="list-group youtube-list">
+      <li v-for="video in videoList" :key="video.id.videoId" @click="clickVideo(video)"
+        class="list-group-item d-flex align-items-center">
+        <img :src="video.snippet.thumbnails.default.url" class="mr-3" />
+        <div class="video-info d-flex flex-column">
+            <h5 class="mb-1">{{ video.snippet.title }}</h5>
+            <p class="mb-0 align-self-start">{{ video.snippet.channelTitle }}</p>
+        </div>
       </li>
     </ul>
   </div>
@@ -65,10 +64,19 @@ export default {
 
 <style scoped>
 .youtube-list {
-  text-align: left;
+  margin-top: 20px;
 }
 
-li {
-  list-style-type: none;
+.youtube-list li {
+  cursor: pointer;
+}
+
+.video-info h5 {
+  margin-bottom: 5px;
+  /* 원하는 간격 설정 */
+  padding-left: 20px;
+}
+.video-info p {
+  margin-left: 20px; /* channertitle의 margin-bottom을 0으로 설정 */
 }
 </style>

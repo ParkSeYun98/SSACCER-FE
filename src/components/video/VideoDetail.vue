@@ -12,8 +12,8 @@
       >
       </iframe>
 
-      <h2>{{ video.snippet.title }}</h2>
-      <h4>{{ video.snippet.channelTitle }}</h4>
+      <h5>{{ video.snippet.title }}</h5>
+      <h5>{{ video.snippet.channelTitle }}</h5>
     </div>
   </div>
 </template>

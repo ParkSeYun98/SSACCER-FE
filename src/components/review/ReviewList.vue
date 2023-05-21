@@ -1,41 +1,52 @@
 <template>
-  <div>
-    <button @click="goRegistReview" class="btn btn-primary">리뷰 등록</button>
+  <div class="container">
+    <hr>
+    <div class="row">
+      <div class="col-md-12">
+        <table id="example" class="table table-striped dt-responsive nowrap" cellspacing="0" width="100%">
+          <thead>
+            <tr>
+              <th></th>
+              <th>번호</th>
+              <th>제목</th>
+              <th>작성자</th>
+              <th>조회수</th>
+              <th>작성시간</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(review, idx) in reviewList" :key="idx" @click="[clickReview(review), goDetailReview(review)]">
+              <td>
+                <i v-if="LikeStatusList[idx] === true" class="bi bi-heart-fill"></i>
+                <i v-else class="bi bi-heart"></i>
+              </td>
+              <td>
+                {{ review.reviewSeq }}
+              </td>
 
-    <table class="table" style="width: 90%; margin: 0 auto">
-      <thead>
-        <tr>
-          <th scope="col"></th>
-          <th scope="col">번호</th>
-          <th scope="col">제목</th>
-          <th scope="col">작성자</th>
-          <th scope="col">조회수</th>
-          <th scope="col">작성시간</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="(review, idx) in reviewList"
-          :key="idx"
-          @click="[clickReview(review), goDetailReview(review)]"
-        >
-          <td>
-            <i v-if="LikeStatusList[idx] === true" class="bi bi-heart-fill"></i>
-            <i v-else class="bi bi-heart"></i>
-          </td>
-          <td>
-            {{ review.reviewSeq }}
-          </td>
+              <td>
+                {{ review.title }}
+              </td>
+              <td>{{ review.writer }}</td>
+              <td>{{ review.viewCnt }}</td>
+              <td>{{ review.createdDate }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-          <td>
-            {{ review.title }}
-          </td>
-          <td>{{ review.writer }}</td>
-          <td>{{ review.viewCnt }}</td>
-          <td>{{ review.createdDate }}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="my-5"></div> <!-- 공간 추가 -->
+
+    <div class="row mt-3 justify-content-end">
+        <div class=" col-md-auto">
+      <button @click="goRegistReview" class="btn btn-primary">리뷰등록</button>
+    </div>
+    <div class="col-md-auto">
+      <router-link to="/video" class="btn btn-secondary">목록으로</router-link>
+    </div>
+  </div>
   </div>
 </template>
 

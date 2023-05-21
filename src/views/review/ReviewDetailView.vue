@@ -1,6 +1,7 @@
 <template>
   <div>
     <VideoDetail></VideoDetail>
+    <br>
     <ReviewDetail></ReviewDetail>
   </div>
 </template>
