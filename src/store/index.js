@@ -207,6 +207,7 @@ export default new Vuex.Store({
         .then(() => {
           alert("삭제 완료!");
           commit("DELETE_USER", userId);
+          router.push("/login");
         })
         .catch(err => {
           console.log(err);

@@ -1,45 +1,68 @@
 <template>
-  <div>
-    <div class="container-fluid vh-100">
-      <div class="row align-items-center h-100">
-        <div class="col-lg-8 col-xl-7">
-          <div class="card text-black rounded-25">
-            <div class="card-body p-md-4">
-              <div class="row justify-content-center">
-                <div class="col-md-5 col-lg-6 col-xl-5" order-lg="1">
-                  <h1 class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
-                    마이 페이지
-                  </h1>
-
-                  <div class="mx-1 mx-md-4">
-                    <div>
-                      <h4>ID: {{ loginUser.userId }}</h4>
-                      <h4>이름: {{ loginUser.name }}</h4>
-                      <h4>닉네임: {{ loginUser.nickname }}</h4>
-                      <h4>등급: {{ loginUser.role }}</h4>
-                      <h4>포지션: {{ loginUser.position }}</h4>
-                    </div>
-
-                    <br />
-
-                    <div class="row mx-4 mb-3 mb-lg-4">
-                      <button
-                        @click="goUserModify"
-                        class="btn btn-primary btn-lg"
-                      >
-                        정보 수정
-                      </button>
-                      <button @click="deleteUser" class="btn btn-danger btn-lg">
-                        회원 탈퇴
-                      </button>
-                    </div>
-
-                    <h4 @click="goMyReviewPage">내가 작성한 리뷰</h4>
+  <div class="content py-5  bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 offset-md-2">
+          <span class="anchor" id="formUserEdit"></span>
+          <!-- form user info -->
+          <div class="card card-outline-secondary">
+            <div class="card-header">
+              <h3 class="mb-0 fw-bold">회원 정보</h3>
+            </div>
+            <div class="card-body">
+              <form class="form" role="form" autocomplete="off">
+                <div class="form-group row">
+                  <label class="col-lg-3 col-form-label form-control-label">ID</label>
+                  <div class="col-lg-9">
+                    <input readonly class="form-control" type="text" v-model="loginUser.userId">
                   </div>
                 </div>
-              </div>
+                <div class="form-group row">
+                  <label class="col-lg-3 col-form-label form-control-label">이름</label>
+                  <div class="col-lg-9">
+                    <input readonly class="form-control" type="text" v-model="loginUser.name" placeholder="new name">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-lg-3 col-form-label form-control-label">닉네임</label>
+                  <div class="col-lg-9">
+                    <input readonly class="form-control" type="text" v-model="loginUser.nickname"
+                      placeholder="new nickname">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-lg-3 col-form-label form-control-label">등급</label>
+                  <div class="col-lg-9">
+                    <input readonly class="form-control" type="text" v-model="loginUser.role">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-lg-3 col-form-label form-control-label">포지션</label>
+                  <div class="col-lg-9">
+                    <input readonly class="form-control" type="text" v-model="loginUser.position">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="col-lg-3 col-form-label form-control-label">Phone No.</label>
+                  <div class="col-lg-9">
+                    <input class="form-control" type="text" v-model="loginUser.phoneNumber"
+                      placeholder="Tel 000-0000-0000">
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <label class="col-lg-3 col-form-label form-control-label"></label>
+                  <hr>
+                  <input @click="goUserModify" type="button" class="btn btn-primary btn-lg" value="정보 수정">
+                  <hr>
+                  <input @click="goMyReviewPage" type="reset" class="btn btn-secondary btn-lg" value="내가 작성한 리뷰">
+                  <hr>
+                  <input @click="deleteUser" type="reset" class="btn btn-danger btn-lg" value="회원 탈퇴">
+                </div>
+              </form>
             </div>
           </div>
+          <!-- /form user info -->
         </div>
       </div>
     </div>

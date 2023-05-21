@@ -52,20 +52,20 @@
                       />
                     </div>
 
-                    <br /><br />
-                    <div class="form-group" id="positionInput">
-                      <label for="positionInput">Position</label>
-                      <select v-model="position">
-                        <option disabled value="">Please select one</option>
-                        <option>올라운더</option>
-                        <option>공격수</option>
-                        <option>미드필더</option>
-                        <option>수비수</option>
-                        <option>골키퍼</option>
-                      </select>
-                    </div>
+                    <div class="form-group row">
+                  <label class="col-lg-3 col-form-label form-control-label">포지션</label>
+                  <div class="col-lg-9">
+                    <select v-model="position" id="position" class="form-control" size="0">
+                      <option disabled value="">select one</option>
+                      <option value="올라운더">올라운더</option>
+                      <option value="공격수">공격수</option>
+                      <option value="미드필더">미드필더</option>
+                      <option value="수비수">수비수</option>
+                      <option value="골키퍼">골키퍼</option>
+                    </select>
+                  </div>
+                </div>
 
-                    <br />
                     <div class="form-group" id="phoneNumberInput">
                       <label for="phoneNumberInput">Phone No.</label>
                       <input
