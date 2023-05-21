@@ -1,17 +1,22 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+// home
 import HomeView from "@/views/home/HomeView.vue";
 
+// user
 import UserLoginView from "@/views/user/UserLoginView.vue";
 import UserSignupView from "@/views/user/UserSignupView.vue";
 import UserMyPageView from "@/views/user/UserMyPageView.vue";
 import UserModifyView from "@/views/user/UserModifyView.vue";
 import UserMyReviewPageView from "@/views/user/UserMyReviewPageView.vue";
+import UploadImageView from "@/views/user/UserUploadImageView.vue";
 
+// video
 import VideoView from "@/views/video/VideoView.vue";
 import VideoDetailView from "@/views/video/VideoDetailView.vue";
 
+// review
 import ReviewRegistView from "@/views/review/ReviewRegistView.vue";
 import ReviewDetailView from "@/views/review/ReviewDetailView.vue";
 import ReviewModifyView from "@/views/review/ReviewModifyView.vue";
@@ -19,6 +24,7 @@ import ReviewModifyView from "@/views/review/ReviewModifyView.vue";
 Vue.use(VueRouter);
 
 const routes = [
+  // user
   {
     path: "/",
     name: "HomeView",
@@ -50,6 +56,13 @@ const routes = [
     component: UserMyReviewPageView
   },
   {
+    path: "/uploadimage/:userSeq",
+    name: "UploadImageView",
+    component: UploadImageView
+  },
+
+  // video
+  {
     path: "/video",
     name: "video",
     component: VideoView
@@ -59,6 +72,8 @@ const routes = [
     name: "videoDetailView",
     component: VideoDetailView
   },
+
+  // review
   {
     path: "/reviewRegist/:videoId",
     name: "reviewRegistView",

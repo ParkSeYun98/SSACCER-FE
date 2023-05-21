@@ -65,6 +65,16 @@ export default new Vuex.Store({
         }
       }
     },
+    UPLOAD_IMAGE(state, img) {
+      state.loginUser.img = img;
+
+      for (let i = 0; i < state.userList.length; i++) {
+        if (state.userList.userSeq === loginUser.userSeq) {
+          state.userList.img = img;
+          return;
+        }
+      }
+    },
 
     // mutation - video
     SEARCH_YOUTUBE(state, videoList) {
@@ -158,6 +168,14 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
+    setLoginInfo({ commit }, userSeq) {
+      for (let i = 0; i < this.state.userList.length; i++) {
+        if (this.state.userList[i].userSeq === userSeq) {
+          this.state.loginUser.img = this.state.userList[i].img;
+          return;
+        }
+      }
+    },
     logout({ commit }) {
       commit("LOGOUT");
       sessionStorage.removeItem("access-token");
@@ -208,6 +226,24 @@ export default new Vuex.Store({
           alert("삭제 완료!");
           commit("DELETE_USER", userId);
           router.push("/login");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    uploadImage({ commit }, box) {
+      const API_URL = `http://localhost:9999/user/uploadimage/${box.userSeq}`;
+      let formData = new FormData();
+      console.log(box.img);
+      console.log(box.userSeq);
+      formData.append("img", box.img);
+
+      axios
+        .put(API_URL, formData, {
+          headers: { "Content-Type": "multlipart/form-data" }
+        })
+        .then(response => {
+          this.commit("UPLOAD_IMAGE", box.img);
         })
         .catch(err => {
           console.log(err);
