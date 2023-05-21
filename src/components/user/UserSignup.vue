@@ -52,19 +52,29 @@
                       />
                     </div>
 
-                    <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">포지션</label>
-                  <div class="col-lg-9">
-                    <select v-model="position" id="position" class="form-control" size="0">
-                      <option disabled value="">select one</option>
-                      <option value="올라운더">올라운더</option>
-                      <option value="공격수">공격수</option>
-                      <option value="미드필더">미드필더</option>
-                      <option value="수비수">수비수</option>
-                      <option value="골키퍼">골키퍼</option>
-                    </select>
-                  </div>
-                </div>
+                    <div
+                      style="display: flex; margin-top: 20px"
+                      class="form-group row"
+                    >
+                      <label class="col-lg-3 col-form-label form-control-label"
+                        >포지션</label
+                      >
+                      <div class="col-lg-9">
+                        <select
+                          v-model="position"
+                          id="position"
+                          class="form-control"
+                          size="0"
+                        >
+                          <option disabled value="">select one</option>
+                          <option value="올라운더">올라운더</option>
+                          <option value="공격수">공격수</option>
+                          <option value="미드필더">미드필더</option>
+                          <option value="수비수">수비수</option>
+                          <option value="골키퍼">골키퍼</option>
+                        </select>
+                      </div>
+                    </div>
 
                     <div class="form-group" id="phoneNumberInput">
                       <label for="phoneNumberInput">Phone No.</label>
@@ -75,6 +85,19 @@
                         class="form-control"
                       />
                     </div>
+
+                    <!-- <div>
+                      <label for="img" class="form-label">이미지</label>
+                      <input
+                        @change="uploadImage()"
+                        type="file"
+                        id="img"
+                        name="img"
+                        class="form-control"
+                        ref="img"
+                        accept="image/*"
+                      />
+                    </div> -->
                     <br /><br />
 
                     <div class="row mx-4 mb-3 mb-lg-4">
@@ -140,12 +163,15 @@ export default {
         role: this.role,
         position: this.position,
         phoneNumber: this.phoneNumber,
-        img: this.img,
-        orgimg: this.orgimg
+        img: this.img
       };
 
       this.$store.dispatch("SignUp", user);
     }
+    // uploadImage() {
+    //   this.img = this.$refs.img.files[0];
+    //   console.log(this.img);
+    // }
   }
 };
 </script>

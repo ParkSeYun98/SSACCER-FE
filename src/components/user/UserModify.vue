@@ -1,5 +1,5 @@
 <template>
-  <div class="content py-5  bg-light">
+  <div class="content py-5 bg-light">
     <div class="container">
       <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -10,36 +10,73 @@
               <h3 class="mb-0 fw-bold">회원 정보 수정</h3>
             </div>
             <div class="card-body">
-              <form class="form" role="form" autocomplete="off">
+              <div class="form" role="form" autocomplete="off">
                 <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">ID</label>
+                  <label class="col-lg-3 col-form-label form-control-label"
+                    >ID</label
+                  >
                   <div class="col-lg-9">
-                    <input readonly class="form-control" type="text" v-model="loginUser.userId">
+                    <input
+                      readonly
+                      class="form-control"
+                      type="text"
+                      v-model="loginUser.userId"
+                    />
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">이름</label>
+                  <label class="col-lg-3 col-form-label form-control-label"
+                    >이름</label
+                  >
                   <div class="col-lg-9">
-                    <input class="form-control" type="text" v-model="loginUser.name" placeholder="new name">
+                    <input
+                      class="form-control"
+                      type="text"
+                      v-model="loginUser.name"
+                      placeholder="new name"
+                    />
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">닉네임</label>
+                  <label class="col-lg-3 col-form-label form-control-label"
+                    >닉네임</label
+                  >
                   <div class="col-lg-9">
-                    <input class="form-control" type="text" v-model="loginUser.nickname" placeholder="new nickname">
+                    <input
+                      class="form-control"
+                      type="text"
+                      v-model="loginUser.nickname"
+                      placeholder="new nickname"
+                    />
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">등급</label>
+                  <label class="col-lg-3 col-form-label form-control-label"
+                    >등급</label
+                  >
                   <div class="col-lg-9">
-                    <input readonly class="form-control" type="text" v-model="loginUser.role">
+                    <input
+                      readonly
+                      class="form-control"
+                      type="text"
+                      v-model="loginUser.role"
+                    />
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">포지션</label>
+                  <label class="col-lg-3 col-form-label form-control-label"
+                    >포지션</label
+                  >
                   <div class="col-lg-9">
-                    <select v-model="loginUser.position" id="position" class="form-control" size="0">
-                      <option disabled value="">현재 : {{ loginUser.position }}</option>
+                    <select
+                      v-model="loginUser.position"
+                      id="position"
+                      class="form-control"
+                      size="0"
+                    >
+                      <option disabled value="">
+                        현재 : {{ loginUser.position }}
+                      </option>
                       <option value="올라운더">올라운더</option>
                       <option value="공격수">공격수</option>
                       <option value="미드필더">미드필더</option>
@@ -49,29 +86,52 @@
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">Phone No.</label>
+                  <label class="col-lg-3 col-form-label form-control-label"
+                    >Phone No.</label
+                  >
                   <div class="col-lg-9">
-                    <input class="form-control" type="text" v-model="loginUser.phoneNumber"
-                      placeholder="Tel 000-0000-0000">
+                    <input
+                      class="form-control"
+                      type="text"
+                      v-model="loginUser.phoneNumber"
+                      placeholder="Tel 000-0000-0000"
+                    />
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">Password</label>
+                  <label class="col-lg-3 col-form-label form-control-label"
+                    >Password</label
+                  >
                   <div class="col-lg-9">
-                    <input class="form-control" type="password" v-model="loginUser.password">
+                    <input
+                      class="form-control"
+                      type="password"
+                      v-model="loginUser.password"
+                    />
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label"></label>
+                  <label
+                    class="col-lg-3 col-form-label form-control-label"
+                  ></label>
                   <div class="col-lg-6">
-                    <input @click="modifyUser" type="button" class="btn btn-primary" value="수정 완료">
-                    <input @click="cancel" type="reset" class="btn btn-secondary" value="취소">
-
+                    <input
+                      @click="modifyUser"
+                      type="button"
+                      class="btn btn-primary"
+                      value="수정 완료"
+                    />
+                    <input
+                      @click="cancel"
+                      type="reset"
+                      class="btn btn-secondary"
+                      value="취소"
+                    />
                   </div>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
           <!-- /form user info -->
@@ -95,8 +155,8 @@ export default {
     },
     cancel() {
       this.$router.push("/myPage/" + this.loginUser.userSeq);
-    },
-  },
+    }
+  }
 };
 </script>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="content py-5  bg-light">
+  <div class="content py-5 bg-light">
     <div class="container">
       <div class="row">
         <div class="col-md-8 offset-md-2">
@@ -10,56 +10,125 @@
               <h3 class="mb-0 fw-bold">회원 정보</h3>
             </div>
             <div class="card-body">
-              <form class="form" role="form" autocomplete="off">
+              <div class="form" role="form" autocomplete="off">
+                <button @click="goImageUploadPage" class="btn btn-primary">
+                  이미지 업로드하기
+                </button>
+
+                <!-- 이미지 -->
+                <!-- <img
+                  referrerpolicy="no-referrer"
+                  :src="`${this.loginUser.img}`"
+                /> -->
+
                 <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">ID</label>
+                  <label class="col-lg-3 col-form-label form-control-label"
+                    >ID</label
+                  >
                   <div class="col-lg-9">
-                    <input readonly class="form-control" type="text" v-model="loginUser.userId">
+                    <input
+                      readonly
+                      class="form-control"
+                      type="text"
+                      v-model="loginUser.userId"
+                    />
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">이름</label>
+                  <label class="col-lg-3 col-form-label form-control-label"
+                    >이름</label
+                  >
                   <div class="col-lg-9">
-                    <input readonly class="form-control" type="text" v-model="loginUser.name" placeholder="new name">
+                    <input
+                      readonly
+                      class="form-control"
+                      type="text"
+                      v-model="loginUser.name"
+                      placeholder="new name"
+                    />
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">닉네임</label>
+                  <label class="col-lg-3 col-form-label form-control-label"
+                    >닉네임</label
+                  >
                   <div class="col-lg-9">
-                    <input readonly class="form-control" type="text" v-model="loginUser.nickname"
-                      placeholder="new nickname">
+                    <input
+                      readonly
+                      class="form-control"
+                      type="text"
+                      v-model="loginUser.nickname"
+                      placeholder="new nickname"
+                    />
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">등급</label>
+                  <label class="col-lg-3 col-form-label form-control-label"
+                    >등급</label
+                  >
                   <div class="col-lg-9">
-                    <input readonly class="form-control" type="text" v-model="loginUser.role">
+                    <input
+                      readonly
+                      class="form-control"
+                      type="text"
+                      v-model="loginUser.role"
+                    />
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">포지션</label>
+                  <label class="col-lg-3 col-form-label form-control-label"
+                    >포지션</label
+                  >
                   <div class="col-lg-9">
-                    <input readonly class="form-control" type="text" v-model="loginUser.position">
+                    <input
+                      readonly
+                      class="form-control"
+                      type="text"
+                      v-model="loginUser.position"
+                    />
                   </div>
                 </div>
                 <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label">Phone No.</label>
+                  <label class="col-lg-3 col-form-label form-control-label"
+                    >Phone No.</label
+                  >
                   <div class="col-lg-9">
-                    <input class="form-control" type="text" v-model="loginUser.phoneNumber"
-                      placeholder="Tel 000-0000-0000">
+                    <input
+                      class="form-control"
+                      type="text"
+                      v-model="loginUser.phoneNumber"
+                      placeholder="Tel 000-0000-0000"
+                    />
                   </div>
                 </div>
 
                 <div class="form-group row">
-                  <label class="col-lg-3 col-form-label form-control-label"></label>
-                  <hr>
-                  <input @click="goUserModify" type="button" class="btn btn-primary btn-lg" value="정보 수정">
-                  <hr>
-                  <input @click="goMyReviewPage" type="reset" class="btn btn-secondary btn-lg" value="내가 작성한 리뷰">
-                  <hr>
-                  <input @click="deleteUser" type="reset" class="btn btn-danger btn-lg" value="회원 탈퇴">
+                  <label
+                    class="col-lg-3 col-form-label form-control-label"
+                  ></label>
+                  <hr />
+                  <input
+                    @click="goUserModify"
+                    type="button"
+                    class="btn btn-primary btn-lg"
+                    value="정보 수정"
+                  />
+                  <hr />
+                  <input
+                    @click="goMyReviewPage"
+                    type="reset"
+                    class="btn btn-secondary btn-lg"
+                    value="내가 작성한 리뷰"
+                  />
+                  <hr />
+                  <input
+                    @click="deleteUser"
+                    type="reset"
+                    class="btn btn-danger btn-lg"
+                    value="회원 탈퇴"
+                  />
                 </div>
-              </form>
+              </div>
             </div>
           </div>
           <!-- /form user info -->
@@ -77,6 +146,18 @@ export default {
   computed: {
     ...mapState(["loginUser"])
   },
+  data() {
+    return {
+      source: ""
+    };
+  },
+
+  created() {
+    this.$store.dispatch("setLoginInfo", this.$route.params.userSeq);
+    console.log(this.loginUser);
+    console.log(this.loginUser.img);
+    this.source = this.loginUser.img;
+  },
   methods: {
     goMyReviewPage() {
       this.$router.push("/myReviewPage/" + this.$route.params.userSeq);
@@ -89,6 +170,10 @@ export default {
     deleteUser() {
       this.$store.dispatch("deleteUser", this.loginUser.userId);
       this.$store.dispatch("logout");
+    },
+    goImageUploadPage() {
+      console.log(this.loginUser.img);
+      this.$router.push("/uploadImage/" + this.$route.params.userSeq);
     }
   }
 };
