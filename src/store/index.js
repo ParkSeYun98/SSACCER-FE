@@ -9,7 +9,6 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   plugins: [
     createVuexPersistedState({
-      whiteList: ["DBvideoList"],
       storage: window.sessionStorage
     })
   ],

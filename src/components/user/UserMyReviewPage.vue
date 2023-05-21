@@ -13,7 +13,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(reviewLike, idx) in reviewLikeList" :key="idx">
+        <tr
+          @click="goReviewDetail(idx)"
+          v-for="(reviewLike, idx) in reviewLikeList"
+          :key="idx"
+        >
           <td><img :src="thumbnails[idx]" /></td>
 
           <td>
@@ -61,6 +65,14 @@ export default {
           }
         }
       }
+    },
+    goReviewDetail(idx) {
+      this.$router.push(
+        "/reviewDetail/" +
+          this.reviewLikeList[idx].youtubeId +
+          "/" +
+          this.reviewLikeList[idx].reviewSeq
+      );
     }
   }
 };

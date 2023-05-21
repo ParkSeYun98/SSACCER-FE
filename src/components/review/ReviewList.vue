@@ -20,10 +20,7 @@
           @click="[clickReview(review), goDetailReview(review)]"
         >
           <td>
-            <i
-              v-if="LikeStatusList[idx].status === true"
-              class="bi bi-heart-fill"
-            ></i>
+            <i v-if="LikeStatusList[idx] === true" class="bi bi-heart-fill"></i>
             <i v-else class="bi bi-heart"></i>
           </td>
           <td>
@@ -65,7 +62,8 @@ export default {
   },
   data() {
     return {
-      LikeStatusList: []
+      LikeStatusList: [],
+      idx: 0
     };
   },
   methods: {
@@ -76,16 +74,11 @@ export default {
       this.$router.push("/reviewRegist/" + this.$route.params.videoId);
     },
     goDetailReview(review) {
-      // this.$store.dispatch("getReview", review.reviewSeq);
-
       this.$router.push(
         "/reviewDetail/" + this.$route.params.videoId + "/" + review.reviewSeq
       );
     },
     getLikeStatusList() {
-      console.log(this.reviewList);
-      console.log(this.reviewLikeList);
-
       for (let i = 0; i < this.reviewList.length; i++) {
         let flag = false;
 
@@ -93,21 +86,14 @@ export default {
           if (
             this.reviewList[i].reviewSeq === this.reviewLikeList[j].reviewSeq
           ) {
-            console.log("true 발생!!");
             flag = true;
             break;
           }
         }
         if (flag) {
-          this.LikeStatusList.push({
-            status: true,
-            review: this.reviewList[i]
-          });
+          this.LikeStatusList.push(true);
         } else {
-          this.LikeStatusList.push({
-            status: false,
-            review: this.reviewList[i]
-          });
+          this.LikeStatusList.push(false);
         }
       }
     }
