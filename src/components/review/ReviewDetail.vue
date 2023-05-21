@@ -4,9 +4,9 @@
       <i
         v-if="reviewLikeOrNot"
         @click="unlikeReview"
-        class="bi bi-arrow-through-heart-fill"
+        class="bi bi-heart-fill"
       ></i>
-      <i v-else @click="likeReview" class="bi bi-arrow-through-heart"></i>
+      <i v-else @click="likeReview" class="bi bi-heart"></i>
 
       <h4>리뷰 제목 : {{ review.title }}</h4>
       <h5>글쓴이 : {{ review.writer }}</h5>
@@ -52,8 +52,6 @@ export default {
       this.$store.dispatch("unlikeReview", this.$route.params.reviewSeq);
 
       location.href = `/videoDetail/${this.$route.params.videoId}`;
-      //   this.$router.push("/videoDetail/" + this.$route.params.videoId);
-      //   this.$router.go(0);
     },
     goReviewModify() {
       this.$router.push(

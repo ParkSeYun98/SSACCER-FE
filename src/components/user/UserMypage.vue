@@ -23,7 +23,10 @@
                     <br />
 
                     <div class="row mx-4 mb-3 mb-lg-4">
-                      <button @click="goUserModify" class="btn btn-primary btn-lg">
+                      <button
+                        @click="goUserModify"
+                        class="btn btn-primary btn-lg"
+                      >
                         정보 수정
                       </button>
                       <button @click="deleteUser" class="btn btn-danger btn-lg">
@@ -63,8 +66,8 @@ export default {
     deleteUser() {
       this.$store.dispatch("deleteUser", this.loginUser.userId);
       this.$store.dispatch("logout");
-    },
-  },
+    }
+  }
 };
 </script>
 

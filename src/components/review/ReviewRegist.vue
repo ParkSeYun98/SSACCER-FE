@@ -39,12 +39,15 @@ export default {
         }
       }
 
+      console.log(videoSeq);
+      console.log(this.loginUser);
+
       const Review = {
         userSeq: this.loginUser.userSeq,
         videoSeq: videoSeq,
         title: this.title,
         content: this.content,
-        writer: this.loginUserName
+        writer: this.loginUser.name
       };
 
       this.$store.dispatch("registReview", Review);

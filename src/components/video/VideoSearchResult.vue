@@ -31,12 +31,14 @@ export default {
       // YoutubeVideo와 dbvideo는 서로 형식이 다름
       this.$store.dispatch("getVideoList");
 
+      console.log(YoutubeVideo);
+
       const dbvideo = {
-        videoSeq: 0,
         youtubeId: YoutubeVideo.id.videoId,
         title: YoutubeVideo.snippet.title,
         url: `https://youtube.com/embed/${YoutubeVideo.id.videoId}`,
-        channelName: YoutubeVideo.snippet.channelTitle
+        channelName: YoutubeVideo.snippet.channelTitle,
+        thumbnail: YoutubeVideo.snippet.thumbnails.default.url
       };
 
       this.$store.dispatch("clickVideo", YoutubeVideo);
