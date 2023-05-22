@@ -69,12 +69,14 @@ export default {
       this.$store.dispatch("registReview", Review);
 
       this.goVideoDetailView();
+
+      this.beforeUpdateRole();
     },
     goVideoDetailView() {
       this.$router.push("/videoDetail/" + this.$route.params.videoId);
     },
-    updateRole() {
-      this.$store.dispatch("updateRole");
+    beforeUpdateRole() {
+      this.$store.dispatch("beforeUpdateRole");
     }
   }
 };
