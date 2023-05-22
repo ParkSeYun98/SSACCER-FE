@@ -1,5 +1,6 @@
 <template>
   <div>
+    <br>
     <h2>유튜브 비디오 페이지</h2>
 
     <VideoCategory></VideoCategory>

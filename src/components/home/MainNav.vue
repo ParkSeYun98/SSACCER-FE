@@ -35,7 +35,7 @@
             focusable="false"
           >
             <image
-              style="width: 100%"
+              style="width: 100% height:100%"
               href="http://fieldgreen.kr/assets/img/page-title-area/about2.png"
               alt="..."
             />
@@ -46,7 +46,7 @@
             <div class="carousel-caption text-start">
               <h1>우리동네 풋살팀 찾기</h1>
               <p>
-                TEAM MATCHING 게시판을 활용해 풋살팀을 구하고 경기 일정을
+                TEAM MATCHING 게시판을 통해 풋살팀을 구하고 경기 일정을
                 잡으세요.
               </p>
               <p>
@@ -66,7 +66,7 @@
             focusable="false"
           >
             <image
-              style="width: 100%"
+              style="width: 100% height:100%"
               href="https://img.sbs.co.kr/newimg/news/20221207/201728389_1280.jpg"
               alt="..."
             />
@@ -91,14 +91,15 @@
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
-            <image href="" alt="..." />
+            <image style="width: 100% height:100%"
+href="https://cdn.imweb.me/upload/S202002108cdceef7fc868/c064f36de94ff.jpg" alt="..." />
 
             <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
           </svg>
           <div class="container">
             <div class="carousel-caption text-end">
-              <h1>축구 영상 페이지</h1>
-              <p>축구 영상 보고 힘내세요</p>
+              <h1>Youtube 시청</h1>
+              <p>키워드별 축구 영상을 시청하세요</p>
               <p>
                 <a class="btn btn-lg btn-primary" href="/video">바로가기</a>
               </p>
@@ -144,6 +145,8 @@
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
+          <image href="https://static.thenounproject.com/png/5734458-200.png" width="100%"
+              height="100%" alt="..." />
             <title>Placeholder</title>
             <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
           </svg>
@@ -163,6 +166,8 @@
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
+          <image href="https://thenounproject.com/api/private/icons/4854270/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0&token=gAAAAABka21QAgpQqAr82mYPAZTkKgE2lZoU4LLXFzwcCpvNCFrqYdFYb7JWcEbzpCCAUT1g_B1C4ofw-SPtDUMg9yqQ-3drSg%3D%3D" width="100%"
+              height="100%" alt="..." />
             <title>Placeholder</title>
             <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
           </svg>
@@ -182,11 +187,14 @@
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
+          
+          <image href="https://thenounproject.com/api/private/icons/2068136/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0&token=gAAAAABka21QAgpQqAr82mYPAZTkKgE2lZoU4LLXFzwcCpvNCFrqYdFYb7JWcEbzpCCAUT1g_B1C4ofw-SPtDUMg9yqQ-3drSg%3D%3D" width="100%"
+              height="100%" alt="..." />
             <title>Placeholder</title>
             <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
           </svg>
           <h2 class="fw-normal">Youtube</h2>
-          <p>영상 보고 실력 늘리기</p>
+          <p>축구 영상 시청</p>
           <p>
             <a class="btn btn-secondary" @click="goVideoView"
               >View details &raquo;</a
