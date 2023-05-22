@@ -21,6 +21,9 @@ import ReviewRegistView from "@/views/review/ReviewRegistView.vue";
 import ReviewDetailView from "@/views/review/ReviewDetailView.vue";
 import ReviewModifyView from "@/views/review/ReviewModifyView.vue";
 
+// weather
+import WeatherView from "@/views/weather/WeatherView.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -88,6 +91,13 @@ const routes = [
     path: "/reviewModify/:videoId/:reviewSeq",
     name: "ReviewModifyView",
     component: ReviewModifyView
+  },
+
+  // weather
+  {
+    path: "/weather",
+    name: "WeatherView",
+    component: WeatherView
   }
 ];
 

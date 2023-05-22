@@ -11,9 +11,18 @@
             </div>
             <div class="card-body">
               <div class="form" role="form" autocomplete="off">
-                <button @click="goImageUploadPage" class="btn btn-primary">
-                  이미지 업로드하기
-                </button>
+                <div>
+                  <label for="img">이미지</label>
+                  <input
+                    @change="uploadImage()"
+                    type="file"
+                    id="img"
+                    name="img"
+                    class="form-control"
+                    ref="img"
+                    accept="image/*"
+                  />
+                </div>
 
                 <!-- 이미지 -->
                 <!-- <img
@@ -23,7 +32,8 @@
 
                 <img
                   :src="
-                    '/user/display?filename=' + `${this.loginUser.img.name}`
+                    'http://localhost:9999/user/display?userSeq=' +
+                    `${this.loginUser.userSeq}`
                   "
                   width="300px"
                 />
@@ -155,15 +165,15 @@ export default {
   },
   data() {
     return {
-      source: ""
+      source: "",
+      img: ""
     };
   },
 
   created() {
     this.$store.dispatch("getUserList");
     this.$store.dispatch("setLoginInfo", this.$route.params.userSeq);
-    console.log(this.loginUser);
-    console.log(this.loginUser.img);
+    console.log(this.loginUser.userSeq);
     this.source = this.loginUser.img;
   },
   methods: {
@@ -179,8 +189,18 @@ export default {
       this.$store.dispatch("deleteUser", this.loginUser.userId);
       this.$store.dispatch("logout");
     },
-    goImageUploadPage() {
-      this.$router.push("/uploadImage/" + this.$route.params.userSeq);
+
+    uploadImage() {
+      this.img = this.$refs.img.files[0];
+      console.log(this.img);
+      console.log(this.loginUser.userSeq);
+
+      let box = {
+        img: this.img,
+        userSeq: this.loginUser.userSeq
+      };
+
+      this.$store.dispatch("uploadImage", box);
     }
   }
 };

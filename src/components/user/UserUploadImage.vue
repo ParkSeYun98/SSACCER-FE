@@ -39,7 +39,14 @@ export default {
 
       this.$store.dispatch("uploadImage", box);
 
-      this.$router.push("/myPage/" + this.loginUser.userSeq);
+      // setTimeout(
+      //   () => this.$router.push("/myPage/" + this.loginUser.userSeq),
+      //   5000
+      // );
+
+      // setTimeout (() => {
+
+      // }, 3000);
     }
   }
 };

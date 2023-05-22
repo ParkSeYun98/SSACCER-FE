@@ -32,7 +32,12 @@ export default new Vuex.Store({
     // state - reviewlike
     reviewLikeOrNot: false,
     reviewLikeList: [],
-    reviewLikeInfo: null
+    reviewLikeInfo: null,
+
+    // state - weather
+    locationList: [],
+    baseDateAndTime: [],
+    weatherInfo: []
   },
   getters: {},
   mutations: {
@@ -148,6 +153,17 @@ export default new Vuex.Store({
       }
 
       state.reviewLikeInfo = {};
+    },
+
+    // mutation - weather
+    GET_LOCATIONLIST(state, list) {
+      state.locationList = list;
+    },
+    BASE_DATE_AND_TIME(state, base) {
+      state.baseDateAndTime = base;
+    },
+    GET_WEATHER(state, weatherInfo) {
+      state.weatherInfo = weatherInfo;
     }
   },
   actions: {
@@ -250,8 +266,9 @@ export default new Vuex.Store({
         .put(API_URL, formData, {
           headers: { "Content-Type": "multlipart/form-data" }
         })
-        .then(response => {
-          this.commit("UPLOAD_IMAGE", box.img);
+        .then(() => {
+          commit("UPLOAD_IMAGE", box.img);
+          router.go(0);
         })
         .catch(err => {
           console.log(err);
@@ -566,6 +583,63 @@ export default new Vuex.Store({
           this.dispatch("getReviewLikeStatus", reviewSeq);
 
           commit("SET_REVIEW_LIKE_INFO", reviewSeq);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
+    // action - weather
+    getLocationList({ commit }) {
+      const API_URL = "http://localhost:9999/soccerxy/list";
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      }).then(response => {
+        commit("GET_LOCATIONLIST", response.data);
+      });
+    },
+    getBaseDateAndTime({ commit }) {
+      const API_URL = "http://localhost:9999/weather/now";
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          commit("BASE_DATE_AND_TIME", response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getWeather({ commit }, weatherDTO) {
+      const API_URL = "http://localhost:9999/weather/data";
+
+      console.log(weatherDTO);
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        params: {
+          baseDate: weatherDTO.baseDate,
+          baseTime: weatherDTO.baseTime,
+          nx: weatherDTO.nx,
+          ny: weatherDTO.ny
+        },
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          commit("GET_WEATHER", response.data);
         })
         .catch(err => {
           console.log(err);
