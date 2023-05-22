@@ -167,6 +167,7 @@ export default {
       };
 
       this.$store.dispatch("SignUp", user);
+      this.$store.dispatch("getUserList");
     }
     // uploadImage() {
     //   this.img = this.$refs.img.files[0];

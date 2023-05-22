@@ -152,6 +152,7 @@ export default {
   methods: {
     modifyUser() {
       this.$store.dispatch("modifyUser", this.loginUser);
+      this.$store.dispatch("getUserList");
     },
     cancel() {
       this.$router.push("/myPage/" + this.loginUser.userSeq);

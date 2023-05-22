@@ -21,6 +21,7 @@ export default new Vuex.Store({
 
     // state - user
     userList: [],
+    DBuserList: [],
     loginUser: {},
     loginUserName: null,
 
@@ -69,11 +70,14 @@ export default new Vuex.Store({
       state.loginUser.img = img;
 
       for (let i = 0; i < state.userList.length; i++) {
-        if (state.userList.userSeq === loginUser.userSeq) {
+        if (state.userList.userSeq === state.loginUser.userSeq) {
           state.userList.img = img;
           return;
         }
       }
+    },
+    GET_USERLIST(state, userlist) {
+      state.DBuserList = userlist;
     },
 
     // mutation - video
@@ -169,9 +173,13 @@ export default new Vuex.Store({
         });
     },
     setLoginInfo({ commit }, userSeq) {
-      for (let i = 0; i < this.state.userList.length; i++) {
-        if (this.state.userList[i].userSeq === userSeq) {
-          this.state.loginUser.img = this.state.userList[i].img;
+      for (let i = 0; i < this.state.DBuserList.length; i++) {
+        console.log(this.state.DBuserList[i]);
+
+        if (this.state.DBuserList[i].userSeq === userSeq) {
+          console.log(this.state.DBuserList[i]);
+          console.log("!!");
+          this.state.loginUser.img = this.state.DBuserList[i].img;
           return;
         }
       }
@@ -248,6 +256,42 @@ export default new Vuex.Store({
         .catch(err => {
           console.log(err);
         });
+    },
+    getUserList({ commit }) {
+      const API_URL = "http://localhost:9999/user/read/list";
+
+      axios({
+        url: API_URL,
+        method: "GET"
+      })
+        .then(response => {
+          commit("GET_USERLIST", response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    beforeUpdateRole({ commit }) {
+      let reviewCnt = 0;
+
+      const API_URL1 = `http://localhost:9999/review/readbyuserseq/list/${this
+        .state.loginUser.userSeq}`;
+
+      axios({
+        url: API_URL1,
+        method: "GET"
+      }).then(response => {
+        if (response.data >= 1 && response.data < 3) {
+          this.dispatch("updateRole", "BRONZE");
+        } else if (response.data >= 3 && response.data <= 5) {
+          this.dispatch("updateRole", "SILVER");
+        } else if (response.data > 5 && response.data < 10) {
+          this.dispatch("updaateRole", "GOLD");
+        } else if (response.data >= 11 && response.data < 20) {
+          this.dispatch("updateRole", "PLATINUM");
+        }
+        // else if(response.data >= 20 && response.data < )
+      });
     },
 
     // action - Video

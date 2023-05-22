@@ -1,15 +1,16 @@
 <template>
   <div class="container-sm">
-    <hr>
-    <div class="my-5"></div> <!-- 공간 추가 -->
+    <hr />
+    <div class="my-5"></div>
+    <!-- 공간 추가 -->
 
     <div class="form-group">
       <label for="title">리뷰 제목</label>
       <input type="text" id="title" v-model="title" class="form-control" />
     </div>
 
-
-    <div class="my-3"></div> <!-- 공간 추가 -->
+    <div class="my-3"></div>
+    <!-- 공간 추가 -->
 
     <div class="form-group">
       <label for="content">리뷰 내용</label>
@@ -21,7 +22,9 @@
         <button @click="registReview" class="btn btn-primary">등록하기</button>
       </div>
       <div class="col-md-auto">
-        <button @click="goVideoDetailView" class="btn btn-secondary">취소하기</button>
+        <button @click="goVideoDetailView" class="btn btn-secondary">
+          취소하기
+        </button>
       </div>
     </div>
   </div>
@@ -69,6 +72,9 @@ export default {
     },
     goVideoDetailView() {
       this.$router.push("/videoDetail/" + this.$route.params.videoId);
+    },
+    updateRole() {
+      this.$store.dispatch("updateRole");
     }
   }
 };

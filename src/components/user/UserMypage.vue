@@ -21,6 +21,13 @@
                   :src="`${this.loginUser.img}`"
                 /> -->
 
+                <img
+                  :src="
+                    '/user/display?filename=' + `${this.loginUser.img.name}`
+                  "
+                  width="300px"
+                />
+
                 <div class="form-group row">
                   <label class="col-lg-3 col-form-label form-control-label"
                     >ID</label
@@ -144,7 +151,7 @@ import { mapState } from "vuex";
 export default {
   name: "UserMyPage",
   computed: {
-    ...mapState(["loginUser"])
+    ...mapState(["loginUser", "DBuserList"])
   },
   data() {
     return {
@@ -153,6 +160,7 @@ export default {
   },
 
   created() {
+    this.$store.dispatch("getUserList");
     this.$store.dispatch("setLoginInfo", this.$route.params.userSeq);
     console.log(this.loginUser);
     console.log(this.loginUser.img);
@@ -172,7 +180,6 @@ export default {
       this.$store.dispatch("logout");
     },
     goImageUploadPage() {
-      console.log(this.loginUser.img);
       this.$router.push("/uploadImage/" + this.$route.params.userSeq);
     }
   }
