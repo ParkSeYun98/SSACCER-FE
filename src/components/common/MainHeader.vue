@@ -9,10 +9,10 @@
           class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
         >
           <img
-            src="@/assets/logo2.png"
+            src="@/assets/logo5.png"
             alt="Logo"
-            width="130px"
-            height="40px"
+            width="220px"
+            height="80px"
           />
           <svg
             class="bi me-2"
@@ -68,7 +68,7 @@ import { mapState } from "vuex";
 export default {
   name: "MainHeader",
   computed: {
-    ...mapState(["loginUserName", "loginUser"])
+    ...mapState(["loginUserName", "loginUser"]),
   },
   methods: {
     GoUserLogin() {
@@ -104,8 +104,8 @@ export default {
       if (this.$route.path !== "/weather") {
         this.$router.push("/weather");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
