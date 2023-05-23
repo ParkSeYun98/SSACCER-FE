@@ -36,7 +36,6 @@
           </li>
           <li>
             <a @click="goWeatherView" class="nav-link px-2 text-white">날씨</a>
-            >>>>>>> main
           </li>
         </ul>
 
@@ -69,7 +68,7 @@ import { mapState } from "vuex";
 export default {
   name: "MainHeader",
   computed: {
-    ...mapState(["loginUserName", "loginUser"]),
+    ...mapState(["loginUserName", "loginUser"])
   },
   methods: {
     GoUserLogin() {
@@ -101,12 +100,12 @@ export default {
         this.$router.push("/myPage/" + this.loginUser.userSeq);
       }
     },
-    // goWeatherView() {
-    //   if (this.$route.path !== "/weather") {
-    //     this.$router.push("/weather");
-    //   }
-    // },
-  },
+    goWeatherView() {
+      if (this.$route.path !== "/weather") {
+        this.$router.push("/weather");
+      }
+    }
+  }
 };
 </script>
 

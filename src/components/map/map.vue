@@ -1,4 +1,4 @@
-<template>
+<!-- <template>
   <div class="container-sm">
     <!-- 구글 맵 -->
     <gmap-map
@@ -91,4 +91,4 @@ export default {
 .container-sm {
   margin-top: 40px;
 }
-</style>
+</style> -->
