@@ -11,6 +11,7 @@
             </div>
             <div class="card-body">
               <div class="form" role="form" autocomplete="off">
+                <!-- 이미지 -->
                 <div>
                   <label for="img">이미지</label>
                   <input
@@ -24,18 +25,14 @@
                   />
                 </div>
 
-                <!-- 이미지 -->
-                <!-- <img
-                  referrerpolicy="no-referrer"
-                  :src="`${this.loginUser.img}`"
-                /> -->
+                <!-- <img referrerpolicy="no-referrer" :src="img" width="100px" /> -->
 
                 <img
                   :src="
                     'http://localhost:9999/user/display?userSeq=' +
                     `${this.loginUser.userSeq}`
                   "
-                  width="300px"
+                  width="100px"
                 />
 
                 <div class="form-group row">
@@ -161,19 +158,18 @@ import { mapState } from "vuex";
 export default {
   name: "UserMyPage",
   computed: {
-    ...mapState(["loginUser", "DBuserList"])
+    ...mapState(["loginUser", "DBuserList"]),
   },
   data() {
     return {
       source: "",
-      img: ""
+      img: "",
     };
   },
 
   created() {
     this.$store.dispatch("getUserList");
     this.$store.dispatch("setLoginInfo", this.$route.params.userSeq);
-    console.log(this.loginUser.userSeq);
     this.source = this.loginUser.img;
   },
   methods: {
@@ -192,17 +188,15 @@ export default {
 
     uploadImage() {
       this.img = this.$refs.img.files[0];
-      console.log(this.img);
-      console.log(this.loginUser.userSeq);
 
       let box = {
         img: this.img,
-        userSeq: this.loginUser.userSeq
+        userSeq: this.loginUser.userSeq,
       };
 
       this.$store.dispatch("uploadImage", box);
-    }
-  }
+    },
+  },
 };
 </script>
 

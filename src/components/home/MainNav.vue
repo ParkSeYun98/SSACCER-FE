@@ -91,8 +91,11 @@
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
-            <image style="width: 100% height:100%"
-href="https://cdn.imweb.me/upload/S202002108cdceef7fc868/c064f36de94ff.jpg" alt="..." />
+            <image
+              style="width: 100% height:100%"
+              href="https://cdn.imweb.me/upload/S202002108cdceef7fc868/c064f36de94ff.jpg"
+              alt="..."
+            />
 
             <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
           </svg>
@@ -145,8 +148,12 @@ href="https://cdn.imweb.me/upload/S202002108cdceef7fc868/c064f36de94ff.jpg" alt=
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
-          <image href="https://static.thenounproject.com/png/5734458-200.png" width="100%"
-              height="100%" alt="..." />
+            <image
+              href="https://static.thenounproject.com/png/5734458-200.png"
+              width="100%"
+              height="100%"
+              alt="..."
+            />
             <title>Placeholder</title>
             <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
           </svg>
@@ -166,8 +173,12 @@ href="https://cdn.imweb.me/upload/S202002108cdceef7fc868/c064f36de94ff.jpg" alt=
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
-          <image href="https://thenounproject.com/api/private/icons/4854270/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0&token=gAAAAABka21QAgpQqAr82mYPAZTkKgE2lZoU4LLXFzwcCpvNCFrqYdFYb7JWcEbzpCCAUT1g_B1C4ofw-SPtDUMg9yqQ-3drSg%3D%3D" width="100%"
-              height="100%" alt="..." />
+            <image
+              href="https://cdn0.iconfinder.com/data/icons/interface-line-4/48/news_text_article-256.png"
+              width="100%"
+              height="100%"
+              alt="..."
+            />
             <title>Placeholder</title>
             <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
           </svg>
@@ -187,9 +198,12 @@ href="https://cdn.imweb.me/upload/S202002108cdceef7fc868/c064f36de94ff.jpg" alt=
             preserveAspectRatio="xMidYMid slice"
             focusable="false"
           >
-          
-          <image href="https://thenounproject.com/api/private/icons/2068136/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0&token=gAAAAABka21QAgpQqAr82mYPAZTkKgE2lZoU4LLXFzwcCpvNCFrqYdFYb7JWcEbzpCCAUT1g_B1C4ofw-SPtDUMg9yqQ-3drSg%3D%3D" width="100%"
-              height="100%" alt="..." />
+            <image
+              href="https://cdn1.iconfinder.com/data/icons/social-media-outline-6/128/SocialMedia_Youtube-Outline-256.png"
+              width="100%"
+              height="100%"
+              alt="..."
+            />
             <title>Placeholder</title>
             <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
           </svg>
@@ -215,8 +229,8 @@ export default {
   methods: {
     goVideoView() {
       this.$router.push("/video");
-    }
-  }
+    },
+  },
 };
 </script>
 
