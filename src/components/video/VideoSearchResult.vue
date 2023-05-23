@@ -1,13 +1,16 @@
 <template>
   <div class="container-sm">
-
     <ul class="list-group youtube-list">
-      <li v-for="video in videoList" :key="video.id.videoId" @click="clickVideo(video)"
-        class="list-group-item d-flex align-items-center">
+      <li
+        v-for="video in videoList"
+        :key="video.id.videoId"
+        @click="clickVideo(video)"
+        class="list-group-item d-flex align-items-center"
+      >
         <img :src="video.snippet.thumbnails.default.url" class="mr-3" />
         <div class="video-info d-flex flex-column">
-            <h5 class="mb-1">{{ video.snippet.title }}</h5>
-            <p class="mb-0 align-self-start">{{ video.snippet.channelTitle }}</p>
+          <h5 class="mb-1">{{ video.snippet.title }}</h5>
+          <p class="mb-0 align-self-start">{{ video.snippet.channelTitle }}</p>
         </div>
       </li>
     </ul>

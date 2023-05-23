@@ -23,6 +23,10 @@ import ReviewModifyView from "@/views/review/ReviewModifyView.vue";
 // weather
 import WeatherView from "@/views/weather/WeatherView.vue";
 
+// article
+import ArticleListView from "@/views/article/ArticleListView.vue";
+import ArticleRegistView from "@/views/article/ArticleRegistView.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -92,6 +96,18 @@ const routes = [
     path: "/weather",
     name: "WeatherView",
     component: WeatherView
+  },
+
+  // article
+  {
+    path: "/articlelist",
+    name: "ArticleList",
+    component: ArticleListView
+  },
+  {
+    path: "/articleregist",
+    name: "ArticleRegist",
+    component: ArticleRegistView
   }
 ];
 

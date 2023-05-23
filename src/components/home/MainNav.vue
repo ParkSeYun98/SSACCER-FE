@@ -159,7 +159,11 @@
           </svg>
           <h2 class="fw-normal">Match</h2>
           <p>우리 동네 주변 팀 매칭 게시판</p>
-          <p><a class="btn btn-secondary" href="/">View details &raquo;</a></p>
+          <p>
+            <a class="btn btn-secondary" @click="goArticleView"
+              >View details &raquo;</a
+            >
+          </p>
         </div>
         <!-- /.col-lg-4 -->
         <div class="col-lg-4">
@@ -230,7 +234,10 @@ export default {
     goVideoView() {
       this.$router.push("/video");
     },
-  },
+    goArticleView() {
+      this.$router.push("/articlelist");
+    }
+  }
 };
 </script>
 

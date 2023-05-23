@@ -21,15 +21,15 @@
           class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
         >
           <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
-          <li><a class="nav-link px-2 text-white">Board</a></li>
-          <li><a class="nav-link px-2 text-white">News</a></li>
           <li>
-            <a @click="goVideoView" class="nav-link px-2 text-white">Youtube</a>
+            <a @click="goArticleView" class="nav-link px-2 text-white">모집</a>
+          </li>
+          <li><a class="nav-link px-2 text-white">뉴스</a></li>
+          <li>
+            <a @click="goVideoView" class="nav-link px-2 text-white">영상</a>
           </li>
           <li>
-            <a @click="goWeatherView" class="nav-link px-2 text-white"
-              >Weather</a
-            >
+            <a @click="goWeatherView" class="nav-link px-2 text-white">날씨</a>
           </li>
         </ul>
 
@@ -78,6 +78,11 @@ export default {
     goVideoView() {
       if (this.$route.path !== "/video") {
         this.$router.push("/video");
+      }
+    },
+    goArticleView() {
+      if (this.$route.path !== "/articlelist") {
+        this.$router.push("/articlelist");
       }
     },
     logout() {
