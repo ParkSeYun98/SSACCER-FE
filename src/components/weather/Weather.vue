@@ -1,6 +1,448 @@
 <template>
   <div>
-    <h2>날씨</h2>
+    <br />
+    <br />
+
+    <h1><strong>날씨</strong></h1>
+
+    <br />
+
+    <h1>기온 예보</h1>
+
+    <br />
+    <br />
+
+    <div class="box">
+      <label for="" class="label">지역 검색</label>
+      <input
+        type="text"
+        v-model.trim="region"
+        placeholder="검색"
+        class="form-control"
+      />
+    </div>
+
+    <br />
+
+    <fieldset>
+      <label
+        style="
+          width: 150px;
+          min-height: 1.5rem;
+          padding-left: 1.5em;
+          margin-bottom: 0.125rem;
+        "
+        v-for="(RegionCode, idx) in partRegionCodeList"
+        :key="idx"
+        @click="checkRadioBox1($event)"
+      >
+        <input
+          class="form-check-input"
+          type="radio"
+          name="RegionCode"
+          id="RegionCode"
+          :value="RegionCode.code"
+        />
+        <span class="form-check-label" for="RegionCode">
+          {{ RegionCode.region }}
+        </span>
+      </label>
+    </fieldset>
+
+    <br />
+    <br />
+
+    <div v-if="longTemperature.model.hasOwnProperty('result')">
+      <!-- <div v-if="longTemperature.model.result.length > 0"> -->
+      <h2>
+        <span style="color: red">{{ place }}</span> 지역 기온 예보
+      </h2>
+
+      <div class="wrapper">
+        <div class="table">
+          <div class="row header" style="background-color: #2980b9">
+            <div
+              class="cell"
+              style="width: 20%; font-weight: bolder; font-size: x-large"
+            >
+              *
+            </div>
+            <div
+              class="cell"
+              style="width: 20%; font-weight: bolder; font-size: x-large"
+            >
+              예상 최저 기온
+            </div>
+            <div
+              class="cell"
+              style="width: 20%; font-weight: bolder; font-size: x-large"
+            >
+              예상 최고 기온
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="cell" style="width: 20%" data-title="몇일 후">
+              3일 후
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최저 기온">
+              {{ longTemperature.model.result[0].taMin3 }}도
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최고 기온">
+              {{ longTemperature.model.result[0].taMax3 }}도
+            </div>
+          </div>
+          <div class="row">
+            <div class="cell" style="width: 20%" data-title="몇일 후">
+              4일 후
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최저 기온">
+              {{ longTemperature.model.result[0].taMin4 }}도
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최고 기온">
+              {{ longTemperature.model.result[0].taMax4 }}도
+            </div>
+          </div>
+          <div class="row">
+            <div class="cell" style="width: 20%" data-title="몇일 후">
+              5일 후
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최저 기온">
+              {{ longTemperature.model.result[0].taMin5 }}도
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최고 기온">
+              {{ longTemperature.model.result[0].taMax5 }}도
+            </div>
+          </div>
+          <div class="row">
+            <div class="cell" style="width: 20%" data-title="몇일 후">
+              6일 후
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최저 기온">
+              {{ longTemperature.model.result[0].taMin6 }}도
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최고 기온">
+              {{ longTemperature.model.result[0].taMax6 }}도
+            </div>
+          </div>
+          <div class="row">
+            <div class="cell" style="width: 20%" data-title="몇일 후">
+              7일 후
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최저 기온">
+              {{ longTemperature.model.result[0].taMin7 }}도
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최고 기온">
+              {{ longTemperature.model.result[0].taMax7 }}도
+            </div>
+          </div>
+          <div class="row">
+            <div class="cell" style="width: 20%" data-title="몇일 후">
+              8일 후
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최저 기온">
+              {{ longTemperature.model.result[0].taMin8 }}도
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최고 기온">
+              {{ longTemperature.model.result[0].taMax8 }}도
+            </div>
+          </div>
+          <div class="row">
+            <div class="cell" style="width: 20%" data-title="몇일 후">
+              9일 후
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최저 기온">
+              {{ longTemperature.model.result[0].taMin9 }}도
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최고 기온">
+              {{ longTemperature.model.result[0].taMax9 }}도
+            </div>
+          </div>
+          <div class="row">
+            <div class="cell" style="width: 20%" data-title="몇일 후">
+              10일 후
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최저 기온">
+              {{ longTemperature.model.result[0].taMin10 }}도
+            </div>
+            <div class="cell" style="width: 20%" data-title="예상 최고 기온">
+              {{ longTemperature.model.result[0].taMax10 }}도
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+    <hr />
+    <br />
+
+    <h1>날씨 예보</h1>
+
+    <div class="box">
+      <label for="" class="label">지역 검색</label>
+      <input
+        type="text"
+        v-model.trim="bigRegion"
+        placeholder="검색"
+        class="form-control"
+      />
+    </div>
+
+    <br />
+
+    <fieldset>
+      <label
+        style="
+          width: 150px;
+          min-height: 1.5rem;
+          padding-left: 1.5em;
+          margin-bottom: 0.125rem;
+        "
+        v-for="(bigRegionCode, idx) in partBigRegionCodeList"
+        :key="idx"
+        @click="checkRadioBox2($event)"
+      >
+        <input
+          class="form-check-input"
+          type="radio"
+          name="bigRegionCode"
+          id="bigRegionCode"
+          :value="bigRegionCode.bigregioncodeSeq"
+        />
+        <span class="form-check-label" for="bigRegionCode">
+          {{ bigRegionCode.bigRegion }}
+        </span>
+      </label>
+    </fieldset>
+
+    <br />
+    <br />
+
+    <div v-if="longWeather.model.hasOwnProperty('result')">
+      <!-- <div v-if="longWeather.model.result != null"> -->
+      <h2>
+        <span style="color: red">{{ place2 }}</span> 지역 날씨 예보
+      </h2>
+
+      <div class="wrapper" style="max-width: 1500px">
+        <div style="" class="table">
+          <div class="row header" style="background-color: #27ae60">
+            <div
+              class="cell"
+              style="width: 10%; font-weight: bolder; font-size: x-large"
+            >
+              *
+            </div>
+            <div
+              class="cell"
+              style="width: 15%; font-weight: bolder; font-size: x-large"
+            >
+              오전 강수 확률
+            </div>
+            <div
+              class="cell"
+              style="width: 15%; font-weight: bolder; font-size: x-large"
+            >
+              오후 강수 확률
+            </div>
+            <div
+              class="cell"
+              style="width: 15%; font-weight: bolder; font-size: x-large"
+            >
+              강수 확률
+            </div>
+            <div
+              class="cell"
+              style="width: 15%; font-weight: bolder; font-size: x-large"
+            >
+              오전 날씨 예보
+            </div>
+            <div
+              class="cell"
+              style="width: 15%; font-weight: bolder; font-size: x-large"
+            >
+              오후 날씨 예보
+            </div>
+            <div
+              class="cell"
+              style="width: 15%; font-weight: bolder; font-size: x-large"
+            >
+              날씨 예보
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="cell" style="width: 10%" data-title="몇일 후">
+              3일 후
+            </div>
+            <div class="cell" style="width: 15%" data-title="오전 강수 확률">
+              {{ longWeather.model.result[0].rnSt3Am }}%
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 강수 확률">
+              {{ longWeather.model.result[0].rnSt3Pm }}%
+            </div>
+            <div class="cell" style="width: 15%" data-title="강수 확률">-</div>
+            <div class="cell" style="width: 15%" data-title="오전 날씨 예보">
+              {{ longWeather.model.result[0].wf3Am }}
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 날씨 예보">
+              {{ longWeather.model.result[0].wf3Pm }}
+            </div>
+            <div class="cell" style="width: 15%" data-title="날씨 예보">-</div>
+          </div>
+          <div class="row">
+            <div class="cell" style="width: 10%" data-title="몇일 후">
+              4일 후
+            </div>
+            <div class="cell" style="width: 15%" data-title="오전 강수 확률">
+              {{ longWeather.model.result[0].rnSt4Am }}%
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 강수 확률">
+              {{ longWeather.model.result[0].rnSt4Pm }}%
+            </div>
+            <div class="cell" style="width: 15%" data-title="강수 확률">-</div>
+            <div class="cell" style="width: 15%" data-title="오전 날씨 예보">
+              {{ longWeather.model.result[0].wf4Am }}
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 날씨 예보">
+              {{ longWeather.model.result[0].wf4Am }}
+            </div>
+            <div class="cell" style="width: 15%" data-title="날씨 예보">-</div>
+          </div>
+          <div class="row">
+            <div class="cell" style="width: 10%" data-title="몇일 후">
+              5일 후
+            </div>
+            <div class="cell" style="width: 15%" data-title="오전 강수 확률">
+              {{ longWeather.model.result[0].rnSt5Am }}%
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 강수 확률">
+              {{ longWeather.model.result[0].rnSt5Pm }}%
+            </div>
+            <div class="cell" style="width: 15%" data-title="강수 확률">-</div>
+            <div class="cell" style="width: 15%" data-title="오전 날씨 예보">
+              {{ longWeather.model.result[0].wf5Am }}
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 날씨 예보">
+              {{ longWeather.model.result[0].wf5Am }}
+            </div>
+            <div class="cell" style="width: 15%" data-title="날씨 예보">-</div>
+          </div>
+          <div class="row">
+            <div class="cell" style="width: 10%" data-title="몇일 후">
+              6일 후
+            </div>
+            <div class="cell" style="width: 15%" data-title="오전 강수 확률">
+              {{ longWeather.model.result[0].rnSt6Am }}%
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 강수 확률">
+              {{ longWeather.model.result[0].rnSt6Pm }}%
+            </div>
+            <div class="cell" style="width: 15%" data-title="강수 확률">-</div>
+            <div class="cell" style="width: 15%" data-title="오전 날씨 예보">
+              {{ longWeather.model.result[0].wf6Am }}
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 날씨 예보">
+              {{ longWeather.model.result[0].wf6Am }}
+            </div>
+            <div class="cell" style="width: 15%" data-title="날씨 예보">-</div>
+          </div>
+          <div class="row">
+            <div class="cell" style="width: 10%" data-title="몇일 후">
+              7일 후
+            </div>
+            <div class="cell" style="width: 15%" data-title="오전 강수 확률">
+              {{ longWeather.model.result[0].rnSt7Am }}%
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 강수 확률">
+              {{ longWeather.model.result[0].rnSt7Pm }}%
+            </div>
+            <div class="cell" style="width: 15%" data-title="강수 확률">-</div>
+            <div class="cell" style="width: 15%" data-title="오전 날씨 예보">
+              {{ longWeather.model.result[0].wf7Am }}
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 날씨 예보">
+              {{ longWeather.model.result[0].wf7Am }}
+            </div>
+            <div class="cell" style="width: 15%" data-title="날씨 예보">-</div>
+          </div>
+          <div class="row">
+            <div class="cell" style="width: 10%" data-title="몇일 후">
+              8일 후
+            </div>
+            <div class="cell" style="width: 15%" data-title="오전 강수 확률">
+              -
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 강수 확률">
+              -
+            </div>
+            <div class="cell" style="width: 15%" data-title="강수 확률">
+              {{ longWeather.model.result[0].rnSt8 }}%
+            </div>
+            <div class="cell" style="width: 15%" data-title="오전 날씨 예보">
+              -
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 날씨 예보">
+              -
+            </div>
+            <div class="cell" style="width: 15%" data-title="날씨 예보">
+              {{ longWeather.model.result[0].wf8 }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="cell" style="width: 10%" data-title="몇일 후">
+              9일 후
+            </div>
+            <div class="cell" style="width: 15%" data-title="오전 강수 확률">
+              -
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 강수 확률">
+              -
+            </div>
+            <div class="cell" style="width: 15%" data-title="강수 확률">
+              {{ longWeather.model.result[0].rnSt9 }}%
+            </div>
+            <div class="cell" style="width: 15%" data-title="오전 날씨 예보">
+              -
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 날씨 예보">
+              -
+            </div>
+            <div class="cell" style="width: 15%" data-title="날씨 예보">
+              {{ longWeather.model.result[0].wf9 }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="cell" style="width: 10%" data-title="몇일 후">
+              10일 후
+            </div>
+            <div class="cell" style="width: 15%" data-title="오전 강수 확률">
+              -
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 강수 확률">
+              -
+            </div>
+            <div class="cell" style="width: 15%" data-title="강수 확률">
+              {{ longWeather.model.result[0].rnSt10 }}%
+            </div>
+            <div class="cell" style="width: 15%" data-title="오전 날씨 예보">
+              -
+            </div>
+            <div class="cell" style="width: 15%" data-title="오후 날씨 예보">
+              -
+            </div>
+            <div class="cell" style="width: 15%" data-title="날씨 예보">
+              {{ longWeather.model.result[0].wf10 }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <br />
+    <hr />
+    <br />
 
     <div class="box">
       <label for="pf" class="label">시/군</label>
@@ -36,8 +478,16 @@
       </select>
     </div>
 
+    <br />
+    <br />
+
     <div v-if="stadium != ''">
-      <h2>{{ stadium }}의 현재 상세 날씨</h2>
+      <h2>
+        <span style="color: green">{{ pf }} </span>
+        <span style="color: blue">{{ ps }} </span>
+        <span style="color: red">{{ stadium }}</span
+        >의 현재 상세 날씨
+      </h2>
 
       <div class="wrapper">
         <div class="table">
@@ -67,65 +517,6 @@
         </div>
       </div>
     </div>
-
-    <br />
-    <hr />
-    <br />
-
-    <div class="box">
-      <label for="" class="label">지역 검색</label>
-      <input
-        type="text"
-        v-model.trim="region"
-        placeholder="검색"
-        class="form-control"
-      />
-    </div>
-    <br />
-
-    <div class="box" style="width: 1600px; justify-content: center">
-      <select
-        @change="getCode"
-        v-model="selectedRegion"
-        id="selectedRegion"
-        class="form-control"
-        size="0"
-      >
-        <option disabled value="">select one</option>
-        <option
-          v-for="(RegionCode, idx) in partRegionCodeList"
-          :key="idx"
-          :value="`${RegionCode}`"
-        >
-          {{ RegionCode.region }}
-        </option>
-      </select>
-    </div>
-
-    <fieldset>
-      <label
-        style="
-          width: 150px;
-          min-height: 1.5rem;
-          padding-left: 1.5em;
-          margin-bottom: 0.125rem;
-        "
-        v-for="(RegionCode, idx) in partRegionCodeList"
-        :key="idx"
-        @click="checkRadioBox($event)"
-      >
-        <input
-          class="form-check-input"
-          type="radio"
-          name="RegionCode"
-          id="RegionCode"
-          :value="RegionCode.code"
-        />
-        <span class="form-check-label" for="RegionCode">
-          {{ RegionCode.region }}
-        </span>
-      </label>
-    </fieldset>
   </div>
 </template>
 
@@ -140,6 +531,12 @@ export default {
     this.getPF();
 
     this.$store.dispatch("getRegionCodeList");
+    this.$store.dispatch("getBigRegionCodeList");
+
+    this.getBaseDateAndTime();
+
+    this.getDefault2();
+    this.getDefault3();
   },
   computed: {
     ...mapState([
@@ -147,7 +544,11 @@ export default {
       "baseDateAndTime",
       "weatherInfo",
       "allRegionCodeList",
-      "partRegionCodeList"
+      "partRegionCodeList",
+      "allBigRegionCodeList",
+      "partBigRegionCodeList",
+      "longTemperature",
+      "longWeather"
     ])
   },
   data() {
@@ -160,9 +561,14 @@ export default {
       ny: 0,
       stadium: "",
       region: "",
+      bigRegion: "",
       selectedRegion: "",
       selectedCode: "",
-      shortResult: []
+      selectedBigRegion: "",
+      selectedBigCode: "",
+      shortResult: [],
+      place: "",
+      place2: ""
     };
   },
   watch: {
@@ -170,9 +576,158 @@ export default {
       console.log(newRegion);
 
       this.$store.dispatch("searchPartRegionCodeList", newRegion);
+    },
+    bigRegion(newRegion) {
+      console.log(newRegion);
+
+      this.$store.dispatch("searchPartBigRegionCodeList", newRegion);
     }
   },
   methods: {
+    // 코드 얻기
+    getCode() {
+      for (let i = 0; i < this.partRegionCodeList; i++) {
+        if (this.selectedRegion === this.partRegionCodeList[i].region) {
+          this.selectedCode = this.partRegionCodeList[i].code;
+        }
+      }
+    },
+
+    getBigCode() {
+      for (let i = 0; i < this.partRegionCodeList; i++) {
+        if (this.selectedBigRegion === this.partBigRegionCodeList[i].region) {
+          this.selectedBigCode = this.partBigRegionCodeList[i].code;
+        }
+      }
+    },
+
+    // 라디오박스 클릭 이벤트
+    checkRadioBox1(event) {
+      // this.longTemperature = [];
+      // this.longWeather = [];
+
+      this.place = "";
+
+      for (let i = 0; i < this.partRegionCodeList.length; i++) {
+        if (this.partRegionCodeList[i].code === event.target.value) {
+          this.place = this.partRegionCodeList[i].region;
+
+          break;
+        }
+      }
+
+      let today = new Date();
+
+      let formattedDate =
+        today.getFullYear() +
+        (today.getMonth() + 1 < 9
+          ? "0" + (today.getMonth() + 1)
+          : today.getMonth() + 1) +
+        (today.getDate() < 9 ? "0" + today.getDate() : today.getDate()) +
+        "0600";
+
+      let info = {
+        regId: event.target.value,
+        tmFc: formattedDate
+      };
+
+      if (info.regId != null) {
+        this.$store.dispatch("getLongTemperature", info);
+      }
+    },
+    getDefault2() {
+      this.place = "서울";
+
+      let today = new Date();
+
+      let formattedDate =
+        today.getFullYear() +
+        (today.getMonth() + 1 < 9
+          ? "0" + (today.getMonth() + 1)
+          : today.getMonth() + 1) +
+        (today.getDate() < 9 ? "0" + today.getDate() : today.getDate()) +
+        "0600";
+
+      let info = {
+        regId: "11B10101",
+        tmFc: formattedDate
+      };
+
+      if (info.regId != null) {
+        this.$store.dispatch("getLongTemperature", info);
+      }
+    },
+
+    // 라디오박스 클릭 이벤트 2
+    checkRadioBox2(event) {
+      // this.longTemperature = [];
+      // this.longWeather = [];
+      this.place2 = "";
+
+      let infoRegId = "";
+
+      for (let i = 0; i < this.partBigRegionCodeList.length; i++) {
+        if (
+          this.partBigRegionCodeList[i].bigregioncodeSeq == event.target.value
+        ) {
+          this.place2 = this.partBigRegionCodeList[i].bigRegion;
+          infoRegId = this.partBigRegionCodeList[i].bigCode;
+
+          break;
+        }
+      }
+
+      let today = new Date();
+
+      let formattedDate =
+        today.getFullYear() +
+        (today.getMonth() + 1 < 9
+          ? "0" + (today.getMonth() + 1)
+          : today.getMonth() + 1) +
+        (today.getDate() < 9 ? "0" + today.getDate() : today.getDate()) +
+        "0600";
+
+      let info = {
+        regId: infoRegId,
+        tmFc: formattedDate
+      };
+
+      console.log(info);
+
+      if (info.regId != null) {
+        this.$store.dispatch("getLongWeather", info);
+      }
+
+      console.log(this.longTemperature);
+      console.log(this.longWeather);
+      console.log(this.partRegionCodeList);
+      console.log(this.partBigRegionCodeList);
+    },
+
+    getDefault3() {
+      this.place2 = "서울";
+
+      let today = new Date();
+
+      let formattedDate =
+        today.getFullYear() +
+        (today.getMonth() + 1 < 9
+          ? "0" + (today.getMonth() + 1)
+          : today.getMonth() + 1) +
+        (today.getDate() < 9 ? "0" + today.getDate() : today.getDate()) +
+        "0600";
+
+      let info = {
+        regId: "11B00000",
+        tmFc: formattedDate
+      };
+
+      if (info.regId != null) {
+        this.$store.dispatch("getLongWeather", info);
+      }
+    },
+
+    // 단기 예보
     // PF값 얻기
     getPF() {
       outer: for (let i = 0; i < this.locationList.length; i++) {
@@ -273,42 +828,67 @@ export default {
         }
       }
     },
-    // 기본 날짜 및 기본 시간 얻기
-    getBaseDateAndTime() {
-      this.$store.dispatch("getBaseDateAndTime");
-    },
-    // 코드 얻기
-    getCode() {
-      for (let i = 0; i < this.partRegionCodeList; i++) {
-        if (this.selectedRegion === this.partRegionCodeList[i].region) {
-          this.selectedCode = this.partRegionCodeList[i].code;
+
+    getDefault1() {
+      let weatherDTO = {
+        baseDate: this.baseDateAndTime[0],
+        baseTime: this.baseDateAndTime[1] + "00",
+        nx: 60,
+        ny: 127
+      };
+
+      this.$store.dispatch("getWeather", weatherDTO);
+
+      this.shortResult = [];
+
+      for (let i = 0; i < this.weatherInfo.model.result.length; i++) {
+        if (this.weatherInfo.model.result[i].category === "T1H") {
+          this.shortResult.push({
+            category: "기온",
+            obsrValue: this.weatherInfo.model.result[i].obsrValue
+          });
+        } else if (this.weatherInfo.model.result[i].category === "RN1") {
+          this.shortResult.push({
+            category: "1시간 강수량",
+            obsrValue: this.weatherInfo.model.result[i].obsrValue
+          });
+        } else if (this.weatherInfo.model.result[i].category === "UUU") {
+          this.shortResult.push({
+            category: "동서바람성분",
+            obsrValue: this.weatherInfo.model.result[i].obsrValue
+          });
+        } else if (this.weatherInfo.model.result[i].category === "VVV") {
+          this.shortResult.push({
+            category: "남북바람성분",
+            obsrValue: this.weatherInfo.model.result[i].obsrValue
+          });
+        } else if (this.weatherInfo.model.result[i].category === "REH") {
+          this.shortResult.push({
+            category: "습도",
+            obsrValue: this.weatherInfo.model.result[i].obsrValue
+          });
+        } else if (this.weatherInfo.model.result[i].category === "PTY") {
+          this.shortResult.push({
+            category: "강수형태",
+            obsrValue: this.weatherInfo.model.result[i].obsrValue
+          });
+        } else if (this.weatherInfo.model.result[i].category === "VEC") {
+          this.shortResult.push({
+            category: "풍향",
+            obsrValue: this.weatherInfo.model.result[i].obsrValue
+          });
+        } else if (this.weatherInfo.model.result[i].category === "WSD") {
+          this.shortResult.push({
+            category: "풍속",
+            obsrValue: this.weatherInfo.model.result[i].obsrValue
+          });
         }
       }
     },
 
-    // 중기 예보 날씨 정보 얻기
-    getLongWeather() {
-      console.log("!");
-    },
-
-    // 라디오박스 클릭 이벤트
-    checkRadioBox(event) {
-      let today = new Date();
-
-      let formattedDate =
-        today.getFullYear() +
-        (today.getMonth() + 1 < 9
-          ? "0" + (today.getMonth() + 1)
-          : today.getMonth() + 1) +
-        (today.getDate() < 9 ? "0" + today.getDate() : today.getDate()) +
-        "0600";
-
-      let info = {
-        regId: event.target.value,
-        tmFc: formattedDate
-      };
-
-      // this.$store.dispatch("getLongTemperatureWeather", info);
+    // 기본 날짜 및 기본 시간 얻기
+    getBaseDateAndTime() {
+      this.$store.dispatch("getBaseDateAndTime");
     }
   }
 };
