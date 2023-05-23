@@ -25,8 +25,6 @@
                   />
                 </div>
 
-                <!-- <img referrerpolicy="no-referrer" :src="img" width="100px" /> -->
-
                 <img
                   :src="
                     'http://localhost:9999/user/display?userSeq=' +
@@ -132,7 +130,7 @@
                     @click="goMyReviewPage"
                     type="reset"
                     class="btn btn-secondary btn-lg"
-                    value="내가 작성한 리뷰"
+                    value="내가 좋아한 영상 리뷰"
                   />
                   <hr />
                   <input
@@ -200,4 +198,10 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+img {
+  width: 250px;
+  height: 250px;
+  margin: 30px;
+}
+</style>

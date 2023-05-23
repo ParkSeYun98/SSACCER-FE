@@ -38,6 +38,9 @@ export default new Vuex.Store({
     locationList: [],
     baseDateAndTime: [],
     weatherInfo: [],
+
+    allRegionCodeList: [],
+    partRegionCodeList: []
   },
   getters: {},
   mutations: {
@@ -82,6 +85,16 @@ export default new Vuex.Store({
     },
     GET_USERLIST(state, userlist) {
       state.DBuserList = userlist;
+    },
+    UPDATE_ROLE(state, role) {
+      state.loginUser.role = role;
+
+      for (let i = 0; i < state.userList.length; i++) {
+        if (state.userList[i].userSeq === state.loginUser.userSeq) {
+          state.userList[i].role = role;
+          break;
+        }
+      }
     },
 
     // mutation - video
@@ -164,6 +177,13 @@ export default new Vuex.Store({
     GET_WEATHER(state, weatherInfo) {
       state.weatherInfo = weatherInfo;
     },
+
+    GET_REGION_CODE_LIST(state, regionCodeList) {
+      state.allRegionCodeList = regionCodeList;
+    },
+    SEARCH_PART_REGION_CODE_LIST(state, regionCodeList) {
+      state.partRegionCodeList = regionCodeList;
+    }
   },
   actions: {
     // action - User
@@ -184,15 +204,15 @@ export default new Vuex.Store({
         })
         .catch((err) => {
           alert("아이디 혹은 비밀번호를 확인해주세요.");
+
           console.log(err);
         });
     },
     setLoginInfo({ commit }, userSeq) {
       for (let i = 0; i < this.state.DBuserList.length; i++) {
         if (this.state.DBuserList[i].userSeq === userSeq) {
-          console.log(this.state.DBuserList[i]);
-          console.log("!!");
           this.state.loginUser.img = this.state.DBuserList[i].img;
+
           return;
         }
       }
@@ -253,9 +273,8 @@ export default new Vuex.Store({
     },
     uploadImage({ commit }, box) {
       const API_URL = `http://localhost:9999/user/uploadimage/${box.userSeq}`;
+
       let formData = new FormData();
-      console.log(box.img);
-      console.log(box.userSeq);
       formData.append("img", box.img);
 
       axios
@@ -292,18 +311,54 @@ export default new Vuex.Store({
       axios({
         url: API_URL1,
         method: "GET",
-      }).then((response) => {
-        if (response.data >= 1 && response.data < 3) {
-          this.dispatch("updateRole", "BRONZE");
-        } else if (response.data >= 3 && response.data <= 5) {
-          this.dispatch("updateRole", "SILVER");
-        } else if (response.data > 5 && response.data < 10) {
-          this.dispatch("updaateRole", "GOLD");
-        } else if (response.data >= 11 && response.data < 20) {
-          this.dispatch("updateRole", "PLATINUM");
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
         }
-        // else if(response.data >= 20 && response.data < )
-      });
+
+      })
+        .then(response => {
+          reviewCnt = response.data.length;
+
+          if (reviewCnt >= 1 && reviewCnt < 3) {
+            this.dispatch("updateRole", "BRONZE");
+          } else if (reviewCnt >= 3 && reviewCnt < 10) {
+            this.dispatch("updateRole", "SILVER");
+          } else if (reviewCnt >= 10 && reviewCnt < 30) {
+            this.dispatch("updateRole", "GOLD");
+          } else if (reviewCnt >= 30 && reviewCnt < 60) {
+            this.dispatch("updateRole", "PLATINUM");
+          } else if (reviewCnt >= 60 && reviewCnt < 100) {
+            this.dispatch("updateRole", "DIAMOND");
+          } else if (reviewCnt >= 100) {
+            this.dispatch("updateRole", "RUBY");
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    updateRole({ commit }, role) {
+      let user = this.state.loginUser;
+
+      user.role = role;
+
+      const API_URL = `http://localhost:9999/review/update`;
+
+      axios({
+        url: API_URL,
+        method: "PUT",
+        data: user,
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(() => {
+          this.dispatch("getUserList");
+          commit("UPDATE_ROLE", role);
+        })
+        .catch(err => {
+          console.log(err);
+        });
     },
 
     // action - Video
@@ -460,6 +515,8 @@ export default new Vuex.Store({
           commit("REGIST_REVIEW", review);
 
           this.dispatch("getReviewList", this.state.DBvideo.youtubeId);
+
+          this.dispatch("beforeUpdateRole");
         })
         .catch((err) => {
           console.log(err);
@@ -613,8 +670,6 @@ export default new Vuex.Store({
     getWeather({ commit }, weatherDTO) {
       const API_URL = "http://localhost:9999/weather/data";
 
-      console.log(weatherDTO);
-
       axios({
         url: API_URL,
         method: "GET",
@@ -635,6 +690,40 @@ export default new Vuex.Store({
           console.log(err);
         });
     },
+    getRegionCodeList({ commit }) {
+      const API_URL = "http://localhost:9999/regioncode/list";
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          commit("GET_REGION_CODE_LIST", response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    searchPartRegionCodeList({ commit }, region) {
+      const API_URL = `http://localhost:9999/regioncode/list/${region}`;
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          commit("SEARCH_PART_REGION_CODE_LIST", response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    }
   },
   modules: {},
 });

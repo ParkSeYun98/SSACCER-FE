@@ -10,7 +10,6 @@ import UserSignupView from "@/views/user/UserSignupView.vue";
 import UserMyPageView from "@/views/user/UserMyPageView.vue";
 import UserModifyView from "@/views/user/UserModifyView.vue";
 import UserMyReviewPageView from "@/views/user/UserMyReviewPageView.vue";
-import UploadImageView from "@/views/user/UserUploadImageView.vue";
 
 // video
 import VideoView from "@/views/video/VideoView.vue";
@@ -57,11 +56,6 @@ const routes = [
     path: "/myReviewPage/:userSeq",
     name: "UserMyReviewPageView",
     component: UserMyReviewPageView
-  },
-  {
-    path: "/uploadimage/:userSeq",
-    name: "UploadImageView",
-    component: UploadImageView
   },
 
   // video
