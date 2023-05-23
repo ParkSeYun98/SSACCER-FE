@@ -23,8 +23,9 @@ import ReviewModifyView from "@/views/review/ReviewModifyView.vue";
 // weather
 import WeatherView from "@/views/weather/WeatherView.vue";
 
-// board
-import BoardView from "@/views/board/BoardView.vue";
+// article
+import ArticleListView from "@/views/article/ArticleListView.vue";
+import ArticleRegistView from "@/views/article/ArticleRegistView.vue";
 
 Vue.use(VueRouter);
 
@@ -94,13 +95,20 @@ const routes = [
   {
     path: "/weather",
     name: "WeatherView",
+
     component: WeatherView,
   },
-  //board
+
+  // article
   {
-    path: "/board",
-    name: "BoardView",
-    component: BoardView,
+    path: "/articlelist",
+    name: "ArticleList",
+    component: ArticleListView,
+  },
+  {
+    path: "/articleregist",
+    name: "ArticleRegist",
+    component: ArticleRegistView,
   },
 ];
 

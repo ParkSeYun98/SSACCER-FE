@@ -38,9 +38,12 @@ export default new Vuex.Store({
     locationList: [],
     baseDateAndTime: [],
     weatherInfo: [],
-
     allRegionCodeList: [],
     partRegionCodeList: [],
+    longTemperature: [],
+    allBigRegionCodeList: [],
+    partBigRegionCodeList: [],
+    longWeather: [],
   },
   getters: {},
   mutations: {
@@ -58,10 +61,12 @@ export default new Vuex.Store({
     MODIFY_USER(state, loginUser) {
       for (let i = 0; i < state.userList.length; i++) {
         if (state.userList[i].userId === loginUser.userId) {
-          state.userList[i].loginUser = loginUser;
+          // state.userList[i].loginUser = loginUser;
+          state.userList[i] = loginUser;
           break;
         }
       }
+      state.loginUser = loginUser;
     },
     DELETE_USER(state, userId) {
       state.loginUser = {};
@@ -177,12 +182,32 @@ export default new Vuex.Store({
     GET_WEATHER(state, weatherInfo) {
       state.weatherInfo = weatherInfo;
     },
-
     GET_REGION_CODE_LIST(state, regionCodeList) {
       state.allRegionCodeList = regionCodeList;
     },
     SEARCH_PART_REGION_CODE_LIST(state, regionCodeList) {
       state.partRegionCodeList = regionCodeList;
+
+      console.log("partRegionCodeList : ");
+      console.log(state.partRegionCodeList);
+    },
+    GET_LONG_TEMPERATURE(state, longtemperatureInfo) {
+      state.longTemperature = longtemperatureInfo;
+      console.log("longTemperature : ");
+      console.log(state.longTemperature);
+    },
+    GET_BIG_REGION_CODE_LIST(state, bigRegionCodeList) {
+      state.allBigRegionCodeList = bigRegionCodeList;
+    },
+    SEARCH_PART_BIG_REGION_CODE_LIST(state, bigRegionCodeList) {
+      state.partBigRegionCodeList = bigRegionCodeList;
+      console.log("partBigRegionCodeList : ");
+      console.log(state.partBigRegionCodeList);
+    },
+    GET_LONG_WEATHER(state, longtemperatureInfo) {
+      state.longWeather = longtemperatureInfo;
+      console.log("longWeather : ");
+      console.log(state.longWeather);
     },
   },
   actions: {
@@ -242,14 +267,15 @@ export default new Vuex.Store({
     },
     modifyUser({ commit }, loginUser) {
       const API_URL = "http://localhost:9999/user/update";
-      console.log(loginUser);
+
       axios({
         url: API_URL,
         method: "PUT",
-        data: loginUser,
+        date: loginUser,
       })
         .then((response) => {
           alert("수정 완료");
+
           commit("MODIFY_USER", response.data);
         })
         .catch((err) => {
@@ -552,6 +578,7 @@ export default new Vuex.Store({
       })
         .then((response) => {
           alert("수정 완료");
+
           commit("MODIFY_REVIEW", response.data);
         })
         .catch((err) => {
@@ -718,6 +745,82 @@ export default new Vuex.Store({
       })
         .then((response) => {
           commit("SEARCH_PART_REGION_CODE_LIST", response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getLongTemperature({ commit }, info) {
+      const API_URL = `http://localhost:9999/weather/longdata/temperature`;
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token"),
+        },
+        params: {
+          regId: info.regId,
+          tmFc: info.tmFc,
+        },
+      })
+        .then((response) => {
+          commit("GET_LONG_TEMPERATURE", response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getBigRegionCodeList({ commit }) {
+      const API_URL = "http://localhost:9999/bigregioncode/list";
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token"),
+        },
+      })
+        .then((response) => {
+          commit("GET_BIG_REGION_CODE_LIST", response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    searchPartBigRegionCodeList({ commit }, bigregion) {
+      const API_URL = `http://localhost:9999/bigregioncode/list/${bigregion}`;
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token"),
+        },
+      })
+        .then((response) => {
+          commit("SEARCH_PART_BIG_REGION_CODE_LIST", response.data);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    getLongWeather({ commit }, info) {
+      const API_URL = `http://localhost:9999/weather/longdata/weather`;
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token"),
+        },
+        params: {
+          regId: info.regId,
+          tmFc: info.tmFc,
+        },
+      })
+        .then((response) => {
+          commit("GET_LONG_WEATHER", response.data);
         })
         .catch((err) => {
           console.log(err);
