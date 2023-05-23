@@ -50,7 +50,7 @@
                 잡으세요.
               </p>
               <p>
-                <router-link to="/board" class="btn btn-lg btn-primary"
+                <router-link to="/articlelist" class="btn btn-lg btn-primary"
                   >바로가기</router-link
                 >
               </p>

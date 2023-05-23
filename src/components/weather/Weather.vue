@@ -517,6 +517,65 @@
         </div>
       </div>
     </div>
+
+    <br />
+    <hr />
+    <br />
+
+    <div class="box">
+      <label for="" class="label">지역 검색</label>
+      <input
+        type="text"
+        v-model.trim="region"
+        placeholder="검색"
+        class="form-control"
+      />
+    </div>
+    <br />
+
+    <div class="box" style="justify-content: center">
+      <select
+        @change="getCode"
+        v-model="selectedRegion"
+        id="selectedRegion"
+        class="form-control"
+        size="0"
+      >
+        <option disabled value="">select one</option>
+        <option
+          v-for="(RegionCode, idx) in partRegionCodeList"
+          :key="idx"
+          :value="`${RegionCode}`"
+        >
+          {{ RegionCode.region }}
+        </option>
+      </select>
+    </div>
+
+    <fieldset>
+      <label
+        style="
+          width: 150px;
+          min-height: 1.5rem;
+          padding-left: 1.5em;
+          margin-bottom: 0.125rem;
+        "
+        v-for="(RegionCode, idx) in partRegionCodeList"
+        :key="idx"
+        @click="checkRadioBox($event)"
+      >
+        <input
+          class="form-check-input"
+          type="radio"
+          name="RegionCode"
+          id="RegionCode"
+          :value="RegionCode.code"
+        />
+        <span class="form-check-label" for="RegionCode">
+          {{ RegionCode.region }}
+        </span>
+      </label>
+    </fieldset>
   </div>
 </template>
 
