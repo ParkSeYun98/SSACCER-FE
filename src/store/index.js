@@ -61,7 +61,6 @@ export default new Vuex.Store({
     MODIFY_USER(state, loginUser) {
       for (let i = 0; i < state.userList.length; i++) {
         if (state.userList[i].userId === loginUser.userId) {
-          // state.userList[i].loginUser = loginUser;
           state.userList[i] = loginUser;
           break;
         }
@@ -267,15 +266,14 @@ export default new Vuex.Store({
     },
     modifyUser({ commit }, loginUser) {
       const API_URL = "http://localhost:9999/user/update";
-
+      console.log(loginUser);
       axios({
         url: API_URL,
         method: "PUT",
-        date: loginUser,
+        data: loginUser,
       })
         .then((response) => {
           alert("수정 완료");
-
           commit("MODIFY_USER", response.data);
         })
         .catch((err) => {

@@ -11,7 +11,7 @@
           <img
             src="@/assets/logo5.png"
             alt="Logo"
-            width="200px"
+            width="220px"
             height="80px"
           />
           <svg

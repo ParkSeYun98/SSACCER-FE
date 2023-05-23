@@ -443,7 +443,6 @@
     <br />
     <hr />
     <br />
-    >>>>>>> main
 
     <div class="box">
       <label for="pf" class="label">시/군</label>
@@ -577,7 +576,6 @@
         </span>
       </label>
     </fieldset>
-    ======= >>>>>>> main
   </div>
 </template>
 
