@@ -68,7 +68,7 @@ import { mapState } from "vuex";
 export default {
   name: "MainHeader",
   computed: {
-    ...mapState(["loginUserName", "loginUser"]),
+    ...mapState(["loginUserName", "loginUser"])
   },
   methods: {
     GoUserLogin() {
@@ -104,8 +104,8 @@ export default {
       if (this.$route.path !== "/weather") {
         this.$router.push("/weather");
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
