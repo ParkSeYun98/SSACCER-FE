@@ -61,6 +61,7 @@ export default new Vuex.Store({
     MODIFY_USER(state, loginUser) {
       for (let i = 0; i < state.userList.length; i++) {
         if (state.userList[i].userId === loginUser.userId) {
+          // state.userList[i].loginUser = loginUser;
           state.userList[i] = loginUser;
           break;
         }

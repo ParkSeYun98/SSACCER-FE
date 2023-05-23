@@ -29,7 +29,7 @@
                     'http://localhost:9999/user/display?userSeq=' +
                     `${this.loginUser.userSeq}`
                   "
-                  width="300px"
+                  width="100px"
                 />
 
                 <div class="form-group row">
@@ -166,8 +166,9 @@ export default {
 
   created() {
     this.$store.dispatch("getUserList");
+
     this.$store.dispatch("setLoginInfo", this.$route.params.userSeq);
-    console.log(this.loginUser.userSeq);
+
     this.source = this.loginUser.img;
   },
   methods: {
@@ -186,8 +187,6 @@ export default {
 
     uploadImage() {
       this.img = this.$refs.img.files[0];
-      console.log(this.img);
-      console.log(this.loginUser.userSeq);
 
       let box = {
         img: this.img,
