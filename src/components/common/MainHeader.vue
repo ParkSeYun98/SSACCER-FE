@@ -8,6 +8,12 @@
           href="/"
           class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
         >
+          <img
+            src="@/assets/logo2.png"
+            alt="Logo"
+            width="130px"
+            height="40px"
+          />
           <svg
             class="bi me-2"
             width="40"
@@ -20,15 +26,24 @@
         <ul
           class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
         >
-          <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
-          <li><a class="nav-link px-2 text-white">Board</a></li>
-          <li><a class="nav-link px-2 text-white">News</a></li>
           <li>
-            <a @click="goVideoView" class="nav-link px-2 text-white">Youtube</a>
+            <router-link to="/board" class="nav-link px-2 text-white"
+              >Board</router-link
+            >
           </li>
           <li>
-            <a @click="goWeatherView" class="nav-link px-2 text-white"
-              >Weather</a
+            <router-link to="/news" class="nav-link px-2 text-white"
+              >News</router-link
+            >
+          </li>
+          <li>
+            <router-link to="/video" class="nav-link px-2 text-white"
+              >Youtube</router-link
+            >
+          </li>
+          <li>
+            <router-link to="/weather" class="nav-link px-2 text-white"
+              >Weather</router-link
             >
           </li>
         </ul>
@@ -62,7 +77,7 @@ import { mapState } from "vuex";
 export default {
   name: "MainHeader",
   computed: {
-    ...mapState(["loginUserName", "loginUser"])
+    ...mapState(["loginUserName", "loginUser"]),
   },
   methods: {
     GoUserLogin() {
@@ -75,11 +90,11 @@ export default {
         this.$router.push("/signup");
       }
     },
-    goVideoView() {
-      if (this.$route.path !== "/video") {
-        this.$router.push("/video");
-      }
-    },
+    // goVideoView() {
+    //   if (this.$route.path !== "/video") {
+    //     this.$router.push("/video");
+    //   }
+    // },
     logout() {
       this.$store.dispatch("logout");
     },
@@ -88,12 +103,12 @@ export default {
         this.$router.push("/myPage/" + this.loginUser.userSeq);
       }
     },
-    goWeatherView() {
-      if (this.$route.path !== "/weather") {
-        this.$router.push("/weather");
-      }
-    }
-  }
+    // goWeatherView() {
+    //   if (this.$route.path !== "/weather") {
+    //     this.$router.push("/weather");
+    //   }
+    // },
+  },
 };
 </script>
 

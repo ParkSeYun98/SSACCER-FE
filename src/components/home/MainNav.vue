@@ -50,7 +50,9 @@
                 잡으세요.
               </p>
               <p>
-                <a class="btn btn-lg btn-primary" href="/board">바로가기</a>
+                <router-link to="/board" class="btn btn-lg btn-primary"
+                  >바로가기</router-link
+                >
               </p>
             </div>
           </div>
@@ -77,7 +79,11 @@
             <div class="carousel-caption">
               <h1>축구 소식</h1>
               <p>실시간 주요 뉴스를 확인하세요.</p>
-              <p><a class="btn btn-lg btn-primary" href="/news">바로가기</a></p>
+              <p>
+                <router-link to="/news" class="btn btn-lg btn-primary"
+                  >바로가기</router-link
+                >
+              </p>
             </div>
           </div>
         </div>
@@ -104,7 +110,9 @@
               <h1>Youtube 시청</h1>
               <p>키워드별 축구 영상을 시청하세요</p>
               <p>
-                <a class="btn btn-lg btn-primary" href="/video">바로가기</a>
+                <router-link to="/video" class="btn btn-lg btn-primary"
+                  >바로가기</router-link
+                >
               </p>
             </div>
           </div>

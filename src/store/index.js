@@ -40,7 +40,7 @@ export default new Vuex.Store({
     weatherInfo: [],
 
     allRegionCodeList: [],
-    partRegionCodeList: []
+    partRegionCodeList: [],
   },
   getters: {},
   mutations: {
@@ -183,7 +183,7 @@ export default new Vuex.Store({
     },
     SEARCH_PART_REGION_CODE_LIST(state, regionCodeList) {
       state.partRegionCodeList = regionCodeList;
-    }
+    },
   },
   actions: {
     // action - User
@@ -312,11 +312,10 @@ export default new Vuex.Store({
         url: API_URL1,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token")
-        }
-
+          "access-token": sessionStorage.getItem("access-token"),
+        },
       })
-        .then(response => {
+        .then((response) => {
           reviewCnt = response.data.length;
 
           if (reviewCnt >= 1 && reviewCnt < 3) {
@@ -333,7 +332,7 @@ export default new Vuex.Store({
             this.dispatch("updateRole", "RUBY");
           }
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -349,14 +348,14 @@ export default new Vuex.Store({
         method: "PUT",
         data: user,
         headers: {
-          "access-token": sessionStorage.getItem("access-token")
-        }
+          "access-token": sessionStorage.getItem("access-token"),
+        },
       })
         .then(() => {
           this.dispatch("getUserList");
           commit("UPDATE_ROLE", role);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -697,13 +696,13 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token")
-        }
+          "access-token": sessionStorage.getItem("access-token"),
+        },
       })
-        .then(response => {
+        .then((response) => {
           commit("GET_REGION_CODE_LIST", response.data);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
     },
@@ -714,16 +713,16 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token")
-        }
+          "access-token": sessionStorage.getItem("access-token"),
+        },
       })
-        .then(response => {
+        .then((response) => {
           commit("SEARCH_PART_REGION_CODE_LIST", response.data);
         })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
         });
-    }
+    },
   },
   modules: {},
 });

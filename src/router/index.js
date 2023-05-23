@@ -23,6 +23,9 @@ import ReviewModifyView from "@/views/review/ReviewModifyView.vue";
 // weather
 import WeatherView from "@/views/weather/WeatherView.vue";
 
+// board
+import BoardView from "@/views/board/BoardView.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -30,75 +33,81 @@ const routes = [
   {
     path: "/",
     name: "HomeView",
-    component: HomeView
+    component: HomeView,
   },
   {
     path: "/login",
     name: "UserLoginView",
-    component: UserLoginView
+    component: UserLoginView,
   },
   {
     path: "/signup",
     name: "UserSignupView",
-    component: UserSignupView
+    component: UserSignupView,
   },
   {
     path: "/myPage/:userSeq",
     name: "UserMyPageView",
-    component: UserMyPageView
+    component: UserMyPageView,
   },
   {
     path: "/myPage/modify/:userSeq",
     name: "UserModifyView",
-    component: UserModifyView
+    component: UserModifyView,
   },
   {
     path: "/myReviewPage/:userSeq",
     name: "UserMyReviewPageView",
-    component: UserMyReviewPageView
+    component: UserMyReviewPageView,
   },
 
   // video
   {
     path: "/video",
     name: "video",
-    component: VideoView
+    component: VideoView,
   },
   {
     path: "/videoDetail/:videoId",
     name: "videoDetailView",
-    component: VideoDetailView
+    component: VideoDetailView,
   },
 
   // review
   {
     path: "/reviewRegist/:videoId",
     name: "reviewRegistView",
-    component: ReviewRegistView
+    component: ReviewRegistView,
   },
   {
     path: "/reviewDetail/:videoId/:reviewSeq",
     name: "ReviewDetailView",
-    component: ReviewDetailView
+    component: ReviewDetailView,
   },
   {
     path: "/reviewModify/:videoId/:reviewSeq",
     name: "ReviewModifyView",
-    component: ReviewModifyView
+    component: ReviewModifyView,
   },
 
   // weather
   {
     path: "/weather",
     name: "WeatherView",
-    component: WeatherView
-  }
+    component: WeatherView,
+  },
+  //board
+  {
+    path: "/board",
+    name: "BoardView",
+    component: BoardView,
+  },
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 export default router;

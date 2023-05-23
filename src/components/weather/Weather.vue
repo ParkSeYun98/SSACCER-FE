@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-sm">
     <h2>날씨</h2>
 
     <div class="box">
@@ -83,7 +83,7 @@
     </div>
     <br />
 
-    <div class="box" style="width: 1600px; justify-content: center">
+    <div class="box" style="justify-content: center">
       <select
         @change="getCode"
         v-model="selectedRegion"
@@ -147,8 +147,8 @@ export default {
       "baseDateAndTime",
       "weatherInfo",
       "allRegionCodeList",
-      "partRegionCodeList"
-    ])
+      "partRegionCodeList",
+    ]),
   },
   data() {
     return {
@@ -162,7 +162,7 @@ export default {
       region: "",
       selectedRegion: "",
       selectedCode: "",
-      shortResult: []
+      shortResult: [],
     };
   },
   watch: {
@@ -170,7 +170,7 @@ export default {
       console.log(newRegion);
 
       this.$store.dispatch("searchPartRegionCodeList", newRegion);
-    }
+    },
   },
   methods: {
     // PF값 얻기
@@ -222,7 +222,7 @@ export default {
         baseDate: this.baseDateAndTime[0],
         baseTime: this.baseDateAndTime[1] + "00",
         nx: this.nx,
-        ny: this.ny
+        ny: this.ny,
       };
 
       this.$store.dispatch("getWeather", weatherDTO);
@@ -233,42 +233,42 @@ export default {
         if (this.weatherInfo.model.result[i].category === "T1H") {
           this.shortResult.push({
             category: "기온",
-            obsrValue: this.weatherInfo.model.result[i].obsrValue
+            obsrValue: this.weatherInfo.model.result[i].obsrValue,
           });
         } else if (this.weatherInfo.model.result[i].category === "RN1") {
           this.shortResult.push({
             category: "1시간 강수량",
-            obsrValue: this.weatherInfo.model.result[i].obsrValue
+            obsrValue: this.weatherInfo.model.result[i].obsrValue,
           });
         } else if (this.weatherInfo.model.result[i].category === "UUU") {
           this.shortResult.push({
             category: "동서바람성분",
-            obsrValue: this.weatherInfo.model.result[i].obsrValue
+            obsrValue: this.weatherInfo.model.result[i].obsrValue,
           });
         } else if (this.weatherInfo.model.result[i].category === "VVV") {
           this.shortResult.push({
             category: "남북바람성분",
-            obsrValue: this.weatherInfo.model.result[i].obsrValue
+            obsrValue: this.weatherInfo.model.result[i].obsrValue,
           });
         } else if (this.weatherInfo.model.result[i].category === "REH") {
           this.shortResult.push({
             category: "습도",
-            obsrValue: this.weatherInfo.model.result[i].obsrValue
+            obsrValue: this.weatherInfo.model.result[i].obsrValue,
           });
         } else if (this.weatherInfo.model.result[i].category === "PTY") {
           this.shortResult.push({
             category: "강수형태",
-            obsrValue: this.weatherInfo.model.result[i].obsrValue
+            obsrValue: this.weatherInfo.model.result[i].obsrValue,
           });
         } else if (this.weatherInfo.model.result[i].category === "VEC") {
           this.shortResult.push({
             category: "풍향",
-            obsrValue: this.weatherInfo.model.result[i].obsrValue
+            obsrValue: this.weatherInfo.model.result[i].obsrValue,
           });
         } else if (this.weatherInfo.model.result[i].category === "WSD") {
           this.shortResult.push({
             category: "풍속",
-            obsrValue: this.weatherInfo.model.result[i].obsrValue
+            obsrValue: this.weatherInfo.model.result[i].obsrValue,
           });
         }
       }
@@ -305,16 +305,20 @@ export default {
 
       let info = {
         regId: event.target.value,
-        tmFc: formattedDate
+        tmFc: formattedDate,
       };
 
       // this.$store.dispatch("getLongTemperatureWeather", info);
-    }
-  }
+    },
+  },
 };
 </script>
 
 <style scoped>
+.container-sm {
+  margin-top: 20px;
+}
+
 .box {
   display: flex;
   margin: 10px;
