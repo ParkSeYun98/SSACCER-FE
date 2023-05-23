@@ -11,7 +11,6 @@
             </div>
             <div class="card-body">
               <div class="form" role="form" autocomplete="off">
-                <!-- 이미지 -->
                 <div>
                   <label for="img">이미지</label>
                   <input
@@ -156,18 +155,20 @@ import { mapState } from "vuex";
 export default {
   name: "UserMyPage",
   computed: {
-    ...mapState(["loginUser", "DBuserList"]),
+    ...mapState(["loginUser", "DBuserList"])
   },
   data() {
     return {
       source: "",
-      img: "",
+      img: ""
     };
   },
 
   created() {
     this.$store.dispatch("getUserList");
+
     this.$store.dispatch("setLoginInfo", this.$route.params.userSeq);
+
     this.source = this.loginUser.img;
   },
   methods: {
@@ -189,12 +190,12 @@ export default {
 
       let box = {
         img: this.img,
-        userSeq: this.loginUser.userSeq,
+        userSeq: this.loginUser.userSeq
       };
 
       this.$store.dispatch("uploadImage", box);
-    },
-  },
+    }
+  }
 };
 </script>
 

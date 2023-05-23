@@ -147,18 +147,19 @@ import { mapState } from "vuex";
 export default {
   name: "UserModify",
   computed: {
-    ...mapState(["loginUser"]),
+    ...mapState(["loginUser"])
   },
   methods: {
     modifyUser() {
       this.$store.dispatch("modifyUser", this.loginUser);
+
       // this.$store.dispatch("getUserList");
       this.$router.push("/myPage/" + this.loginUser.userSeq);
     },
     cancel() {
       this.$router.push("/myPage/" + this.loginUser.userSeq);
-    },
-  },
+    }
+  }
 };
 </script>
 
