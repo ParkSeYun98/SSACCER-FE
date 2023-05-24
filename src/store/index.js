@@ -160,6 +160,16 @@ export default new Vuex.Store({
 
       state.review = review;
     },
+    ADD_REVIEW_VIEW_CNT(state, reviewSeq) {
+      for (let i = 0; i < state.reviewList.length; i++) {
+        if (reviewSeq == state.reviewList[i].reviewSeq) {
+          state.reviewList[i].viewCnt += 1;
+          break;
+        }
+      }
+
+      state.review.viewCnt += 1;
+    },
 
     // mutation - reviewlike
     GET_REVIEW_LIKE_LIST_BY_LOGINUSER(state, list) {
@@ -628,6 +638,23 @@ export default new Vuex.Store({
           alert("수정 완료");
 
           commit("MODIFY_REVIEW", response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    addReviewViewCnt({ commit }, reviewSeq) {
+      const API_URL = `http://localhost:9999/review/update/viewcnt/${reviewSeq}`;
+
+      axios({
+        url: API_URL,
+        method: "PUT",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          commit("ADD_REVIEW_VIEW_CNT");
         })
         .catch(err => {
           console.log(err);

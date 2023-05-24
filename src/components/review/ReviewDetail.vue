@@ -32,6 +32,7 @@ export default {
     this.$store.dispatch("getReview", this.$route.params.reviewSeq);
     this.$store.dispatch("getReviewLikeList");
     this.$store.dispatch("getReviewLikeStatus", this.$route.params.reviewSeq);
+    this.$store.dispatch("addReviewViewCnt", this.$route.params.reviewSeq);
   },
   computed: {
     ...mapState([
