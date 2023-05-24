@@ -2,18 +2,34 @@
   <div>
     <h2 style="margin: 50px">모집 글 작성</h2>
 
-    <div class="container-fluid vh-100">
+    <div class="container-sm vh-100">
+      <gmap-map
+        @click="handleMapClick"
+        :zoom="15"
+        :center="center"
+        style="width: 100%; height: 400px"
+      >
+        <!-- 이건 시작 마커 -->
+        <gmap-marker
+          :key="index"
+          :animation="ani"
+          v-for="(m, index) in locationMarkers"
+          :position="m.position"
+          @click="center = m.position"
+        ></gmap-marker>
+      </gmap-map>
+      <br />
       <div class="row justify-content-center h-100 w-100">
         <div class="col-lg-12 col-xl-11">
           <div
             class="card text-black rounded-25"
-            style="width: 1875px; height: 1000px"
+            style="width: auto; height: 1000px"
           >
             <div class="card-body p-md-4 w-100">
               <div
                 class="row justify-content-center d-flex justify-content-center"
               >
-                <div class="col-md-10 col-lg-6 col-xl-10" order-lg="1">
+                <div class="col-md-10 col-xl-10" order-lg="1">
                   <!-- <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">
                     Sign up
                   </p> -->
@@ -77,6 +93,9 @@
                           {{ location.name }}
                         </option>
                       </select>
+                      <button @click="getXY" class="btn btn-primary">
+                        위치보기
+                      </button>
                     </div>
 
                     <!-- matchstartDate -->
@@ -309,7 +328,7 @@ export default {
     this.$store.dispatch("getLocationList");
   },
   computed: {
-    ...mapState(["locationList", "loginUser"])
+    ...mapState(["locationList", "loginUser"]),
   },
   data() {
     return {
@@ -327,9 +346,28 @@ export default {
       matchstartDate: "",
       matchendDate: "",
       title: "",
-      content: ""
+      content: "",
+
+      //map
+      address: "",
+      ani: 1,
+      // 얘가 시작 중앙 위치
+      center: { lat: 36.36531910794662, lng: 127.32484817504883 },
+      locationMarkers: [],
+      // {
+      //   position: {
+      //     lat: 36.36531910794662,
+      //     lng: 127.32484817504883,
+      //   },
+      // },
+      // ],
+      locPlaces: [],
+      existingPlace: null,
+      showMap: false,
+      temp: "",
     };
   },
+
   methods: {
     goArticleListView() {
       this.$router.push("/articlelist");
@@ -337,6 +375,7 @@ export default {
     setPlace(event) {
       console.log(event.target);
       this.place = event.target.value;
+      this.temp = event.target.value;
     },
     registArticle() {
       let now = new Date();
@@ -381,12 +420,52 @@ export default {
         matchstartDate: newmatchstartDate,
         matchendDate: newmatchendDate,
         title: this.title,
-        content: this.content
+        content: this.content,
       };
 
       this.$store.dispatch("registArticle", article);
-    }
-  }
+    },
+    //map
+    handleMapClick(event) {
+      const clickedPosition = {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+      };
+
+      // 클릭한 위치의 상세 정보를 가져와서 처리하는 로직을 추가하세요
+      // 예를 들어, 상세 정보를 어딘가에 표시하거나 다른 동작을 수행할 수 있습니다.
+      // 이 예제에서는 콘솔에 클릭한 위치의 위도와 경도를 출력합니다.
+      console.log("Clicked Position:", clickedPosition);
+    },
+    getXY() {
+      for (let i = 0; i < this.locationList.length; i++) {
+        if (this.locationList[i].name === this.temp) {
+          const x = this.locationList[i].latitude;
+          const y = this.locationList[i].longitude;
+          // 여러 개의 마커를 추가하려면 아래의 주석을 해제하세요.
+
+          let position = {
+            lat: x,
+            lng: y,
+          };
+
+          if (this.locationMarkers.length > 0) {
+            this.locationMarkers.splice(0, 1);
+            this.locationMarkers.push({
+              position: { lat: x, lng: y },
+            });
+          } else {
+            this.locationMarkers.push({
+              position: { lat: x, lng: y },
+            });
+          }
+
+          this.center = this.locationMarkers[0].position;
+          break;
+        }
+      }
+    },
+  },
 };
 </script>
 

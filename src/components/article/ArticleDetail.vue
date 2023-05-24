@@ -1,9 +1,35 @@
 <template>
-  <div>
-    <br /><br />
+  <div class="container-sm">
+    <br />
+    <h2>모집 글 상세</h2>
+
+    <br />
+    <hr />
+    <br />
 
     <div>
-      <div>가능하면 지도</div>
+      <div>
+        <!-- 구글 맵 -->
+        <gmap-map
+          v-if="showMap"
+          @click="handleMapClick"
+          :zoom="15"
+          :center="center"
+          style="width: 100%; height: 400px"
+        >
+          <!-- 이건 시작 마커 -->
+          <gmap-marker
+            :key="index"
+            :animation="ani"
+            v-for="(m, index) in locationMarkers"
+            :position="m.position"
+            @click="center = m.position"
+          ></gmap-marker>
+        </gmap-map>
+        <button v-else @click="getXY" class="btn btn-primary">
+          경기장 위치 보기
+        </button>
+      </div>
 
       <br />
       <hr />
@@ -114,7 +140,24 @@ export default {
   data() {
     return {
       teamCheck: -1,
-      flag: false
+      flag: false,
+
+      //map
+      address: "",
+      ani: 1,
+      // 얘가 시작 중앙 위치
+      center: { lat: 36.36531910794662, lng: 127.32484817504883 },
+      locationMarkers: [],
+      // {
+      //   position: {
+      //     lat: 36.36531910794662,
+      //     lng: 127.32484817504883,
+      //   },
+      // },
+      // ],
+      locPlaces: [],
+      existingPlace: null,
+      showMap: false,
     };
   },
   created() {
@@ -123,9 +166,20 @@ export default {
     this.$store.dispatch("getArticle", this.$route.params.articleSeq);
     this.checkTeamCheck();
     this.checkArticleStatus();
+
+    //map
+    this.$store.dispatch("getLocationList");
+    // this.getXY();
+    // console.log(this.nowArticle.place);
   },
   computed: {
-    ...mapState(["nowArticle", "DBarticleList", "DBteamList", "loginUser"])
+    ...mapState([
+      "nowArticle",
+      "DBarticleList",
+      "DBteamList",
+      "loginUser",
+      "locationList",
+    ]),
   },
   methods: {
     join() {
@@ -195,7 +249,7 @@ export default {
 
       let updateInfo = {
         articleSeq: this.$route.params.articleSeq,
-        status: "모집"
+        status: "모집",
       };
 
       this.$store.dispatch("updateArticleStatus", updateInfo);
@@ -208,7 +262,7 @@ export default {
           if (this.flag) {
             let updateInfo = {
               articleSeq: this.$route.params.articleSeq,
-              status: "마감"
+              status: "마감",
             };
 
             console.log(updateInfo);
@@ -225,8 +279,50 @@ export default {
           }
         }
       }
-    }
-  }
+    },
+
+    //map
+    handleMapClick(event) {
+      const clickedPosition = {
+        lat: event.latLng.lat(),
+        lng: event.latLng.lng(),
+      };
+
+      // 클릭한 위치의 상세 정보를 가져와서 처리하는 로직을 추가하세요
+      // 예를 들어, 상세 정보를 어딘가에 표시하거나 다른 동작을 수행할 수 있습니다.
+      // 이 예제에서는 콘솔에 클릭한 위치의 위도와 경도를 출력합니다.
+      console.log("Clicked Position:", clickedPosition);
+    },
+    getXY() {
+      this.showMap = true;
+
+      for (let i = 0; i < this.locationList.length; i++) {
+        if (this.locationList[i].name === this.nowArticle.place) {
+          const x = this.locationList[i].latitude;
+          const y = this.locationList[i].longitude;
+          // 여러 개의 마커를 추가하려면 아래의 주석을 해제하세요.
+          this.locationMarkers.push({
+            position: { lat: x, lng: y },
+          });
+          break;
+        }
+      }
+
+      // 마커를 추가한 후에 중앙 위치를 설정하려면 아래의 주석을 해제하세요.
+      if (this.locationMarkers.length > 0) {
+        this.center = this.locationMarkers[0].position;
+      }
+
+      // 마커를 추가한 후에 중앙 위치를 설정하려면 모든 마커의 위치를 포함하는 영역으로 설정할 수도 있습니다.
+      // if (this.locationMarkers.length > 0) {
+      //   const bounds = new google.maps.LatLngBounds();
+      //   for (const marker of this.locationMarkers) {
+      //     bounds.extend(marker.position);
+      //   }
+      //   this.center = bounds.getCenter();
+      // }
+    },
+  },
 };
 </script>
 
@@ -251,5 +347,8 @@ export default {
 
 .divsmallBox {
   margin: 20px;
+}
+.container-sm {
+  margin-top: 40px;
 }
 </style>

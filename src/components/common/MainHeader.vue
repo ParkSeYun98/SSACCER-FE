@@ -26,16 +26,26 @@
         <ul
           class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
         >
-          <li><a href="/" class="nav-link px-2 text-secondary">Home</a></li>
           <li>
-            <a @click="goArticleView" class="nav-link px-2 text-white">모집</a>
+            <router-link to="/" class="nav-link px-2 text-secondary"
+              >Home</router-link
+            >
+          </li>
+          <li>
+            <router-link to="/articlelist" class="nav-link px-2 text-white"
+              >모집</router-link
+            >
           </li>
           <li><a class="nav-link px-2 text-white">뉴스</a></li>
           <li>
-            <a @click="goVideoView" class="nav-link px-2 text-white">영상</a>
+            <router-link to="/video" class="nav-link px-2 text-white"
+              >영상</router-link
+            >
           </li>
           <li>
-            <a @click="goWeatherView" class="nav-link px-2 text-white">날씨</a>
+            <router-link to="/weather" class="nav-link px-2 text-white"
+              >날씨</router-link
+            >
           </li>
         </ul>
 
@@ -73,7 +83,7 @@ import { mapState } from "vuex";
 export default {
   name: "MainHeader",
   computed: {
-    ...mapState(["loginUserName", "loginUser"])
+    ...mapState(["loginUserName", "loginUser"]),
   },
   methods: {
     GoUserLogin() {
@@ -86,16 +96,16 @@ export default {
         this.$router.push("/signup");
       }
     },
-    goVideoView() {
-      if (this.$route.path !== "/video") {
-        this.$router.push("/video");
-      }
-    },
-    goArticleView() {
-      if (this.$route.path !== "/articlelist") {
-        this.$router.push("/articlelist");
-      }
-    },
+    // goVideoView() {
+    //   if (this.$route.path !== "/video") {
+    //     this.$router.push("/video");
+    //   }
+    // },
+    // goArticleView() {
+    //   if (this.$route.path !== "/articlelist") {
+    //     this.$router.push("/articlelist");
+    //   }
+    // },
 
     logout() {
       this.$store.dispatch("logout");
@@ -105,17 +115,17 @@ export default {
         this.$router.push("/myPage/" + this.loginUser.userSeq);
       }
     },
-    goWeatherView() {
-      if (this.$route.path !== "/weather") {
-        this.$router.push("/weather");
-      }
-    },
+    // goWeatherView() {
+    //   if (this.$route.path !== "/weather") {
+    //     this.$router.push("/weather");
+    //   }
+    // },
     goContactView() {
       if (this.$route.path !== "/contact") {
         this.$router.push("/contact");
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

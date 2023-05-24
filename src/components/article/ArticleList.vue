@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="container">
+    <div class="container-">
       <hr />
       <div class="row">
         <div class="col-md-12">
@@ -85,7 +85,7 @@ export default {
     this.$store.dispatch("getArticleList");
   },
   computed: {
-    ...mapState(["DBarticleList", "nowArticle"])
+    ...mapState(["DBarticleList", "nowArticle"]),
   },
   methods: {
     goRegistArticleView() {
@@ -94,8 +94,8 @@ export default {
     goDetailArticle(article) {
       console.log(article.articleSeq);
       this.$router.push("/articledetail/" + article.articleSeq);
-    }
-  }
+    },
+  },
 };
 </script>
 

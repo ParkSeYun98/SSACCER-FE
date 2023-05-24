@@ -244,8 +244,8 @@ export default {
     },
     goArticleView() {
       this.$router.push("/articlelist");
-    }
-  }
+    },
+  },
 };
 </script>
 
