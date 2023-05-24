@@ -1,10 +1,6 @@
 <template>
   <div>
-    <h2>모집 글 상세</h2>
-
-    <br />
-    <hr />
-    <br />
+    <br /><br />
 
     <div>
       <div>가능하면 지도</div>
@@ -12,18 +8,6 @@
       <br />
       <hr />
       <br />
-
-      <div class="btns">
-        <button @click="goArticleListView" class="btn btn-secondary">
-          이전으로
-        </button>
-        <button v-if="teamCheck == 1" @click="cancel" class="btn btn-danger">
-          신청 취소
-        </button>
-        <button v-else-if="teamCheck == 0" @click="join" class="btn btn-info">
-          신청
-        </button>
-      </div>
 
       <div class="divBox">
         <div>
@@ -64,8 +48,10 @@
         <div class="divsmallBox">
           <div><h5>모집 인원</h5></div>
           <hr />
-          <div>
-            <h5>{{ nowArticle.recruiteCnt }} / {{ nowArticle.recruiteMax }}</h5>
+          <div style="display: flex; justify-content: center">
+            <h5 style="color: blue">{{ nowArticle.recruiteCnt }}</h5>
+            /
+            <h5 style="color: green">{{ nowArticle.recruiteMax }}</h5>
           </div>
         </div>
         <div class="divsmallBox">
@@ -91,6 +77,21 @@
           </div>
         </div>
       </div>
+
+      <div class="btns">
+        <button @click="goArticleListView" class="btn btn-secondary">
+          이전으로
+        </button>
+        <div v-if="nowArticle.userSeq != loginUser.userSeq">
+          <button v-if="teamCheck == 1" @click="cancel" class="btn btn-danger">
+            신청 취소
+          </button>
+          <button v-else-if="teamCheck == 0" @click="join" class="btn btn-info">
+            신청
+          </button>
+        </div>
+      </div>
+
       <br />
       <hr />
       <br />
@@ -232,9 +233,9 @@ export default {
 <style scoped>
 .btns {
   display: flex;
-  justify-content: start;
+  justify-content: end;
   align-items: center;
-  margin: 20px;
+  margin-right: 200px;
 }
 
 .btn {
@@ -243,9 +244,9 @@ export default {
 
 .divBox {
   display: flex;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
-  margin: 5px;
+  margin: 30px;
 }
 
 .divsmallBox {

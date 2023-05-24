@@ -54,7 +54,7 @@
                 <td><br />{{ article.ability }}</td>
                 <td><br />{{ article.gender }}</td>
                 <td><br />{{ article.matchstartDate }}</td>
-                <td><br />{{ article.matchendDate }}</td>
+                <td><br />{{ article.name }}</td>
                 <td><br />{{ article.viewCnt }}</td>
               </tr>
             </tbody>

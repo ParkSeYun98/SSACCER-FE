@@ -52,6 +52,11 @@
               <span>MyPage</span>
             </a>
           </div>
+          <div class="text-end">
+            <a class="btn btn-outline-light me-2" @click="goContactView">
+              <span>문의</span>
+            </a>
+          </div>
         </div>
         <div v-else>
           <a @click="GoUserLogin" class="btn btn-outline-light me-2"> Login </a>
@@ -103,6 +108,11 @@ export default {
     goWeatherView() {
       if (this.$route.path !== "/weather") {
         this.$router.push("/weather");
+      }
+    },
+    goContactView() {
+      if (this.$route.path !== "/contact") {
+        this.$router.push("/contact");
       }
     }
   }

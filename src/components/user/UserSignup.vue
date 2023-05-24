@@ -86,18 +86,6 @@
                       />
                     </div>
 
-                    <!-- <div>
-                      <label for="img" class="form-label">이미지</label>
-                      <input
-                        @change="uploadImage()"
-                        type="file"
-                        id="img"
-                        name="img"
-                        class="form-control"
-                        ref="img"
-                        accept="image/*"
-                      />
-                    </div> -->
                     <br /><br />
 
                     <div class="row mx-4 mb-3 mb-lg-4">
