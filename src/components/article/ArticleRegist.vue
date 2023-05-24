@@ -264,7 +264,7 @@
                         for="beverage"
                         class="label"
                         style="margin: 10px; width: 500px"
-                        >음료</label
+                        >음료 취식 여부</label
                       >
                       <select
                         v-model="beverage"
@@ -274,8 +274,8 @@
                         style="margin: 10px; text-align: center"
                       >
                         <option disabled value="">select one</option>
-                        <option value="false">가져올 필요 X</option>
-                        <option value="true">각자 챙기기</option>
+                        <option value="false">불가능</option>
+                        <option value="true">가능</option>
                       </select>
                     </div>
 
@@ -328,7 +328,7 @@ export default {
     this.$store.dispatch("getLocationList");
   },
   computed: {
-    ...mapState(["locationList", "loginUser"]),
+    ...mapState(["locationList", "loginUser", "DBarticleList", "articleIdx"])
   },
   data() {
     return {
@@ -364,7 +364,7 @@ export default {
       locPlaces: [],
       existingPlace: null,
       showMap: false,
-      temp: "",
+      temp: ""
     };
   },
 
@@ -373,7 +373,6 @@ export default {
       this.$router.push("/articlelist");
     },
     setPlace(event) {
-      console.log(event.target);
       this.place = event.target.value;
       this.temp = event.target.value;
     },
@@ -420,16 +419,17 @@ export default {
         matchstartDate: newmatchstartDate,
         matchendDate: newmatchendDate,
         title: this.title,
-        content: this.content,
+        content: this.content
       };
 
       this.$store.dispatch("registArticle", article);
+      this.$store.dispatch("joinTeam", this.articleIdx);
     },
     //map
     handleMapClick(event) {
       const clickedPosition = {
         lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
+        lng: event.latLng.lng()
       };
 
       // 클릭한 위치의 상세 정보를 가져와서 처리하는 로직을 추가하세요
@@ -446,17 +446,17 @@ export default {
 
           let position = {
             lat: x,
-            lng: y,
+            lng: y
           };
 
           if (this.locationMarkers.length > 0) {
             this.locationMarkers.splice(0, 1);
             this.locationMarkers.push({
-              position: { lat: x, lng: y },
+              position: { lat: x, lng: y }
             });
           } else {
             this.locationMarkers.push({
-              position: { lat: x, lng: y },
+              position: { lat: x, lng: y }
             });
           }
 
@@ -464,8 +464,8 @@ export default {
           break;
         }
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

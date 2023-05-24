@@ -1,11 +1,6 @@
 <template>
   <div class="container-sm">
     <br />
-    <h2>모집 글 상세</h2>
-
-    <br />
-    <hr />
-    <br />
 
     <div>
       <div>
@@ -34,6 +29,119 @@
       <br />
       <hr />
       <br />
+
+      <!-- 이 버튼 없애지 마셈 -->
+      <button @click="tableCheck" class="btn btn-success">팀 테이블</button>
+      <br />
+      <div v-if="check">
+        <h2 style="margin-top: 30px">매칭된 팀원 정보</h2>
+
+        <br />
+
+        <table
+          id="example"
+          class="table table-striped dt-responsive nowrap"
+          cellspacing="0"
+          width="100%"
+        >
+          <thead>
+            <tr>
+              <th>번호</th>
+              <th>랭크</th>
+              <th>이름</th>
+              <th>전화번호</th>
+              <th>포지션</th>
+              <th>실력</th>
+              <th>성별</th>
+            </tr>
+          </thead>
+          <tbody v-if="listCheck">
+            <tr v-for="(member, idx) in members" :key="idx">
+              <td><br />{{ idx + 1 }}</td>
+              <td>
+                <img
+                  class="img2"
+                  v-if="adminCheck(member.role)"
+                  src="@/assets/icons/admin.jpg"
+                />
+                <img
+                  class="img2"
+                  v-if="unrankedCheck(member.role)"
+                  src="@/assets/icons/unranked.webp"
+                />
+                <img
+                  class="img2"
+                  v-if="bronzeCheck(member.role)"
+                  src="@/assets/icons/bronze.webp"
+                />
+                <img
+                  class="img2"
+                  v-if="silverCheck(member.role)"
+                  src="@/assets/icons/silver.webp"
+                />
+                <img
+                  class="img2"
+                  v-if="goldCheck(member.role)"
+                  src="@/assets/icons/gold.webp"
+                />
+                <img
+                  class="img2"
+                  v-if="platinumCheck(member.role)"
+                  src="@/assets/icons/platinum.webp"
+                />
+                <img
+                  class="img2"
+                  v-if="diamondCheck(member.role)"
+                  src="@/assets/icons/diamond.webp"
+                />
+                <img
+                  class="img2"
+                  v-if="rubyCheck(member.role)"
+                  src="@/assets/icons/ruby.webp"
+                />
+              </td>
+              <td><br />{{ member.name }}</td>
+              <td>
+                <br /><span style="color: blue">{{ member.phoneNumber }}</span>
+              </td>
+              <td><br />{{ member.position }}</td>
+              <td><br />{{ member.ability }}</td>
+              <td><br />{{ member.gender }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <br />
+      <hr />
+      <br />
+
+      <div style="display: flex; justify-content: center; align-items: center">
+        <img
+          class="img1"
+          src="@/assets/icons/대여가능.png"
+          v-if="nowArticle.rental"
+        />
+        <img class="img1" src="@/assets/icons/대여불가.png" v-else />
+        <img
+          class="img1"
+          src="@/assets/icons/샤워가능.png"
+          v-if="nowArticle.shower"
+        />
+        <img class="img1" src="@/assets/icons/샤워불가.png" v-else />
+        <img
+          class="img1"
+          src="@/assets/icons/주차가능.png"
+          v-if="nowArticle.parking"
+        />
+        <img class="img1" src="@/assets/icons/주차불가.png" v-else />
+        <img
+          class="img1"
+          src="@/assets/icons/음료가능.png"
+          v-if="nowArticle.beverage"
+        />
+        <img class="img1" src="@/assets/icons/음료불가.png" v-else />
+      </div>
 
       <div class="divBox">
         <div>
@@ -157,7 +265,9 @@ export default {
       // ],
       locPlaces: [],
       existingPlace: null,
-      showMap: false
+      showMap: false,
+      listCheck: false,
+      check: false
     };
   },
   created() {
@@ -166,11 +276,16 @@ export default {
     this.$store.dispatch("getArticle", this.$route.params.articleSeq);
     this.checkTeamCheck();
     this.checkArticleStatus();
+    this.$store.dispatch("getTeamMember", this.$route.params.articleSeq);
 
     //map
     this.$store.dispatch("getLocationList");
     // this.getXY();
     // console.log(this.nowArticle.place);
+    this.memberInTeamCheck();
+    this.joinCheck();
+
+    console.log(this.nowArticle);
   },
   computed: {
     ...mapState([
@@ -178,7 +293,8 @@ export default {
       "DBarticleList",
       "DBteamList",
       "loginUser",
-      "locationList"
+      "locationList",
+      "members"
     ])
   },
   methods: {
@@ -321,6 +437,74 @@ export default {
       //   }
       //   this.center = bounds.getCenter();
       // }
+    },
+    adminCheck(role) {
+      if (role === "ADMIN") return true;
+      else return false;
+    },
+    unrankedCheck(role) {
+      if (role === "UNRANKED") return true;
+      else return false;
+    },
+    bronzeCheck(role) {
+      if (role === "BRONZE") return true;
+      else return false;
+    },
+    silverCheck(role) {
+      if (role === "SILVER") return true;
+      else return false;
+    },
+    goldCheck(role) {
+      if (role === "GOLD") return true;
+      else return false;
+    },
+    platinumCheck(role) {
+      if (role === "PLATINUM") return true;
+      else return false;
+    },
+    diamondCheck(role) {
+      if (role === "DIAMOND") return true;
+      else return false;
+    },
+    rubyCheck(role) {
+      if (role === "RUBY") return true;
+      else return false;
+    },
+
+    memberInTeamCheck() {
+      this.$store.dispatch("getTeamList");
+
+      for (let i = 0; i < this.DBteamList.length; i++) {
+        if (
+          this.DBteamList[i].articleSeq == this.$route.params.articleSeq &&
+          this.DBteamList[i].userSeq == this.loginUser.userSeq
+        ) {
+          this.listCheck = true;
+          return;
+        }
+      }
+
+      this.listCheck = false;
+    },
+    tableCheck() {
+      this.check = true;
+      this.joinCheck();
+    },
+    joinCheck() {
+      for (let i = 0; i < this.DBteamList.length; i++) {
+        if (
+          this.DBteamList[i].articleSeq == this.$route.params.articleSeq &&
+          this.DBteamList[i].userSeq == this.loginUser.userSeq
+        ) {
+          return;
+        }
+      }
+
+      if (this.nowArticle.userSeq != this.loginUser.userSeq) {
+        return;
+      }
+
+      this.$store.dispatch("joinTeam", this.$route.params.articleSeq);
     }
   }
 };
@@ -350,5 +534,10 @@ export default {
 }
 .container-sm {
   margin-top: 40px;
+}
+
+.img2 {
+  width: 70px;
+  height: 70px;
 }
 </style>

@@ -51,6 +51,8 @@ export default new Vuex.Store({
     DBteamList: [],
     recruiteCnt: 0,
     articleWriterList: [],
+    members: [],
+    articleIdx: 0,
 
     // state - news
     matchInfo: [],
@@ -132,7 +134,6 @@ export default new Vuex.Store({
     // mutation - review
     GET_REVIEWLIST(state, reviewList) {
       state.reviewList = reviewList;
-      state.reviewLike = null;
     },
     SET_REVIEW(state, review) {
       state.review = review;
@@ -236,11 +237,17 @@ export default new Vuex.Store({
         }
       }
     },
+    ADD_ARTICLE_IDX(state) {
+      state.articleIdx += 1;
+    },
     GET_TEAM_LIST(state, teamList) {
       state.DBteamList = teamList;
     },
     GET_ARTICLE_WRITER_LIST(state, articleWriterList) {
       state.articleWriterList = articleWriterList;
+    },
+    GET_TEAM_MEMBER(state, members) {
+      state.members = members;
     },
 
     // mutation - news
@@ -884,7 +891,6 @@ export default new Vuex.Store({
         }
       })
         .then(response => {
-          console.log(response.data);
           commit("GET_ARTICLE_LIST", response.data);
 
           this.dispatch("getArticleWriter");
@@ -937,6 +943,7 @@ export default new Vuex.Store({
       })
         .then(() => {
           this.dispatch("getArticleList");
+          commit("ADD_ARTICLE_IDX");
         })
         .then(() => {
           router.push("/articlelist");
@@ -997,6 +1004,17 @@ export default new Vuex.Store({
         });
     },
     joinTeam({ commit }, articleSeq) {
+      // this.dispatch("getTeamList")
+
+      for (let i = 0; i < this.state.DBteamList.length; i++) {
+        if (
+          this.state.DBteamList[i].userSeq == this.state.loginUser.userSeq &&
+          this.state.DBteamList[i].articleSeq == articleSeq
+        ) {
+          return;
+        }
+      }
+
       const API_URL = `http://localhost:9999/team/regist/${this.state.loginUser
         .userSeq}/${articleSeq}`;
 
@@ -1011,9 +1029,6 @@ export default new Vuex.Store({
           this.dispatch("getTeamList");
 
           router.go(0);
-          // this.dispatch("getArticle", articleSeq);
-          // router.push("/articlelist");
-          // router.go(0);
         })
         .catch(err => {
           console.log(err);
@@ -1098,6 +1113,25 @@ export default new Vuex.Store({
       })
         .then(() => {
           this.dispatch("getArticleList");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getTeamMember({ commit }, articleSeq) {
+      const API_URL = `http://localhost:9999/team/readbyarticleseq/list/${articleSeq}`;
+      console.log(articleSeq);
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          console.log(response.data);
+          commit("GET_TEAM_MEMBER", response.data);
         })
         .catch(err => {
           console.log(err);
