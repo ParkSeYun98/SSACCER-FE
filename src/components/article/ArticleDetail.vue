@@ -65,7 +65,7 @@
           <div><h5>모집 인원</h5></div>
           <hr />
           <div>
-            <h5>{{ nowArticle.recruiteMax }}</h5>
+            <h5>{{ nowArticle.recruiteCnt }} / {{ nowArticle.recruiteMax }}</h5>
           </div>
         </div>
         <div class="divsmallBox">
@@ -112,15 +112,16 @@ export default {
   name: "ArticleDetail",
   data() {
     return {
-      teamCheck: -1
+      teamCheck: -1,
+      flag: false
     };
   },
   created() {
     this.$store.dispatch("addArticleViewCnt", this.$route.params.articleSeq);
     this.$store.dispatch("getArticleList");
     this.$store.dispatch("getArticle", this.$route.params.articleSeq);
-    this.teamCheck = -1;
     this.checkTeamCheck();
+    this.checkArticleStatus();
   },
   computed: {
     ...mapState(["nowArticle", "DBarticleList", "DBteamList", "loginUser"])
@@ -128,12 +129,20 @@ export default {
   methods: {
     join() {
       this.$store.dispatch("joinTeam", this.$route.params.articleSeq);
+      this.$store.dispatch("getArticleList");
+      this.addRecruiteCnt();
+      this.$store.dispatch("getArticle", this.$route.params.articleSeq);
+      this.checkTeamCheck();
     },
     goArticleListView() {
       this.$router.push("/articlelist");
     },
     cancel() {
-      console.log("Cancel");
+      this.$store.dispatch("quitTeam", this.$route.params.articleSeq);
+      this.$store.dispatch("getArticleList");
+      this.minusRecruiteCnt();
+      this.$store.dispatch("getArticle", this.$route.params.articleSeq);
+      this.checkTeamCheck();
     },
     checkTeamCheck() {
       this.$store.dispatch("getTeamList");
@@ -149,6 +158,72 @@ export default {
       }
 
       this.teamCheck = 0;
+    },
+    addRecruiteCnt() {
+      for (let i = 0; i < this.DBarticleList.length; i++) {
+        if (this.DBarticleList[i].articleSeq == this.$route.params.articleSeq) {
+          if (
+            this.DBarticleList[i].recruiteCnt ==
+            this.DBarticleList[i].recruiteMax - 1
+          )
+            this.flag = true;
+
+          this.$store.dispatch(
+            "addArticleRecruiteCnt",
+            this.$route.params.articleSeq
+          );
+        }
+      }
+
+      this.$store.dispatch("getArticleList");
+      this.$store.dispatch("getArticle", this.$route.params.articleSeq);
+
+      this.checkArticleStatus();
+    },
+    minusRecruiteCnt() {
+      for (let i = 0; i < this.DBarticleList.length; i++) {
+        if (this.DBarticleList[i].articleSeq == this.$route.params.articleSeq) {
+          this.$store.dispatch(
+            "minusArticleRecruiteCnt",
+            this.$route.params.articleSeq
+          );
+
+          break;
+        }
+      }
+
+      let updateInfo = {
+        articleSeq: this.$route.params.articleSeq,
+        status: "모집"
+      };
+
+      this.$store.dispatch("updateArticleStatus", updateInfo);
+    },
+
+    checkArticleStatus() {
+      for (let i = 0; i < this.DBarticleList.length; i++) {
+        if (this.DBarticleList[i].articleSeq == this.$route.params.articleSeq) {
+          console.log(this.DBarticleList[i].recruiteCnt);
+          if (this.flag) {
+            let updateInfo = {
+              articleSeq: this.$route.params.articleSeq,
+              status: "마감"
+            };
+
+            console.log(updateInfo);
+
+            this.$store.dispatch("updateArticleStatus", updateInfo);
+
+            this.$store.dispatch("getArticleList");
+
+            this.$store.dispatch("getArticle", this.$route.params.articleSeq);
+
+            console.log(this.nowArticle.status);
+
+            flag = false;
+          }
+        }
+      }
     }
   }
 };

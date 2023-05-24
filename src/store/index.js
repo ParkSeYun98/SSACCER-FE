@@ -48,7 +48,8 @@ export default new Vuex.Store({
     // state - article
     DBarticleList: [],
     nowArticle: {},
-    DBteamList: []
+    DBteamList: [],
+    recruiteCnt: 0
   },
   getters: {},
   mutations: {
@@ -217,6 +218,7 @@ export default new Vuex.Store({
     // mutation - article
     GET_ARTICLE_LIST(state, articleList) {
       state.DBarticleList = articleList;
+      state.recruiteCnt = articleList.recruiteCnt;
     },
     GET_ARTICLE(state, article) {
       state.nowArticle = article;
@@ -906,7 +908,6 @@ export default new Vuex.Store({
         }
       })
         .then(response => {
-          console.log(response.data);
           commit("GET_ARTICLE", response.data);
         })
         .catch(err => {
@@ -960,7 +961,95 @@ export default new Vuex.Store({
       })
         .then(() => {
           this.dispatch("getTeamList");
+
           router.go(0);
+          // this.dispatch("getArticle", articleSeq);
+          // router.push("/articlelist");
+          // router.go(0);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    quitTeam({ commit }, articleSeq) {
+      const API_URL = `http://localhost:9999/team/delete/${this.state.loginUser
+        .userSeq}/${articleSeq}`;
+
+      axios({
+        url: API_URL,
+        method: "DELETE",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(() => {
+          this.dispatch("getTeamList");
+          router.go(0);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    addArticleRecruiteCnt({ commit }, articleSeq) {
+      const API_URL = `http://localhost:9999/article/addrecruitecnt/${articleSeq}`;
+      axios({
+        url: API_URL,
+        method: "PUT",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(() => {
+          this.dispatch("getArticleList");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    minusArticleRecruiteCnt({ commit }, articleSeq) {
+      const API_URL = `http://localhost:9999/article/minusrecruitecnt/${articleSeq}`;
+
+      axios({
+        url: API_URL,
+        method: "PUT",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(() => {
+          this.dispatch("getArticleList");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    updateArticleStatus({ commit }, updateInfo) {
+      const API_URL = `http://localhost:9999/article/update`;
+      let article = {};
+
+      console.log("===================");
+      console.log(updateInfo);
+
+      for (let i = 0; i < this.state.DBarticleList.length; i++) {
+        if (this.state.DBarticleList[i].articleSeq == updateInfo.articleSeq) {
+          article = this.state.DBarticleList[i];
+        }
+      }
+
+      article.status = updateInfo.status;
+
+      console.log(article);
+
+      axios({
+        url: API_URL,
+        method: "PUT",
+        data: article,
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(() => {
+          this.dispatch("getArticleList");
         })
         .catch(err => {
           console.log(err);

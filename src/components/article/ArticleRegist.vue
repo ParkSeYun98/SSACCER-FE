@@ -126,7 +126,6 @@
                         >모집 인원 수 (본인 포함)</label
                       >
                       <input
-                        placeholder="6"
                         v-model="recruiteMax"
                         type="number"
                         class="form-control"
@@ -143,7 +142,6 @@
                         >개인별 지불 금액</label
                       >
                       <input
-                        placeholder="10000"
                         v-model="cost"
                         type="number"
                         class="form-control"
@@ -369,6 +367,7 @@ export default {
       let article = {
         userSeq: this.loginUser.userSeq,
         recruiteMax: this.recruiteMax,
+        recruiteCnt: 1,
         cost: this.cost,
         place: this.place,
         ability: this.ability,

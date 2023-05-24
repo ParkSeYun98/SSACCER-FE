@@ -48,7 +48,9 @@
                   {{ article.place }}
                 </td>
                 <td><br />{{ article.title }}</td>
-                <td><br />{{ article.recruiteMax }}</td>
+                <td>
+                  <br />{{ article.recruiteCnt }} / {{ article.recruiteMax }}
+                </td>
                 <td><br />{{ article.ability }}</td>
                 <td><br />{{ article.gender }}</td>
                 <td><br />{{ article.matchstartDate }}</td>
@@ -83,7 +85,7 @@ export default {
     this.$store.dispatch("getArticleList");
   },
   computed: {
-    ...mapState(["DBarticleList"])
+    ...mapState(["DBarticleList", "nowArticle"])
   },
   methods: {
     goRegistArticleView() {
