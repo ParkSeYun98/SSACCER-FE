@@ -24,13 +24,7 @@
                   />
                 </div>
 
-                <img
-                  :src="
-                    'http://localhost:9999/user/display?userSeq=' +
-                    `${this.loginUser.userSeq}`
-                  "
-                  width="100px"
-                />
+                <img :src="imgUrl" width="100px" />
 
                 <div class="form-group row">
                   <label class="col-lg-3 col-form-label form-control-label"
@@ -155,12 +149,13 @@ import { mapState } from "vuex";
 export default {
   name: "UserMyPage",
   computed: {
-    ...mapState(["loginUser", "DBuserList"])
+    ...mapState(["loginUser", "DBuserList"]),
   },
   data() {
     return {
       source: "",
-      img: ""
+      img: null, // 이미지 파일을 저장할 변수 추가
+      imgUrl: "", // 이미지 파일 URL을 저장할 변수 추가
     };
   },
 
@@ -170,6 +165,7 @@ export default {
     this.$store.dispatch("setLoginInfo", this.$route.params.userSeq);
 
     this.source = this.loginUser.img;
+    this.imgUrl = `http://localhost:9999/user/display?userSeq=${this.loginUser.userSeq}`; // 이미지 파일 URL 설정
   },
   methods: {
     goMyReviewPage() {
@@ -190,12 +186,12 @@ export default {
 
       let box = {
         img: this.img,
-        userSeq: this.loginUser.userSeq
+        userSeq: this.loginUser.userSeq,
       };
 
       this.$store.dispatch("uploadImage", box);
-    }
-  }
+    },
+  },
 };
 </script>
 

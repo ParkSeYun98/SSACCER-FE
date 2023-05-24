@@ -81,8 +81,8 @@ export default new Vuex.Store({
       state.loginUser.img = img;
 
       for (let i = 0; i < state.userList.length; i++) {
-        if (state.userList.userSeq === state.loginUser.userSeq) {
-          state.userList.img = img;
+        if (state.userList[i].userSeq === state.loginUser.userSeq) {
+          state.userList[i].img = img;
           return;
         }
       }
