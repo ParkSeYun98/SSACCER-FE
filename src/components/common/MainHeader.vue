@@ -36,9 +36,13 @@
               >모집</router-link
             >
           </li>
-          <li><a class="nav-link px-2 text-white">뉴스</a></li>
           <li>
             <router-link to="/video" class="nav-link px-2 text-white"
+              >뉴스</router-link
+            >
+          </li>
+          <li>
+            <router-link to="/news/main" class="nav-link px-2 text-white"
               >영상</router-link
             >
           </li>
@@ -50,7 +54,9 @@
         </ul>
 
         <div v-if="loginUserName" class="navbar-login">
-          <span>{{ loginUserName }}님 환영합니다</span>
+          <span style="margin-right: 10px"
+            >{{ loginUserName }}님 환영합니다</span
+          >
 
           <div class="text-end">
             <a class="btn btn-outline-light me-2" @click="logout">
@@ -83,7 +89,7 @@ import { mapState } from "vuex";
 export default {
   name: "MainHeader",
   computed: {
-    ...mapState(["loginUserName", "loginUser"]),
+    ...mapState(["loginUserName", "loginUser"])
   },
   methods: {
     GoUserLogin() {
@@ -96,16 +102,6 @@ export default {
         this.$router.push("/signup");
       }
     },
-    // goVideoView() {
-    //   if (this.$route.path !== "/video") {
-    //     this.$router.push("/video");
-    //   }
-    // },
-    // goArticleView() {
-    //   if (this.$route.path !== "/articlelist") {
-    //     this.$router.push("/articlelist");
-    //   }
-    // },
 
     logout() {
       this.$store.dispatch("logout");
@@ -115,17 +111,12 @@ export default {
         this.$router.push("/myPage/" + this.loginUser.userSeq);
       }
     },
-    // goWeatherView() {
-    //   if (this.$route.path !== "/weather") {
-    //     this.$router.push("/weather");
-    //   }
-    // },
     goContactView() {
       if (this.$route.path !== "/contact") {
         this.$router.push("/contact");
       }
-    },
-  },
+    }
+  }
 };
 </script>
 

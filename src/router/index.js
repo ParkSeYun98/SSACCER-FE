@@ -29,6 +29,11 @@ import ArticleListView from "@/views/article/ArticleListView.vue";
 import ArticleRegistView from "@/views/article/ArticleRegistView.vue";
 import ArticleDetailView from "@/views/article/ArticleDetailView.vue";
 
+// news
+import NewsMainView from "@/views/news/NewsMainView.vue";
+import MatchInfoView from "@/views/news/MatchInfoView.vue";
+import TopScorerInTeamView from "@/views/news/TopScorerInTeamView.vue";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -36,66 +41,66 @@ const routes = [
   {
     path: "/",
     name: "HomeView",
-    component: HomeView,
+    component: HomeView
   },
   {
     path: "/login",
     name: "UserLoginView",
-    component: UserLoginView,
+    component: UserLoginView
   },
   {
     path: "/signup",
     name: "UserSignupView",
-    component: UserSignupView,
+    component: UserSignupView
   },
   {
     path: "/myPage/:userSeq",
     name: "UserMyPageView",
-    component: UserMyPageView,
+    component: UserMyPageView
   },
   {
     path: "/myPage/modify/:userSeq",
     name: "UserModifyView",
-    component: UserModifyView,
+    component: UserModifyView
   },
   {
     path: "/myReviewPage/:userSeq",
     name: "UserMyReviewPageView",
-    component: UserMyReviewPageView,
+    component: UserMyReviewPageView
   },
   {
     path: "/contact",
     name: "UserContactView",
-    component: UserContactView,
+    component: UserContactView
   },
 
   // video
   {
     path: "/video",
     name: "video",
-    component: VideoView,
+    component: VideoView
   },
   {
     path: "/videoDetail/:videoId",
     name: "videoDetailView",
-    component: VideoDetailView,
+    component: VideoDetailView
   },
 
   // review
   {
     path: "/reviewRegist/:videoId",
     name: "reviewRegistView",
-    component: ReviewRegistView,
+    component: ReviewRegistView
   },
   {
     path: "/reviewDetail/:videoId/:reviewSeq",
     name: "ReviewDetailView",
-    component: ReviewDetailView,
+    component: ReviewDetailView
   },
   {
     path: "/reviewModify/:videoId/:reviewSeq",
     name: "ReviewModifyView",
-    component: ReviewModifyView,
+    component: ReviewModifyView
   },
 
   // weather
@@ -103,31 +108,48 @@ const routes = [
     path: "/weather",
     name: "WeatherView",
 
-    component: WeatherView,
+    component: WeatherView
   },
 
   // article
   {
     path: "/articlelist",
     name: "ArticleListView",
-    component: ArticleListView,
+    component: ArticleListView
   },
   {
     path: "/articleregist",
     name: "ArticleRegistView",
-    component: ArticleRegistView,
+    component: ArticleRegistView
   },
   {
     path: "/articledetail/:articleSeq",
     name: "ArticleDetailView",
-    component: ArticleDetailView,
+    component: ArticleDetailView
   },
+
+  // news
+  {
+    path: "/news/main",
+    name: "NewsMainView",
+    component: NewsMainView
+  },
+  {
+    path: "/news/matchinfo",
+    name: "MatchInfoView",
+    component: MatchInfoView
+  },
+  {
+    path: "/news/topscorerinteam",
+    name: "TopScorerInTeamView",
+    component: TopScorerInTeamView
+  }
 ];
 
 const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
-  routes,
+  routes
 });
 
 export default router;

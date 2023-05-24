@@ -7,14 +7,14 @@ Vue.use(VueGoogleMaps, {
   load: {
     key: process.env.VUE_APP_MAP_API_KEY,
     libraries: "places", // This is required if you use the Autocomplete plugin
-    region: "KR",
+    region: "KR"
     // OR: libraries: 'places,drawing'
     // OR: libraries: 'places,drawing,visualization'
     // (as you require)
 
     //// If you want to set the version, you can do so:
     // v: '3.26',
-  },
+  }
 });
 
 Vue.config.productionTip = false;
@@ -30,5 +30,5 @@ Vue.use(BootstrapIconsPlugin);
 new Vue({
   router,
   store,
-  render: (h) => h(App),
+  render: h => h(App)
 }).$mount("#app");

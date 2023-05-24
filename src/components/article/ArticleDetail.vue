@@ -77,7 +77,7 @@
           <div style="display: flex; justify-content: center">
             <h5 style="color: blue">{{ nowArticle.recruiteCnt }}</h5>
             /
-            <h5 style="color: green">{{ nowArticle.recruiteMax }}</h5>
+            <h5 style="color: violet">{{ nowArticle.recruiteMax }}</h5>
           </div>
         </div>
         <div class="divsmallBox">
@@ -157,7 +157,7 @@ export default {
       // ],
       locPlaces: [],
       existingPlace: null,
-      showMap: false,
+      showMap: false
     };
   },
   created() {
@@ -178,8 +178,8 @@ export default {
       "DBarticleList",
       "DBteamList",
       "loginUser",
-      "locationList",
-    ]),
+      "locationList"
+    ])
   },
   methods: {
     join() {
@@ -249,7 +249,7 @@ export default {
 
       let updateInfo = {
         articleSeq: this.$route.params.articleSeq,
-        status: "모집",
+        status: "모집"
       };
 
       this.$store.dispatch("updateArticleStatus", updateInfo);
@@ -262,7 +262,7 @@ export default {
           if (this.flag) {
             let updateInfo = {
               articleSeq: this.$route.params.articleSeq,
-              status: "마감",
+              status: "마감"
             };
 
             console.log(updateInfo);
@@ -285,7 +285,7 @@ export default {
     handleMapClick(event) {
       const clickedPosition = {
         lat: event.latLng.lat(),
-        lng: event.latLng.lng(),
+        lng: event.latLng.lng()
       };
 
       // 클릭한 위치의 상세 정보를 가져와서 처리하는 로직을 추가하세요
@@ -302,7 +302,7 @@ export default {
           const y = this.locationList[i].longitude;
           // 여러 개의 마커를 추가하려면 아래의 주석을 해제하세요.
           this.locationMarkers.push({
-            position: { lat: x, lng: y },
+            position: { lat: x, lng: y }
           });
           break;
         }
@@ -321,8 +321,8 @@ export default {
       //   }
       //   this.center = bounds.getCenter();
       // }
-    },
-  },
+    }
+  }
 };
 </script>
 

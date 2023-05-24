@@ -15,11 +15,11 @@
                 <th>상태</th>
                 <th>장소</th>
                 <th>제목</th>
+                <th>작성자</th>
                 <th>모집인원</th>
                 <th>능력</th>
                 <th>성별</th>
                 <th>시작시간</th>
-                <th>종료시간</th>
                 <th>조회수</th>
               </tr>
             </thead>
@@ -48,13 +48,19 @@
                   {{ article.place }}
                 </td>
                 <td><br />{{ article.title }}</td>
+                <td><br />{{ articleWriterList[idx] }}</td>
                 <td>
-                  <br />{{ article.recruiteCnt }} / {{ article.recruiteMax }}
+                  <br /><span style="color: blue">{{
+                    article.recruiteCnt
+                  }}</span>
+                  /
+                  <span style="color: blueviolet">{{
+                    article.recruiteMax
+                  }}</span>
                 </td>
                 <td><br />{{ article.ability }}</td>
                 <td><br />{{ article.gender }}</td>
                 <td><br />{{ article.matchstartDate }}</td>
-                <td><br />{{ article.name }}</td>
                 <td><br />{{ article.viewCnt }}</td>
               </tr>
             </tbody>
@@ -85,7 +91,7 @@ export default {
     this.$store.dispatch("getArticleList");
   },
   computed: {
-    ...mapState(["DBarticleList", "nowArticle"]),
+    ...mapState(["DBarticleList", "nowArticle", "articleWriterList"])
   },
   methods: {
     goRegistArticleView() {
@@ -94,8 +100,8 @@ export default {
     goDetailArticle(article) {
       console.log(article.articleSeq);
       this.$router.push("/articledetail/" + article.articleSeq);
-    },
-  },
+    }
+  }
 };
 </script>
 

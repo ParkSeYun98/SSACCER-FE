@@ -196,7 +196,11 @@
           </svg>
           <h2 class="fw-normal">News</h2>
           <p>국내, 해외 축구 소식 보기</p>
-          <p><a class="btn btn-secondary" href="/">View details &raquo;</a></p>
+          <p>
+            <a class="btn btn-secondary" @click="goNewsView"
+              >View details &raquo;</a
+            >
+          </p>
         </div>
         <!-- /.col-lg-4 -->
         <div class="col-lg-4">
@@ -245,7 +249,10 @@ export default {
     goArticleView() {
       this.$router.push("/articlelist");
     },
-  },
+    goNewsView() {
+      this.$router.push("/news/main");
+    }
+  }
 };
 </script>
 

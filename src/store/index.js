@@ -49,7 +49,12 @@ export default new Vuex.Store({
     DBarticleList: [],
     nowArticle: {},
     DBteamList: [],
-    recruiteCnt: 0
+    recruiteCnt: 0,
+    articleWriterList: [],
+
+    // state - news
+    matchInfo: [],
+    topScorer: []
   },
   getters: {},
   mutations: {
@@ -233,6 +238,17 @@ export default new Vuex.Store({
     },
     GET_TEAM_LIST(state, teamList) {
       state.DBteamList = teamList;
+    },
+    GET_ARTICLE_WRITER_LIST(state, articleWriterList) {
+      state.articleWriterList = articleWriterList;
+    },
+
+    // mutation - news
+    GET_MATCH_INFO(state, matches) {
+      state.matchInfo = matches;
+    },
+    GET_TOP_SCOERER(state, scorers) {
+      state.topScorer = scorers;
     }
   },
   actions: {
@@ -868,7 +884,39 @@ export default new Vuex.Store({
         }
       })
         .then(response => {
+          console.log(response.data);
           commit("GET_ARTICLE_LIST", response.data);
+
+          this.dispatch("getArticleWriter");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getArticleWriter({ commit }) {
+      const API_URL = `http://localhost:9999/user/read/list`;
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          let userList = response.data;
+          let articleWriterList = [];
+
+          for (let i = 0; i < this.state.DBarticleList.length; i++) {
+            for (let j = 0; j < userList.length; j++) {
+              if (this.state.DBarticleList[i].userSeq == userList[j].userSeq) {
+                articleWriterList.push(userList[j].name);
+                break;
+              }
+            }
+          }
+
+          commit("GET_ARTICLE_WRITER_LIST", articleWriterList);
         })
         .catch(err => {
           console.log(err);
@@ -1050,6 +1098,42 @@ export default new Vuex.Store({
       })
         .then(() => {
           this.dispatch("getArticleList");
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+
+    // action - news
+    getMatchInfo({ commit }, info) {
+      const API_URL = `http://localhost:9999/news/matchday/list/${info.league}/${info.round}`;
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          commit("GET_MATCH_INFO", response.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getTopScorer({ commit }, league) {
+      const API_URL = `http://localhost:9999/news/topscorer/${league}`;
+
+      axios({
+        url: API_URL,
+        method: "GET",
+        headers: {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      })
+        .then(response => {
+          commit("GET_TOP_SCOERER", response.data);
         })
         .catch(err => {
           console.log(err);
