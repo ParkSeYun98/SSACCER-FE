@@ -37,12 +37,12 @@
             >
           </li>
           <li>
-            <router-link to="/video" class="nav-link px-2 text-white"
+            <router-link to="/news/main" class="nav-link px-2 text-white"
               >뉴스</router-link
             >
           </li>
           <li>
-            <router-link to="/news/main" class="nav-link px-2 text-white"
+            <router-link to="/video" class="nav-link px-2 text-white"
               >영상</router-link
             >
           </li>
