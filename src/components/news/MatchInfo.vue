@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-sm">
     <div class="box">
       <div>
         <label for="league" style="margin: 10px">리그</label>
@@ -96,12 +96,12 @@ export default {
   name: "",
   created() {},
   computed: {
-    ...mapState(["matchInfo"])
+    ...mapState(["matchInfo"]),
   },
   data() {
     return {
       league: "",
-      round: 0
+      round: 0,
     };
   },
   methods: {
@@ -111,7 +111,7 @@ export default {
 
       let info = {
         league: this.league,
-        round: this.round
+        round: this.round,
       };
 
       this.$store.dispatch("getMatchInfo", info);
@@ -120,8 +120,8 @@ export default {
     },
     goNewsMainView() {
       this.$router.push("/news/main");
-    }
-  }
+    },
+  },
 };
 </script>
 
