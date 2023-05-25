@@ -25,7 +25,9 @@
                 </div>
 
                 <img :src="imgUrl" width="100px" />
-
+                <!-- <button @click="deleteImg" class="btn btn-secondary sm">
+                  X
+                </button> -->
                 <div class="form-group row">
                   <label class="col-lg-3 col-form-label form-control-label"
                     >ID</label
@@ -191,6 +193,9 @@ export default {
 
       this.$store.dispatch("uploadImage", box);
     },
+    // deleteImg() {
+    //   this.$store.dispatch("deleteImg");
+    // },
   },
 };
 </script>
