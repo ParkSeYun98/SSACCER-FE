@@ -58,7 +58,7 @@ export default {
       this.$store.dispatch("saveVideo", dbvideo);
       console.log("새로고침전");
       this.$router.push("/videoDetail/" + YoutubeVideo.id.videoId);
-      router.go(0);
+      // this.$router.go(0);
       // location.reload;
     }
   }
