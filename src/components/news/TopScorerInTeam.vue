@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="container-sm">
     <div class="box" style="justify-content: center">
       <div>
         <label for="league">리그</label>
@@ -84,11 +84,11 @@ import { mapState } from "vuex";
 export default {
   name: "TopScorerInTeam",
   computed: {
-    ...mapState(["topScorer"])
+    ...mapState(["topScorer"]),
   },
   data() {
     return {
-      league: ""
+      league: "",
     };
   },
   methods: {
@@ -98,8 +98,8 @@ export default {
     },
     goNewsMainView() {
       this.$router.push("/news/main");
-    }
-  }
+    },
+  },
 };
 </script>
 

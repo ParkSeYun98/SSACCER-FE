@@ -251,8 +251,8 @@ export default {
     },
     goNewsView() {
       this.$router.push("/news/main");
-    }
-  }
+    },
+  },
 };
 </script>
 
