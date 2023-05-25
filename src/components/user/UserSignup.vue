@@ -140,7 +140,12 @@ export default {
         this.position === "" ||
         this.phoneNumber === ""
       ) {
-        alert("모든 내용을 입력해주세요");
+        swal({
+          title: "로그인 에러",
+          text: "모든 내용을 입력해주세요!",
+          icon: "error",
+          button: false
+        });
       }
 
       let user = {

@@ -68,6 +68,8 @@
 </template>
 
 <script>
+import swal from "sweetalert";
+
 export default {
   name: "UserLogin",
   data() {
@@ -86,7 +88,13 @@ export default {
     },
     UserLogin() {
       if (this.user.userId === "" || this.user.password === "") {
-        alert("내용을 입력해주세요");
+        swal({
+          title: "로그인 에러",
+          text: "내용을 입력해주세요!",
+          icon: "error",
+          button: false,
+          className: "red-bg"
+        });
       } else {
         this.$store.dispatch("Login", this.user);
       }

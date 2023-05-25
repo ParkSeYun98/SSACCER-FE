@@ -303,14 +303,35 @@ export default new Vuex.Store({
         params: user
       })
         .then(response => {
-          alert("로그인 성공!");
-          commit("LOGIN", response.data);
+          swal({
+            title: "로그인 성공",
+            text: "환영합니다!",
+            icon: "success",
+            button: false
+          }).then(() => {
+            commit("LOGIN", response.data);
 
-          sessionStorage.setItem("access-token", response.data["access-token"]);
-          router.push("/");
+            sessionStorage.setItem(
+              "access-token",
+              response.data["access-token"]
+            );
+            router.push("/");
+
+            swal({
+              text: "기다리고 있었답니다~",
+              button: false,
+              timer: 1000,
+              className: "red-bg"
+            });
+          });
         })
         .catch(err => {
-          alert("아이디 혹은 비밀번호를 확인해주세요.");
+          swal({
+            title: "로그인 실패",
+            text: "입력 내용을 다시 한 번 확인해주시겠어요?",
+            icon: "error",
+            button: false
+          });
 
           console.log(err);
         });
@@ -327,8 +348,14 @@ export default new Vuex.Store({
     logout({ commit }) {
       commit("LOGOUT");
       sessionStorage.removeItem("access-token");
-      alert("로그아웃 되었습니다!");
-      router.push("/login");
+      swal({
+        title: "로그아웃 성공",
+        text: "다음에 또 오세요!",
+        icon: "success",
+        button: false
+      }).then(() => {
+        router.push("/login");
+      });
     },
     SignUp({ commit }, user) {
       const API_URL = `http://localhost:9999/user/signup`;
@@ -339,9 +366,15 @@ export default new Vuex.Store({
         data: user
       })
         .then(() => {
-          alert("회원가입이 완료되었습니다!");
-          commit("SIGNUP", user);
-          router.push("/login");
+          swal({
+            title: "회원가입 성공",
+            text: "저희 서비스를 즐겨보시죠!",
+            icon: "success",
+            button: false
+          }).then(() => {
+            commit("SIGNUP", user);
+            router.push("/login");
+          });
         })
         .catch(err => {
           console.log(err);
@@ -356,8 +389,14 @@ export default new Vuex.Store({
         data: loginUser
       })
         .then(() => {
-          alert("수정 완료");
-          commit("MODIFY_USER", loginUser);
+          swal({
+            title: "회원정보 수정 성공",
+            text: "회원님의 새로운 모습이네요!",
+            icon: "success",
+            button: false
+          }).then(() => {
+            commit("MODIFY_USER", loginUser);
+          });
         })
         .catch(err => {
           console.log(err);
@@ -370,9 +409,15 @@ export default new Vuex.Store({
         method: "DELETE"
       })
         .then(() => {
-          alert("삭제 완료!");
-          commit("DELETE_USER", userId);
-          router.push("/login");
+          swal({
+            title: "회원 탈퇴 성공",
+            text: "...돌아오실거죠..?",
+            icon: "success",
+            button: false
+          }).then(() => {
+            commit("DELETE_USER", userId);
+            router.push("/login");
+          });
         })
         .catch(err => {
           console.log(err);
@@ -390,8 +435,7 @@ export default new Vuex.Store({
         })
         .then(() => {
           commit("UPLOAD_IMAGE", img);
-          console.log(img);
-          console.log(imgUrl);
+
           router.go(0);
         })
         .catch(err => {
@@ -431,7 +475,6 @@ export default new Vuex.Store({
       })
         .then(response => {
           reviewCnt = response.data.length;
-          console.log(reviewCnt);
 
           if (reviewCnt >= 1 && reviewCnt < 3) {
             this.dispatch("updateRole", "BRONZE");
@@ -455,7 +498,6 @@ export default new Vuex.Store({
       let user = this.state.loginUser;
 
       user.role = role;
-      console.log(role);
 
       const API_URL = `http://localhost:9999/user/update`;
 
@@ -469,6 +511,8 @@ export default new Vuex.Store({
       })
         .then(() => {
           this.dispatch("getUserList");
+        })
+        .then(() => {
           commit("UPDATE_ROLE", role);
         })
         .catch(err => {
@@ -625,7 +669,12 @@ export default new Vuex.Store({
         }
       })
         .then(response => {
-          alert("등록 완료");
+          swal({
+            title: "리뷰 등록 성공",
+            text: "다른 회원에게 큰 도움이 될 거에요! 감사합니다!",
+            icon: "success",
+            button: false
+          });
 
           commit("REGIST_REVIEW", review);
 
@@ -648,8 +697,14 @@ export default new Vuex.Store({
         }
       })
         .then(response => {
-          alert("삭제 완료");
-          commit("DELETE_REVIEW", reviewSeq);
+          swal({
+            title: "리뷰 삭제 성공",
+            text: "다른 리뷰라도 써주실거죠,,?",
+            icon: "success",
+            button: false
+          }).then(() => {
+            commit("DELETE_REVIEW", reviewSeq);
+          });
         })
         .catch(err => {
           console.log(err);
@@ -667,7 +722,12 @@ export default new Vuex.Store({
         }
       })
         .then(response => {
-          alert("수정 완료");
+          swal({
+            title: "리뷰 수정 완료",
+            text: "쉿, 이전 내용은 아무도 모를거에요!",
+            icon: "success",
+            button: false
+          });
 
           commit("MODIFY_REVIEW", response.data);
         })

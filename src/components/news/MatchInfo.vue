@@ -21,23 +21,31 @@
           min="1"
           max="37"
           placeholder="1~37"
+          @click="loadingOn"
         />
       </div>
-      <button @click="getInfo" class="btn btn-primary" style="margin: 10px">
-        검색
-      </button>
-      <button
-        @click="goNewsMainView"
-        class="btn btn-secondary"
-        style="margin: 10px"
-      >
-        이전으로
-      </button>
+      <div style="margin-top: 50px; margin-bottom: 50px">
+        <button @click="getInfo" class="btn btn-primary" style="margin: 10px">
+          검색
+        </button>
+        <button
+          @click="goNewsMainView"
+          class="btn btn-secondary"
+          style="margin: 10px"
+        >
+          이전으로
+        </button>
+      </div>
     </div>
 
-    <br />
-    <hr />
-    <br />
+    <div
+      v-if="loading"
+      class="spinner-border text-danger"
+      role="status"
+      style="margin-bottom: 50px"
+    >
+      <span class="visually-hidden">Loading...</span>
+    </div>
 
     <div v-if="round != 0" class="bigbox">
       <div>
@@ -101,25 +109,27 @@ export default {
   data() {
     return {
       league: "",
-      round: 0
+      round: 0,
+      loading: false
     };
   },
   methods: {
     getInfo() {
-      console.log(this.league);
-      console.log(this.round);
-
       let info = {
         league: this.league,
         round: this.round
       };
 
-      this.$store.dispatch("getMatchInfo", info);
-      // this.$router.go(0);
-      console.log(this.matchInfo);
+      setTimeout(() => {
+        this.$store.dispatch("getMatchInfo", info);
+        this.loading = false;
+      }, 5000);
     },
     goNewsMainView() {
       this.$router.push("/news/main");
+    },
+    loadingOn() {
+      this.loading = true;
     }
   }
 };

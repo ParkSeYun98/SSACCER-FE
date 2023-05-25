@@ -112,13 +112,18 @@ import { mapState } from "vuex";
 
 export default {
   name: "reviewList",
-  created() {
+  async created() {
     this.LikeStatusList = [];
+
     this.$store.dispatch("getReviewList", this.$route.params.videoId);
-    this.$store.dispatch("getReviewLikeList", this.loginUser.userSeq);
-    this.getLikeStatusList();
-    console.log(this.LikeStatusList);
-    this.getRank();
+
+    setTimeout(() => {
+      this.getRank();
+
+      this.$store.dispatch("getReviewLikeList", this.loginUser.userSeq);
+
+      this.getLikeStatusList();
+    }, 200);
   },
   computed: {
     ...mapState([

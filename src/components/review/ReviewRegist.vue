@@ -45,7 +45,7 @@ export default {
     ...mapState(["loginUserName", "loginUser", "DBvideoList"])
   },
   methods: {
-    registReview() {
+    async registReview() {
       let videoSeq = 0;
 
       for (let i = 0; i < this.DBvideoList.length; i++) {
@@ -55,9 +55,6 @@ export default {
         }
       }
 
-      console.log(videoSeq);
-      console.log(this.loginUser);
-
       const Review = {
         userSeq: this.loginUser.userSeq,
         videoSeq: videoSeq,
@@ -66,11 +63,11 @@ export default {
         writer: this.loginUser.name
       };
 
-      this.$store.dispatch("registReview", Review);
-
-      this.goVideoDetailView();
+      await this.$store.dispatch("registReview", Review);
 
       this.beforeUpdateRole();
+
+      this.goVideoDetailView();
     },
     goVideoDetailView() {
       this.$router.push("/videoDetail/" + this.$route.params.videoId);

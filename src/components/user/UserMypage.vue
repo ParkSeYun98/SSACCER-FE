@@ -21,10 +21,20 @@
                     class="form-control"
                     ref="img"
                     accept="image/*"
+                    style="margin-bottom: 20px; margin-top: 10px"
                   />
                 </div>
 
-                <img :src="imgUrl" width="100px" />
+                <img v-if="imgStatus" :src="imgUrl" width="100px" />
+
+                <button
+                  v-else
+                  @click="showImg"
+                  class="btn btn-info"
+                  style="margin-bottom: 20px"
+                >
+                  내 이미지 보기
+                </button>
                 <!-- <button @click="deleteImg" class="btn btn-secondary sm">
                   X
                 </button> -->
@@ -151,13 +161,14 @@ import { mapState } from "vuex";
 export default {
   name: "UserMyPage",
   computed: {
-    ...mapState(["loginUser", "DBuserList"]),
+    ...mapState(["loginUser", "DBuserList"])
   },
   data() {
     return {
       source: "",
       img: null, // 이미지 파일을 저장할 변수 추가
-      imgUrl: "", // 이미지 파일 URL을 저장할 변수 추가
+      imgUrl: "", // 이미지 파일 URL을 저장할 변수 추가,
+      imgStatus: false
     };
   },
 
@@ -167,7 +178,9 @@ export default {
     this.$store.dispatch("setLoginInfo", this.$route.params.userSeq);
 
     this.source = this.loginUser.img;
-    this.imgUrl = `http://localhost:9999/user/display?userSeq=${this.loginUser.userSeq}`; // 이미지 파일 URL 설정
+    setTimeout(() => {
+      this.imgUrl = `http://localhost:9999/user/display?userSeq=${this.loginUser.userSeq}`;
+    }, 500);
   },
   methods: {
     goMyReviewPage() {
@@ -188,15 +201,18 @@ export default {
 
       let box = {
         img: this.img,
-        userSeq: this.loginUser.userSeq,
+        userSeq: this.loginUser.userSeq
       };
 
       this.$store.dispatch("uploadImage", box);
     },
+    showImg() {
+      this.imgStatus = true;
+    }
     // deleteImg() {
     //   this.$store.dispatch("deleteImg");
     // },
-  },
+  }
 };
 </script>
 

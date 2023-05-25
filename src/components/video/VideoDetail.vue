@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="video">
+    <div v-if="video" style="margin: 20px">
       <iframe
         width="560"
         height="315"
@@ -12,8 +12,8 @@
       >
       </iframe>
 
-      <h5>{{ video.snippet.title }}</h5>
-      <h5>{{ video.snippet.channelTitle }}</h5>
+      <h3 style="margin: 20px">{{ video.snippet.title }}</h3>
+      <h5 style="margin: 20px">{{ video.snippet.channelTitle }}</h5>
     </div>
   </div>
 </template>

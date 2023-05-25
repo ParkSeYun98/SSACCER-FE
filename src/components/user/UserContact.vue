@@ -105,9 +105,14 @@ export default {
           }
         );
 
-      alert("문의 내용이 관리자에게 전송되었습니다!");
-
-      this.$router.push("/");
+      swal({
+        title: "전송 완료",
+        text: "문의 내용이 관리자에게 전송되었습니다!",
+        icon: "success",
+        button: false
+      }).then(() => {
+        this.$router.push("/");
+      });
     }
   }
 };
