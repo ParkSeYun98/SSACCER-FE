@@ -781,7 +781,9 @@ export default {
         ny: this.ny
       };
 
-      this.$store.dispatch("getWeather", weatherDTO);
+      setTimeout(() => {
+        this.$store.dispatch("getWeather", weatherDTO);
+      }, 1000);
 
       this.shortResult = [];
 

@@ -9,7 +9,7 @@
           class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
         >
           <img
-            src="@/assets/logo5.png"
+            src="@/assets/logo/logo5.png"
             alt="Logo"
             width="220px"
             height="80px"
@@ -38,7 +38,7 @@
           </li>
           <li>
             <router-link to="/news/main" class="nav-link px-2 text-white"
-              >뉴스</router-link
+              >해외축구 소식</router-link
             >
           </li>
           <li>
