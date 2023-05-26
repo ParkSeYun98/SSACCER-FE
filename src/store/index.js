@@ -9,8 +9,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   plugins: [
     createVuexPersistedState({
-      storage: window.sessionStorage,
-    }),
+      storage: window.sessionStorage
+    })
   ],
   state: {
     // state - video
@@ -56,7 +56,7 @@ export default new Vuex.Store({
 
     // state - news
     matchInfo: [],
-    topScorer: [],
+    topScorer: []
   },
   getters: {},
   mutations: {
@@ -276,7 +276,7 @@ export default new Vuex.Store({
     },
     GET_TOP_SCOERER(state, scorers) {
       state.topScorer = scorers;
-    },
+    }
   },
   actions: {
     // action - User
@@ -286,17 +286,38 @@ export default new Vuex.Store({
       axios({
         url: API_URL,
         method: "POST",
-        params: user,
+        params: user
       })
-        .then((response) => {
-          alert("로그인 성공!");
-          commit("LOGIN", response.data);
+        .then(response => {
+          swal({
+            title: "로그인 성공",
+            text: "환영합니다!",
+            icon: "success",
+            button: false
+          }).then(() => {
+            commit("LOGIN", response.data);
 
-          sessionStorage.setItem("access-token", response.data["access-token"]);
-          router.push("/");
+            sessionStorage.setItem(
+              "access-token",
+              response.data["access-token"]
+            );
+            router.push("/");
+
+            swal({
+              text: "기다리고 있었답니다~",
+              button: false,
+              timer: 1000,
+              className: "red-bg"
+            });
+          });
         })
-        .catch((err) => {
-          alert("아이디 혹은 비밀번호를 확인해주세요.");
+        .catch(err => {
+          swal({
+            title: "로그인 실패",
+            text: "입력 내용을 다시 한 번 확인해주시겠어요?",
+            icon: "error",
+            button: false
+          });
 
           console.log(err);
         });
@@ -313,8 +334,14 @@ export default new Vuex.Store({
     logout({ commit }) {
       commit("LOGOUT");
       sessionStorage.removeItem("access-token");
-      alert("로그아웃 되었습니다!");
-      router.push("/login");
+      swal({
+        title: "로그아웃 성공",
+        text: "다음에 또 오세요!",
+        icon: "success",
+        button: false
+      }).then(() => {
+        router.push("/login");
+      });
     },
     SignUp({ commit }, user) {
       const API_URL = `http://localhost:9999/user/signup`;
@@ -322,14 +349,20 @@ export default new Vuex.Store({
       axios({
         url: API_URL,
         method: "POST",
-        data: user,
+        data: user
       })
         .then(() => {
-          alert("회원가입이 완료되었습니다!");
-          commit("SIGNUP", user);
-          router.push("/login");
+          swal({
+            title: "회원가입 성공",
+            text: "저희 서비스를 즐겨보시죠!",
+            icon: "success",
+            button: false
+          }).then(() => {
+            commit("SIGNUP", user);
+            router.push("/login");
+          });
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -339,28 +372,40 @@ export default new Vuex.Store({
       axios({
         url: API_URL,
         method: "PUT",
-        data: loginUser,
+        data: loginUser
       })
         .then(() => {
-          alert("수정 완료");
-          commit("MODIFY_USER", loginUser);
+          swal({
+            title: "회원정보 수정 성공",
+            text: "회원님의 새로운 모습이네요!",
+            icon: "success",
+            button: false
+          }).then(() => {
+            commit("MODIFY_USER", loginUser);
+          });
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
-    deleteUser: function ({ commit }, userId) {
+    deleteUser: function({ commit }, userId) {
       const API_URL = `http://localhost:9999/user/quit/${userId}`;
       axios({
         url: API_URL,
-        method: "DELETE",
+        method: "DELETE"
       })
         .then(() => {
-          alert("삭제 완료!");
-          commit("DELETE_USER", userId);
-          router.push("/login");
+          swal({
+            title: "회원 탈퇴 성공",
+            text: "...돌아오실거죠..?",
+            icon: "success",
+            button: false
+          }).then(() => {
+            commit("DELETE_USER", userId);
+            router.push("/login");
+          });
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -372,7 +417,7 @@ export default new Vuex.Store({
 
       axios
         .put(API_URL, formData, {
-          headers: { "Content-Type": "multlipart/form-data" },
+          headers: { "Content-Type": "multlipart/form-data" }
         })
         .then(() => {
           commit("UPLOAD_IMAGE", img);
@@ -380,7 +425,7 @@ export default new Vuex.Store({
           console.log(imgUrl);
           router.go(0);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -393,28 +438,29 @@ export default new Vuex.Store({
 
       axios({
         url: API_URL,
-        method: "GET",
+        method: "GET"
       })
-        .then((response) => {
+        .then(response => {
           commit("GET_USERLIST", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
     beforeUpdateRole({ commit }) {
       let reviewCnt = 0;
 
-      const API_URL1 = `http://localhost:9999/review/readbyuserseq/list/${this.state.loginUser.userSeq}`;
+      const API_URL1 = `http://localhost:9999/review/readbyuserseq/list/${this
+        .state.loginUser.userSeq}`;
 
       axios({
         url: API_URL1,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           reviewCnt = response.data.length;
 
           if (reviewCnt >= 1 && reviewCnt < 3) {
@@ -431,7 +477,7 @@ export default new Vuex.Store({
             this.dispatch("updateRole", "RUBY");
           }
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -447,14 +493,14 @@ export default new Vuex.Store({
         method: "PUT",
         data: user,
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
         .then(() => {
           this.dispatch("getUserList");
           commit("UPDATE_ROLE", role);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -473,13 +519,13 @@ export default new Vuex.Store({
           part: "snippet",
           q: keyword,
           type: "video",
-          maxResults: 10,
-        },
+          maxResults: 10
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("SEARCH_YOUTUBE", response.data.items);
         })
-        .catch((err) => console.log(err));
+        .catch(err => console.log(err));
     },
     clickVideo({ commit }, video) {
       commit("CLICK_VIDEO", video);
@@ -491,13 +537,13 @@ export default new Vuex.Store({
         url: API_KEY,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("SET_DBVIDEO", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -508,13 +554,13 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("GET_VIDEOLIST", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -526,13 +572,13 @@ export default new Vuex.Store({
         method: "POST",
         data: video,
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
         .then(() => {
           this.dispatch("getVideo", video.youtubeId);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -543,13 +589,13 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("SET_VIDEO", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -570,9 +616,9 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
-      }).then((response) => {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      }).then(response => {
         commit("GET_REVIEWLIST", response.data);
       });
     },
@@ -583,13 +629,13 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("SET_REVIEW", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -604,11 +650,16 @@ export default new Vuex.Store({
         method: "POST",
         data: review,
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
-          alert("등록 완료");
+        .then(response => {
+          swal({
+            title: "리뷰 등록 성공",
+            text: "다른 회원에게 큰 도움이 될 거에요! 감사합니다!",
+            icon: "success",
+            button: false
+          });
 
           commit("REGIST_REVIEW", review);
 
@@ -616,7 +667,7 @@ export default new Vuex.Store({
 
           this.dispatch("beforeUpdateRole");
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -627,14 +678,21 @@ export default new Vuex.Store({
         url: API_URL,
         method: "DELETE",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
-          alert("삭제 완료");
+        .then(response => {
+          swal({
+            title: "리뷰 삭제 성공",
+            text: "다른 리뷰라도 써주실거죠,,?",
+            icon: "success",
+            button: false
+          }).then(() => {
+            commit("DELETE_REVIEW", reviewSeq);
+          });
           commit("DELETE_REVIEW", reviewSeq);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -646,15 +704,20 @@ export default new Vuex.Store({
         method: "PUT",
         data: review,
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
-          alert("수정 완료");
+        .then(response => {
+          swal({
+            title: "리뷰 수정 완료",
+            text: "쉿, 이전 내용은 아무도 모를거에요!",
+            icon: "success",
+            button: false
+          });
 
           commit("MODIFY_REVIEW", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -665,89 +728,93 @@ export default new Vuex.Store({
         url: API_URL,
         method: "PUT",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("ADD_REVIEW_VIEW_CNT");
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
 
     // action - ReviewLike
     getReviewLikeList({ commit }) {
-      const API_URL = `http://localhost:9999/rlike/reviewlist/${this.state.loginUser.userSeq}`;
+      const API_URL = `http://localhost:9999/rlike/reviewlist/${this.state
+        .loginUser.userSeq}`;
 
       axios({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("GET_REVIEW_LIKE_LIST_BY_LOGINUSER", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
     getReviewLikeStatus({ commit }, reviewSeq) {
-      const API_URL = `http://localhost:9999/rlike/reviewlike/${this.state.loginUser.userSeq}/${reviewSeq}`;
+      const API_URL = `http://localhost:9999/rlike/reviewlike/${this.state
+        .loginUser.userSeq}/${reviewSeq}`;
 
       axios({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("CHANGE_REVIEW_LIKE_STATUS", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
     likeReview({ commit }, reviewSeq) {
-      const API_URL = `http://localhost:9999/rlike/like/${this.state.loginUser.userSeq}/${reviewSeq}`;
+      const API_URL = `http://localhost:9999/rlike/like/${this.state.loginUser
+        .userSeq}/${reviewSeq}`;
 
       axios({
         url: API_URL,
         method: "POST",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           this.dispatch("getReviewLikeList");
           this.dispatch("getReviewLikeStatus", reviewSeq);
 
           commit("SET_REVIEW_LIKE_INFO", reviewSeq);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
     unlikeReview({ commit }, reviewSeq) {
-      const API_URL = `http://localhost:9999/rlike/unlike/${this.state.loginUser.userSeq}/${reviewSeq}`;
+      const API_URL = `http://localhost:9999/rlike/unlike/${this.state.loginUser
+        .userSeq}/${reviewSeq}`;
 
       axios({
         url: API_URL,
         method: "DELETE",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           this.dispatch("getReviewLikeList");
           this.dispatch("getReviewLikeStatus", reviewSeq);
 
           commit("SET_REVIEW_LIKE_INFO", reviewSeq);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -760,9 +827,9 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
-      }).then((response) => {
+          "access-token": sessionStorage.getItem("access-token")
+        }
+      }).then(response => {
         commit("GET_LOCATIONLIST", response.data);
       });
     },
@@ -773,13 +840,13 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("BASE_DATE_AND_TIME", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -793,16 +860,16 @@ export default new Vuex.Store({
           baseDate: weatherDTO.baseDate,
           baseTime: weatherDTO.baseTime,
           nx: weatherDTO.nx,
-          ny: weatherDTO.ny,
+          ny: weatherDTO.ny
         },
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("GET_WEATHER", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -813,13 +880,13 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("GET_REGION_CODE_LIST", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -830,13 +897,13 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("SEARCH_PART_REGION_CODE_LIST", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -847,17 +914,17 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
+          "access-token": sessionStorage.getItem("access-token")
         },
         params: {
           regId: info.regId,
-          tmFc: info.tmFc,
-        },
+          tmFc: info.tmFc
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("GET_LONG_TEMPERATURE", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -868,13 +935,13 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("GET_BIG_REGION_CODE_LIST", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -885,13 +952,13 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("SEARCH_PART_BIG_REGION_CODE_LIST", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -902,17 +969,17 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
+          "access-token": sessionStorage.getItem("access-token")
         },
         params: {
           regId: info.regId,
-          tmFc: info.tmFc,
-        },
+          tmFc: info.tmFc
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("GET_LONG_WEATHER", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -925,15 +992,15 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("GET_ARTICLE_LIST", response.data);
 
           this.dispatch("getArticleWriter");
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -944,10 +1011,10 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           let userList = response.data;
           let articleWriterList = [];
 
@@ -962,7 +1029,7 @@ export default new Vuex.Store({
 
           commit("GET_ARTICLE_WRITER_LIST", articleWriterList);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -976,8 +1043,8 @@ export default new Vuex.Store({
         method: "POST",
         data: article,
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
         .then(() => {
           this.dispatch("getArticleList");
@@ -986,7 +1053,7 @@ export default new Vuex.Store({
         .then(() => {
           router.push("/articlelist");
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -997,13 +1064,13 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("GET_ARTICLE", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -1014,13 +1081,13 @@ export default new Vuex.Store({
         url: API_URL,
         method: "PUT",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
         .then(() => {
           commit("ADD_ARTICLE_VIEW_CNT", articleSeq);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -1031,13 +1098,13 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("GET_TEAM_LIST", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -1053,39 +1120,41 @@ export default new Vuex.Store({
         }
       }
 
-      const API_URL = `http://localhost:9999/team/regist/${this.state.loginUser.userSeq}/${articleSeq}`;
+      const API_URL = `http://localhost:9999/team/regist/${this.state.loginUser
+        .userSeq}/${articleSeq}`;
 
       axios({
         url: API_URL,
         method: "POST",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
         .then(() => {
           this.dispatch("getTeamList");
 
           router.go(0);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
     quitTeam({ commit }, articleSeq) {
-      const API_URL = `http://localhost:9999/team/delete/${this.state.loginUser.userSeq}/${articleSeq}`;
+      const API_URL = `http://localhost:9999/team/delete/${this.state.loginUser
+        .userSeq}/${articleSeq}`;
 
       axios({
         url: API_URL,
         method: "DELETE",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
         .then(() => {
           this.dispatch("getTeamList");
           router.go(0);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -1095,13 +1164,13 @@ export default new Vuex.Store({
         url: API_URL,
         method: "PUT",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
         .then(() => {
           this.dispatch("getArticleList");
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -1112,13 +1181,13 @@ export default new Vuex.Store({
         url: API_URL,
         method: "PUT",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
         .then(() => {
           this.dispatch("getArticleList");
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -1144,13 +1213,13 @@ export default new Vuex.Store({
         method: "PUT",
         data: article,
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
         .then(() => {
           this.dispatch("getArticleList");
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -1162,14 +1231,14 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           console.log(response.data);
           commit("GET_TEAM_MEMBER", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -1182,13 +1251,13 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("GET_MATCH_INFO", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
     },
@@ -1199,16 +1268,16 @@ export default new Vuex.Store({
         url: API_URL,
         method: "GET",
         headers: {
-          "access-token": sessionStorage.getItem("access-token"),
-        },
+          "access-token": sessionStorage.getItem("access-token")
+        }
       })
-        .then((response) => {
+        .then(response => {
           commit("GET_TOP_SCOERER", response.data);
         })
-        .catch((err) => {
+        .catch(err => {
           console.log(err);
         });
-    },
+    }
   },
-  modules: {},
+  modules: {}
 });

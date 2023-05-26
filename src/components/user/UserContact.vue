@@ -66,6 +66,7 @@
 <script>
 import { mapState } from "vuex";
 import emailjs from "emailjs-com";
+import swal from "sweetalert";
 
 export default {
   name: "UserContact",
@@ -81,6 +82,8 @@ export default {
   },
   methods: {
     sendRequestEmail() {
+      const API_KEY = process.env.VUE_APP_EMAILJS_API_KEY;
+
       const payload = {
         from_name: this.loginUser.name,
         to_name: "ParkSeYun",
@@ -90,12 +93,7 @@ export default {
         form_time: new Date()
       };
       emailjs
-        .send(
-          "service_11oukd9",
-          "template_c70yc0l",
-          payload,
-          "V5rrFCyCQPNpeIfLU"
-        )
+        .send("service_11oukd9", "template_c70yc0l", payload, API_KEY)
         .then(
           (res) => {
             console.log(res);
@@ -105,9 +103,14 @@ export default {
           }
         );
 
-      alert("문의 내용이 관리자에게 전송되었습니다!");
-
-      this.$router.push("/");
+      swal({
+        title: "전송 완료",
+        text: "문의 내용이 관리자에게 전송되었습니다!",
+        icon: "success",
+        button: false
+      }).then(() => {
+        this.$router.push("/");
+      });
     }
   }
 };

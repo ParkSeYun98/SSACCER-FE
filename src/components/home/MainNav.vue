@@ -35,7 +35,7 @@
             focusable="false"
           >
             <image
-              style="width: 100% height:100%"
+              style="width: 100% height: 100%"
               href="http://fieldgreen.kr/assets/img/page-title-area/about2.png"
               alt="..."
             />
@@ -68,8 +68,8 @@
             focusable="false"
           >
             <image
-              style="width: 100% height:100%"
-              href="https://img.sbs.co.kr/newimg/news/20221207/201728389_1280.jpg"
+              style="width: 100%; height: 100%"
+              href="https://assets.goal.com/v3/assets/bltcc7a7ffd2fbf71f5/blt335e339331c27ef6/60dac2c5454f930f33f1c363/61f64ec07a9ad571a76fe097e7d9a73ba4975821.jpg?auto=webp&format=pjpg&width=3840&quality=60"
               alt="..."
             />
 
@@ -78,9 +78,9 @@
           <div class="container">
             <div class="carousel-caption">
               <h1>축구 소식</h1>
-              <p>실시간 주요 뉴스를 확인하세요.</p>
+              <p>해외의 주요 축구 뉴스와 결과들을 확인하세요.</p>
               <p>
-                <router-link to="/news" class="btn btn-lg btn-primary"
+                <router-link to="/news/main" class="btn btn-lg btn-primary"
                   >바로가기</router-link
                 >
               </p>
@@ -98,7 +98,7 @@
             focusable="false"
           >
             <image
-              style="width: 100% height:100%"
+              style="width: 100%; height: 100%"
               href="https://cdn.imweb.me/upload/S202002108cdceef7fc868/c064f36de94ff.jpg"
               alt="..."
             />
@@ -142,100 +142,94 @@
 ================================================== -->
     <!-- Wrap the rest of the page in another container to center all the content. -->
 
-    <div class="container marketing">
-      <!-- Three columns of text below the carousel -->
-      <div class="row">
-        <div class="col-lg-4">
-          <svg
-            class="bd-placeholder-img rounded-circle"
-            width="140"
-            height="140"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Placeholder"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
+    <div
+      class="bottom"
+      style="
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        color: black;
+        font-size: large;
+        font-weight: bold;
+      "
+    >
+      <div
+        class="col-lg-4"
+        style="
+          background-image: url('https://cdn.pixabay.com/photo/2016/09/24/08/41/hands-1691221_1280.png');
+          background-size: cover;
+        "
+      >
+        <svg
+          class="bd-placeholder-img rounded-circle"
+          width="140"
+          height="140"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Placeholder"
+          preserveAspectRatio="xMidYMid slice"
+          focusable="false"
+        ></svg>
+        <h2 style="opacity: 0" class="fw-normal">Match</h2>
+        <p style="opacity: 0">우리 동네 주변 팀 매칭 게시판</p>
+        <p>
+          <a class="btn btn-warning" @click="goArticleView"
+            >매칭 하러가기 &raquo;</a
           >
-            <image
-              href="https://static.thenounproject.com/png/5734458-200.png"
-              width="100%"
-              height="100%"
-              alt="..."
-            />
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
-          </svg>
-          <h2 class="fw-normal">Match</h2>
-          <p>우리 동네 주변 팀 매칭 게시판</p>
-          <p>
-            <a class="btn btn-secondary" @click="goArticleView"
-              >View details &raquo;</a
-            >
-          </p>
-        </div>
-        <!-- /.col-lg-4 -->
-        <div class="col-lg-4">
-          <svg
-            class="bd-placeholder-img rounded-circle"
-            width="140"
-            height="140"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Placeholder"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <image
-              href="https://cdn0.iconfinder.com/data/icons/interface-line-4/48/news_text_article-256.png"
-              width="100%"
-              height="100%"
-              alt="..."
-            />
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
-          </svg>
-          <h2 class="fw-normal">News</h2>
-          <p>국내, 해외 축구 소식 보기</p>
-          <p>
-            <a class="btn btn-secondary" @click="goNewsView"
-              >View details &raquo;</a
-            >
-          </p>
-        </div>
-        <!-- /.col-lg-4 -->
-        <div class="col-lg-4">
-          <svg
-            class="bd-placeholder-img rounded-circle"
-            width="140"
-            height="140"
-            xmlns="http://www.w3.org/2000/svg"
-            role="img"
-            aria-label="Placeholder"
-            preserveAspectRatio="xMidYMid slice"
-            focusable="false"
-          >
-            <image
-              href="https://cdn1.iconfinder.com/data/icons/social-media-outline-6/128/SocialMedia_Youtube-Outline-256.png"
-              width="100%"
-              height="100%"
-              alt="..."
-            />
-            <title>Placeholder</title>
-            <rect width="100%" height="100%" fill="var(--bs-secondary-color)" />
-          </svg>
-          <h2 class="fw-normal">Youtube</h2>
-          <p>축구 영상 시청</p>
-          <p>
-            <a class="btn btn-secondary" @click="goVideoView"
-              >View details &raquo;</a
-            >
-          </p>
-        </div>
-        <!-- /.col-lg-4 -->
+        </p>
       </div>
-      <!-- /.row -->
+      <!-- /.col-lg-4 -->
+      <div
+        class="col-lg-4"
+        style="
+          background-image: url('https://cdn.pixabay.com/photo/2013/07/12/19/16/newspaper-154444_1280.png');
+          background-size: cover;
+        "
+      >
+        <svg
+          class="bd-placeholder-img rounded-circle"
+          width="140"
+          height="140"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Placeholder"
+          preserveAspectRatio="xMidYMid slice"
+          focusable="false"
+        ></svg>
+        <h2 class="fw-normal" style="opacity: 0">News</h2>
+        <p style="opacity: 0">국내, 해외 축구 소식 보기</p>
+        <p>
+          <a class="btn btn-warning" @click="goNewsView"
+            >해축 소식 보러가기 &raquo;</a
+          >
+        </p>
+      </div>
+      <div
+        class="col-lg-4"
+        style="
+          background-image: url('https://cdn.pixabay.com/photo/2017/06/23/02/35/youtube-2433301_1280.png');
+          background-size: cover;
+        "
+      >
+        <svg
+          class="bd-placeholder-img rounded-circle"
+          width="140"
+          height="140"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label="Placeholder"
+          preserveAspectRatio="xMidYMid slice"
+          focusable="false"
+        ></svg>
+        <h2 class="fw-normal" style="opacity: 0">Youtube</h2>
+        <p style="opacity: 0">축구 영상 시청</p>
+        <p>
+          <a class="btn btn-warning" @click="goVideoView"
+            >축구 영상 보러가기 &raquo;</a
+          >
+        </p>
+      </div>
     </div>
-    <!-- /.container -->
   </main>
 </template>
 
@@ -251,8 +245,8 @@ export default {
     },
     goNewsView() {
       this.$router.push("/news/main");
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -263,63 +257,35 @@ body {
   color: rgb(var(--bs-tertiary-color-rgb));
 }
 
-/* CUSTOMIZE THE CAROUSEL
--------------------------------------------------- */
-
-/* Carousel base class */
 .carousel {
   margin-bottom: 4rem;
 }
 
-/* Since positioning the image, we need to help out the caption */
 .carousel-caption {
   bottom: 3rem;
   z-index: 10;
 }
 
-/* Declare heights because of positioning of img element */
 .carousel-item {
   height: 32rem;
 }
-
-/* MARKETING CONTENT
--------------------------------------------------- */
-
-/* Center align the text within the three columns below the carousel */
 .marketing .col-lg-4 {
   margin-bottom: 1.5rem;
   text-align: center;
 }
-
-/* rtl:begin:ignore */
 .marketing .col-lg-4 p {
   margin-right: 0.75rem;
   margin-left: 0.75rem;
 }
 
-/* rtl:end:ignore */
-
-/* Featurettes
-------------------------- */
-
 .featurette-divider {
   margin: 5rem 0;
-  /* Space out the Bootstrap <hr> more */
 }
-
-/* Thin out the marketing headings */
-/* rtl:begin:remove */
 .featurette-heading {
   letter-spacing: -0.05rem;
 }
 
-/* rtl:end:remove */
-
-/* RESPONSIVE CSS
--------------------------------------------------- */
-
 @media (min-width: 40em) {
-  /* Bump up size of carousel content */
   .carousel-caption p {
     margin-bottom: 1.25rem;
     font-size: 1.25rem;

@@ -2,8 +2,14 @@
   <div class="container-sm">
     <div class="box" style="justify-content: center">
       <div>
-        <label for="league">리그</label>
-        <select v-model="league" id="league" class="form-control" size="0">
+        <label for="league" style="margin: 30px">리그</label>
+        <select
+          v-model="league"
+          @click="loadingOn"
+          id="league"
+          class="form-control"
+          size="0"
+        >
           <option disabled value="">select one</option>
           <option value="PL">잉글랜드 프리미어리그</option>
           <option value="PD">스페인 프리메라리가</option>
@@ -13,10 +19,31 @@
         </select>
       </div>
 
-      <button @click="goNewsMainView" class="btn btn-secondary">
-        이전으로
-      </button>
-      <button @click="getTopScorer" class="btn btn-primary">검색</button>
+      <div style="margin-top: 50px; margin-bottom: 50px">
+        <button
+          @click="goNewsMainView"
+          class="btn btn-secondary"
+          style="margin: 10px"
+        >
+          이전으로
+        </button>
+        <button
+          @click="getTopScorer"
+          class="btn btn-primary"
+          style="margin: 10px"
+        >
+          검색
+        </button>
+      </div>
+    </div>
+
+    <div
+      v-if="loading"
+      class="spinner-border text-danger"
+      role="status"
+      style="margin-bottom: 50px"
+    >
+      <span class="visually-hidden">Loading...</span>
     </div>
 
     <br />
@@ -84,22 +111,28 @@ import { mapState } from "vuex";
 export default {
   name: "TopScorerInTeam",
   computed: {
-    ...mapState(["topScorer"]),
+    ...mapState(["topScorer"])
   },
   data() {
     return {
       league: "",
+      loading: false
     };
   },
   methods: {
     getTopScorer() {
-      this.$store.dispatch("getTopScorer", this.league);
-      console.log(this.topScorer);
+      setTimeout(() => {
+        this.$store.dispatch("getTopScorer", this.league);
+        this.loading = false;
+      }, 5000);
     },
     goNewsMainView() {
       this.$router.push("/news/main");
     },
-  },
+    loadingOn() {
+      this.loading = true;
+    }
+  }
 };
 </script>
 
