@@ -6,7 +6,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // SERVES FILES from our dist directory which now contains out index.html
-app.use("/*", serverStatic(path.join(__dirname, "/dist")));
+app.use("/", serverStatic(path.join(__dirname, "/dist")));
 app.listen(port);
 console.log("Listening on port:" + port);
 // app.get('/', (req, res) => res.send('Hello World!'))
