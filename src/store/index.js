@@ -281,7 +281,7 @@ export default new Vuex.Store({
   actions: {
     // action - User
     Login({ commit }, user) {
-      const API_URL = `http://localhost:9999/user/login`;
+      const API_URL = `https://seyun.shop/user/login`;
 
       axios({
         url: API_URL,
@@ -344,7 +344,7 @@ export default new Vuex.Store({
       });
     },
     SignUp({ commit }, user) {
-      const API_URL = `http://localhost:9999/user/signup`;
+      const API_URL = `https://seyun.shop/user/signup`;
 
       axios({
         url: API_URL,
@@ -367,7 +367,7 @@ export default new Vuex.Store({
         });
     },
     modifyUser({ commit }, loginUser) {
-      const API_URL = "http://localhost:9999/user/update";
+      const API_URL = "https://seyun.shop/user/update";
       console.log(loginUser);
       axios({
         url: API_URL,
@@ -389,7 +389,7 @@ export default new Vuex.Store({
         });
     },
     deleteUser: function({ commit }, userId) {
-      const API_URL = `http://localhost:9999/user/quit/${userId}`;
+      const API_URL = `https://seyun.shop/user/quit/${userId}`;
       axios({
         url: API_URL,
         method: "DELETE"
@@ -410,7 +410,7 @@ export default new Vuex.Store({
         });
     },
     uploadImage({ commit }, box) {
-      const API_URL = `http://localhost:9999/user/uploadimage/${box.userSeq}`;
+      const API_URL = `https://seyun.shop/user/uploadimage/${box.userSeq}`;
 
       let formData = new FormData();
       formData.append("img", box.img);
@@ -434,7 +434,7 @@ export default new Vuex.Store({
     // },
 
     getUserList({ commit }) {
-      const API_URL = "http://localhost:9999/user/read/list";
+      const API_URL = "https://seyun.shop/user/read/list";
 
       axios({
         url: API_URL,
@@ -450,7 +450,7 @@ export default new Vuex.Store({
     beforeUpdateRole({ commit }) {
       let reviewCnt = 0;
 
-      const API_URL1 = `http://localhost:9999/review/readbyuserseq/list/${this
+      const API_URL1 = `https://seyun.shop/review/readbyuserseq/list/${this
         .state.loginUser.userSeq}`;
 
       axios({
@@ -486,7 +486,7 @@ export default new Vuex.Store({
 
       user.role = role;
 
-      const API_URL = `http://localhost:9999/review/update`;
+      const API_URL = `https://seyun.shop/review/update`;
 
       axios({
         url: API_URL,
@@ -531,7 +531,7 @@ export default new Vuex.Store({
       commit("CLICK_VIDEO", video);
     },
     getDBVideoByYoutubeId({ commit }, youtubeId) {
-      const API_KEY = `http://localhost:9999/video/readbyyoutubeId/${youtubeId}`;
+      const API_KEY = `https://seyun.shop/video/readbyyoutubeId/${youtubeId}`;
 
       axios({
         url: API_KEY,
@@ -548,7 +548,7 @@ export default new Vuex.Store({
         });
     },
     getVideoList({ commit }) {
-      const API_URL = "http://localhost:9999/video/read/list";
+      const API_URL = "https://seyun.shop/video/read/list";
 
       axios({
         url: API_URL,
@@ -565,7 +565,7 @@ export default new Vuex.Store({
         });
     },
     saveVideo({ commit }, video) {
-      const API_URL = "http://localhost:9999/video/regist";
+      const API_URL = "https://seyun.shop/video/regist";
 
       axios({
         url: API_URL,
@@ -583,7 +583,7 @@ export default new Vuex.Store({
         });
     },
     getVideo({ commit }, youtubeId) {
-      const API_URL = `http://localhost:9999/video/readbyyoutubeId/${youtubeId}`;
+      const API_URL = `https://seyun.shop/video/readbyyoutubeId/${youtubeId}`;
 
       axios({
         url: API_URL,
@@ -610,7 +610,7 @@ export default new Vuex.Store({
         }
       }
 
-      const API_URL = `http://localhost:9999/review/readbyvideoseq/list/${videoSeq}`;
+      const API_URL = `https://seyun.shop/review/readbyvideoseq/list/${videoSeq}`;
 
       axios({
         url: API_URL,
@@ -623,7 +623,7 @@ export default new Vuex.Store({
       });
     },
     getReview({ commit }, reviewSeq) {
-      const API_URL = `http://localhost:9999/review/read/${reviewSeq}`;
+      const API_URL = `https://seyun.shop/review/read/${reviewSeq}`;
 
       axios({
         url: API_URL,
@@ -643,7 +643,7 @@ export default new Vuex.Store({
       commit("SET_REVIEW", review);
     },
     registReview({ commit }, review) {
-      const API_URL = "http://localhost:9999/review/regist";
+      const API_URL = "https://seyun.shop/review/regist";
 
       axios({
         url: API_URL,
@@ -672,7 +672,7 @@ export default new Vuex.Store({
         });
     },
     deleteReview({ commit }, reviewSeq) {
-      const API_URL = `http://localhost:9999/review/delete/${reviewSeq}`;
+      const API_URL = `https://seyun.shop/review/delete/${reviewSeq}`;
 
       axios({
         url: API_URL,
@@ -697,7 +697,7 @@ export default new Vuex.Store({
         });
     },
     modifyReview({ commit }, review) {
-      const API_URL = "http://localhost:9999/review/update";
+      const API_URL = "https://seyun.shop/review/update";
 
       axios({
         url: API_URL,
@@ -722,7 +722,7 @@ export default new Vuex.Store({
         });
     },
     addReviewViewCnt({ commit }, reviewSeq) {
-      const API_URL = `http://localhost:9999/review/update/viewcnt/${reviewSeq}`;
+      const API_URL = `https://seyun.shop/review/update/viewcnt/${reviewSeq}`;
 
       axios({
         url: API_URL,
@@ -741,7 +741,7 @@ export default new Vuex.Store({
 
     // action - ReviewLike
     getReviewLikeList({ commit }) {
-      const API_URL = `http://localhost:9999/rlike/reviewlist/${this.state
+      const API_URL = `https://seyun.shop/rlike/reviewlist/${this.state
         .loginUser.userSeq}`;
 
       axios({
@@ -759,7 +759,7 @@ export default new Vuex.Store({
         });
     },
     getReviewLikeStatus({ commit }, reviewSeq) {
-      const API_URL = `http://localhost:9999/rlike/reviewlike/${this.state
+      const API_URL = `https://seyun.shop/rlike/reviewlike/${this.state
         .loginUser.userSeq}/${reviewSeq}`;
 
       axios({
@@ -777,7 +777,7 @@ export default new Vuex.Store({
         });
     },
     likeReview({ commit }, reviewSeq) {
-      const API_URL = `http://localhost:9999/rlike/like/${this.state.loginUser
+      const API_URL = `https://seyun.shop/rlike/like/${this.state.loginUser
         .userSeq}/${reviewSeq}`;
 
       axios({
@@ -798,7 +798,7 @@ export default new Vuex.Store({
         });
     },
     unlikeReview({ commit }, reviewSeq) {
-      const API_URL = `http://localhost:9999/rlike/unlike/${this.state.loginUser
+      const API_URL = `https://seyun.shop/rlike/unlike/${this.state.loginUser
         .userSeq}/${reviewSeq}`;
 
       axios({
@@ -821,7 +821,7 @@ export default new Vuex.Store({
 
     // action - weather
     getLocationList({ commit }) {
-      const API_URL = "http://localhost:9999/soccerxy/list";
+      const API_URL = "https://seyun.shop/soccerxy/list";
 
       axios({
         url: API_URL,
@@ -834,7 +834,7 @@ export default new Vuex.Store({
       });
     },
     getBaseDateAndTime({ commit }) {
-      const API_URL = "http://localhost:9999/weather/now";
+      const API_URL = "https://seyun.shop/weather/now";
 
       axios({
         url: API_URL,
@@ -851,7 +851,7 @@ export default new Vuex.Store({
         });
     },
     getWeather({ commit }, weatherDTO) {
-      const API_URL = "http://localhost:9999/weather/data";
+      const API_URL = "https://seyun.shop/weather/data";
 
       axios({
         url: API_URL,
@@ -874,7 +874,7 @@ export default new Vuex.Store({
         });
     },
     getRegionCodeList({ commit }) {
-      const API_URL = "http://localhost:9999/regioncode/list";
+      const API_URL = "https://seyun.shop/regioncode/list";
 
       axios({
         url: API_URL,
@@ -891,7 +891,7 @@ export default new Vuex.Store({
         });
     },
     searchPartRegionCodeList({ commit }, region) {
-      const API_URL = `http://localhost:9999/regioncode/list/${region}`;
+      const API_URL = `https://seyun.shop/regioncode/list/${region}`;
 
       axios({
         url: API_URL,
@@ -908,7 +908,7 @@ export default new Vuex.Store({
         });
     },
     getLongTemperature({ commit }, info) {
-      const API_URL = `http://localhost:9999/weather/longdata/temperature`;
+      const API_URL = `https://seyun.shop/weather/longdata/temperature`;
 
       axios({
         url: API_URL,
@@ -929,7 +929,7 @@ export default new Vuex.Store({
         });
     },
     getBigRegionCodeList({ commit }) {
-      const API_URL = "http://localhost:9999/bigregioncode/list";
+      const API_URL = "https://seyun.shop/bigregioncode/list";
 
       axios({
         url: API_URL,
@@ -946,7 +946,7 @@ export default new Vuex.Store({
         });
     },
     searchPartBigRegionCodeList({ commit }, bigregion) {
-      const API_URL = `http://localhost:9999/bigregioncode/list/${bigregion}`;
+      const API_URL = `https://seyun.shop/bigregioncode/list/${bigregion}`;
 
       axios({
         url: API_URL,
@@ -963,7 +963,7 @@ export default new Vuex.Store({
         });
     },
     getLongWeather({ commit }, info) {
-      const API_URL = `http://localhost:9999/weather/longdata/weather`;
+      const API_URL = `https://seyun.shop/weather/longdata/weather`;
 
       axios({
         url: API_URL,
@@ -986,7 +986,7 @@ export default new Vuex.Store({
 
     // action - article
     getArticleList({ commit }) {
-      const API_URL = "http://localhost:9999/article/read/list";
+      const API_URL = "https://seyun.shop/article/read/list";
 
       axios({
         url: API_URL,
@@ -1005,7 +1005,7 @@ export default new Vuex.Store({
         });
     },
     getArticleWriter({ commit }) {
-      const API_URL = `http://localhost:9999/user/read/list`;
+      const API_URL = `https://seyun.shop/user/read/list`;
 
       axios({
         url: API_URL,
@@ -1034,7 +1034,7 @@ export default new Vuex.Store({
         });
     },
     registArticle({ commit }, article) {
-      const API_URL = "http://localhost:9999/article/regist";
+      const API_URL = "https://seyun.shop/article/regist";
 
       console.log(article);
 
@@ -1058,7 +1058,7 @@ export default new Vuex.Store({
         });
     },
     getArticle({ commit }, articleSeq) {
-      const API_URL = `http://localhost:9999/article/readbyarticleseq/${articleSeq}`;
+      const API_URL = `https://seyun.shop/article/readbyarticleseq/${articleSeq}`;
 
       axios({
         url: API_URL,
@@ -1075,7 +1075,7 @@ export default new Vuex.Store({
         });
     },
     addArticleViewCnt({ commit }, articleSeq) {
-      const API_URL = `http://localhost:9999/article/updateviewcnt/${articleSeq}`;
+      const API_URL = `https://seyun.shop/article/updateviewcnt/${articleSeq}`;
 
       axios({
         url: API_URL,
@@ -1092,7 +1092,7 @@ export default new Vuex.Store({
         });
     },
     getTeamList({ commit }) {
-      const API_URL = "http://localhost:9999/team/read/list";
+      const API_URL = "https://seyun.shop/team/read/list";
 
       axios({
         url: API_URL,
@@ -1120,7 +1120,7 @@ export default new Vuex.Store({
         }
       }
 
-      const API_URL = `http://localhost:9999/team/regist/${this.state.loginUser
+      const API_URL = `https://seyun.shop/team/regist/${this.state.loginUser
         .userSeq}/${articleSeq}`;
 
       axios({
@@ -1140,7 +1140,7 @@ export default new Vuex.Store({
         });
     },
     quitTeam({ commit }, articleSeq) {
-      const API_URL = `http://localhost:9999/team/delete/${this.state.loginUser
+      const API_URL = `https://seyun.shop/team/delete/${this.state.loginUser
         .userSeq}/${articleSeq}`;
 
       axios({
@@ -1159,7 +1159,7 @@ export default new Vuex.Store({
         });
     },
     addArticleRecruiteCnt({ commit }, articleSeq) {
-      const API_URL = `http://localhost:9999/article/addrecruitecnt/${articleSeq}`;
+      const API_URL = `https://seyun.shop/article/addrecruitecnt/${articleSeq}`;
       axios({
         url: API_URL,
         method: "PUT",
@@ -1175,7 +1175,7 @@ export default new Vuex.Store({
         });
     },
     minusArticleRecruiteCnt({ commit }, articleSeq) {
-      const API_URL = `http://localhost:9999/article/minusrecruitecnt/${articleSeq}`;
+      const API_URL = `https://seyun.shop/article/minusrecruitecnt/${articleSeq}`;
 
       axios({
         url: API_URL,
@@ -1192,7 +1192,7 @@ export default new Vuex.Store({
         });
     },
     updateArticleStatus({ commit }, updateInfo) {
-      const API_URL = `http://localhost:9999/article/update`;
+      const API_URL = `https://seyun.shop/article/update`;
       let article = {};
 
       console.log("===================");
@@ -1224,7 +1224,7 @@ export default new Vuex.Store({
         });
     },
     getTeamMember({ commit }, articleSeq) {
-      const API_URL = `http://localhost:9999/team/readbyarticleseq/list/${articleSeq}`;
+      const API_URL = `https://seyun.shop/team/readbyarticleseq/list/${articleSeq}`;
       console.log(articleSeq);
 
       axios({
@@ -1245,7 +1245,7 @@ export default new Vuex.Store({
 
     // action - news
     getMatchInfo({ commit }, info) {
-      const API_URL = `http://localhost:9999/news/matchday/list/${info.league}/${info.round}`;
+      const API_URL = `https://seyun.shop/news/matchday/list/${info.league}/${info.round}`;
 
       axios({
         url: API_URL,
@@ -1262,7 +1262,7 @@ export default new Vuex.Store({
         });
     },
     getTopScorer({ commit }, league) {
-      const API_URL = `http://localhost:9999/news/topscorer/${league}`;
+      const API_URL = `https://seyun.shop/news/topscorer/${league}`;
 
       axios({
         url: API_URL,

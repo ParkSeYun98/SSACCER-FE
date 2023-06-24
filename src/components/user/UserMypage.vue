@@ -179,7 +179,7 @@ export default {
 
     this.source = this.loginUser.img;
     setTimeout(() => {
-      this.imgUrl = `http://localhost:9999/user/display?userSeq=${this.loginUser.userSeq}`;
+      this.imgUrl = `https://seyun.shop/user/display?userSeq=${this.loginUser.userSeq}`;
     }, 500);
   },
   methods: {
